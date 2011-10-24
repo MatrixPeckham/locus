@@ -9,6 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css" media="all">
+   @include "./CSS/MainStyle.css";
+</style>
         <title>Locus</title>
     </head>
     <body>
@@ -17,7 +20,8 @@
         <%
         for(int i = 0; i < 10; i++){
         %>
-        <image src="./LocusImage.png?points=<% out.print(i+50); %>" alt="Image Failed to Load" /><br/>
+        <p><image src="./LocusImage.png?points=<% out.print(i+50); %>" alt="Image Failed to Load" /><br/></p>
+
         <%
         }
         %>
