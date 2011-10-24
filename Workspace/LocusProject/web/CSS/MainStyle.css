@@ -1,0 +1,42 @@
+/* 
+    Document   : MainStyle
+    Created on : Oct 22, 2011, 7:50:45 AM
+    Author     : Bill
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.MainContainer {
+    
+}
+.padding{
+    padding: 25px;
+}
+
+p{
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    
+}
