@@ -9,21 +9,30 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<style type="text/css" media="all">
-   @include "./CSS/MainStyle.css";
-</style>
+        <link rel="stylesheet" type="text/css" href="./CSS/MainStyle.css" />
         <title>Locus</title>
     </head>
     <body>
         <%@include file="Header.jsp" %>
+        <div id="content">
         <h1>Hello World!</h1>
+        <p class="round-corner">
         <%
         for(int i = 0; i < 10; i++){
         %>
-        <p><image src="./LocusImage.png?points=<% out.print(i+50); %>" alt="Image Failed to Load" /><br/></p>
+            Hello this is a lot of text. 
+        <%
+        }
+        %>
+        </p>
+        <%
+        for(int i = 0; i < 10; i++){
+        %>
+        <p class="round-corner"><image src="./LocusImage.png?points=<% out.print(i+50); %>" alt="Image Failed to Load" /><br/></p>
 
         <%
         }
         %>
+        </div>
     </body>
 </html>

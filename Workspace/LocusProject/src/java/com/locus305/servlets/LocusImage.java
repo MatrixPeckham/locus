@@ -63,7 +63,7 @@ public class LocusImage extends HttpServlet {
                     Ellipse2D.Double e1 = list.get(i);
                     Ellipse2D.Double e2 = list.get(j);
                     if(e1!=e2){
-                        g.setColor(Color.black);
+                        g.setColor(Color.red);
                         g.draw(new Line2D.Double(e1.getX()+smallrad/2,e1.getY()+smallrad/2,e2.getX()+smallrad/2,e2.getY()+smallrad/2));
                     }
                 }
@@ -82,7 +82,7 @@ public class LocusImage extends HttpServlet {
             double x = w/2 - b.getWidth()/2;
             double y = h/2 + b.getHeight()/2;
             g.setColor(Color.white);
-            g.fillRect((int)x, (int)y-(int)b.getWidth()/2, (int)b.getWidth(), (int)b.getHeight());
+//            g.fillRect((int)x, (int)y-(int)b.getWidth()/2, (int)b.getWidth(), (int)b.getHeight());
             Paint p = g.getPaint();
             g.setPaint(new GradientPaint(0, 20, Color.blue, 0, 0, Color.lightGray,
                     true));
