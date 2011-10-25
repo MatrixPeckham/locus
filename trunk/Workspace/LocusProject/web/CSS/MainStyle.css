@@ -12,31 +12,44 @@
 */
 
 html {
-    margin: 0;
-    padding: 0;
+    margin:0;
+    padding:0;
 }
 
 body {
-    background: white;
+    background:white;
 }
 
 .hidden {
-    display: none;
+    display:none;
 }
 
 .MainContainer {
     
 }
 .padding{
-    padding: 25px;
+    padding:25px;
 }
 
-p{
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -khtml-border-radius: 20px;
-    border-style: solid;
-    border-color: black;
-    border-width: 2px;
+.round-corner{
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    -khtml-border-radius:20px;
+    border-radius:20px;
+    border-style:solid;
+    border-color:black;
+    border-width:5px;
+    padding:5px;
     
+}
+
+#header{
+    position:fixed;
+    top:0px;
+    right:0px;
+    left:0px;
+    background-color:white;
+}
+#content{
+    margin-top:250px;
 }
