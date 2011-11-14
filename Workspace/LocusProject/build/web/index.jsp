@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="l" uri="com.locus305.tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,15 +15,30 @@
         <title>Locus</title>
     </head>
     <body>
-        <%@include file="Header.jsp" %>
+        <%@page import="java.sql.*" %>
+            
+        <l:header message="MESSAGE"/>
         <div id="content">
+        <% try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            String connectionURL = "jdbc:mysql://mysql1.cs.sunysb.edu?"+
+                    "user=wpeckham&password=106690352";
+            Connection con = DriverManager.getConnection(connectionURL);        
+        
+        %>
         <h1>Hello World!</h1>
+        <%
+            Statement stmt = null;
+            ResultSet rs = null;
+            String st = "SELECT * FROM wpeckham.PERSONS";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(st);
+        %>
         <p class="round-corner">
         <%
-        for(int i = 0; i < 10; i++){
-        %>
-            Hello this is a lot of text. 
-        <%
+        while(rs.next()){
+            out.println("SSN: " + rs.getString("SSN") + "&nbsp;&nbsp;&nbsp;&nbsp;NAME: " + rs.getString("First_Name") + " " + rs.getString("Last_Name")+ "<br />");
         }
         %>
         </p>
@@ -33,6 +50,13 @@
         <%
         }
         %>
-        </div>
-    </body>
+        
+        <% } catch(SQLException e) {
+            e.printStackTrace(response.getWriter());
+        } catch(ClassNotFoundException e){
+            e.printStackTrace(response.getWriter());
+        }
+        %>
+       </div>
+     </body>
 </html>
