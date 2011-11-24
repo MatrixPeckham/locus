@@ -72,6 +72,11 @@ public class LocusImage extends HttpServlet {
                 float r = Math.random()<0.5 ? 0 : 1;
                 float gr = (float)Math.random()<0.5 ? 0 : 1;
                 float b = (float)Math.random()<0.5 ? 0 : 1;
+                while(r==1&&gr==1&&b==1){
+                    r = Math.random()<0.5 ? 0 : 1;
+                    gr = (float)Math.random()<0.5 ? 0 : 1;
+                    b = (float)Math.random()<0.5 ? 0 : 1;
+                }
                 g.setColor(new Color(r,gr,b));
                 g.fill(list.get(i));
             }
@@ -83,11 +88,12 @@ public class LocusImage extends HttpServlet {
             double y = h/2 + b.getHeight()/2;
             g.setColor(Color.white);
 //            g.fillRect((int)x, (int)y-(int)b.getWidth()/2, (int)b.getWidth(), (int)b.getHeight());
-            Paint p = g.getPaint();
-            g.setPaint(new GradientPaint(0, 20, Color.blue, 0, 0, Color.lightGray,
-                    true));
+//            Paint p = g.getPaint();
+//            g.setPaint(new GradientPaint(0, 20, Color.blue, 0, 0, Color.green,
+//                    true));
+            g.setColor(new Color(0,0,255));
             g.drawString("Locus", (int)x, (int)y);
-            g.setPaint(p);
+  //          g.setPaint(p);
             g.dispose();
             ImageIO.write(bi, "png", response.getOutputStream());
         } finally {            
