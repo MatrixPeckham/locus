@@ -16,9 +16,17 @@
             <param-value>50</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>TestEmail</servlet-name>
+        <servlet-class>com.locus305.servlets.TestEmail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LocusImage</servlet-name>
         <url-pattern>/LocusImage.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestEmail</servlet-name>
+        <url-pattern>/testEmail.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
