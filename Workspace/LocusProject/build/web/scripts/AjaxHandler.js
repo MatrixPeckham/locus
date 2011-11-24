@@ -90,12 +90,22 @@ function validateAndSubmitRegistration(){
     var email=document.getElementById("email").value;
     var atpos=email.indexOf("@");
     var dotpos=email.lastIndexOf(".");
+    document.getElementById("requiredemail").style.display='none';
+    document.getElementById("invalid").style.display='none';
+    document.getElementById("unique").style.display='none';
+    document.getElementById("requiredname").style.display='none';
+    document.getElementById("uniquename").style.display='none';
+    document.getElementById("requiredpass").style.display='none';
+    document.getElementById("requiredpass2").style.display='none';
+    document.getElementById("mustmatch1").style.display='none';
+    document.getElementById("mustmatch2").style.display='none';
+    document.getElementById("servererrname").style.display='none';
     if (email==null||email==""){
         document.getElementById("requiredemail").style.display='block';
         valid=false;
     }
     if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length){
-        document.getElementById("invalidemail").style.display = 'block';
+        document.getElementById("invalid").style.display = 'block';
         valid=false;
     }
     var emailreq=getRequest();
@@ -134,7 +144,7 @@ function validateAndSubmitRegistration(){
         document.getElementById("mustmatch2").style.display='block';
         valid=false;
     }
-    if(!valid){
+    if(valid==false){
         return false;
     }
     var addreq = getRequest();

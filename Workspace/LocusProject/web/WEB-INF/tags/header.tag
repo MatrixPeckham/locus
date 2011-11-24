@@ -25,3 +25,11 @@
         </tr>
     </table>
 </div>
+<div id="login">
+    <form id="login" action="" onsubmit="">
+        <span><label>Display Name:</label><input type="text" id="logname"></input></span>
+        <span><label>Password:</label><input type="text" id="logpass"></input></span>
+        <span><input type="submit" id="loggo" value="Go"></input></span>
+    </form>
+</div>
+            
