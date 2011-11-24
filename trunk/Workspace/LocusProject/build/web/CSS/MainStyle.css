@@ -50,6 +50,14 @@ body {
     left:0px;
     background-color:white;
 }
+
+#login{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background-color:white;
+}
+
 #content{
     margin-top:250px;
 }
