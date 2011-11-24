@@ -15,4 +15,19 @@
 <%
     }
 %>
+<%
+    for(int i = 0; i < 10; i++){
+%>
+<p class="round-corner"><image src="./LocusImage.png?points=<% out.print(5+i*5); %>&height=200" alt="Image Failed to Load" /><br/></p>
+<%
+    }
+%>
+        
+<%
+    for(int i = 0; i < 10; i++){
+%>
+<p class="round-corner"><image src="./LocusImage.png?lines=<% out.print(5+i*5); %>&height=200&points=50" alt="Image Failed to Load" /><br/></p>
+<%
+    }
+%>
         
