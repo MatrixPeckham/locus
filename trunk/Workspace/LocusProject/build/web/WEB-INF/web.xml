@@ -20,6 +20,14 @@
         <servlet-name>TestEmail</servlet-name>
         <servlet-class>com.locus305.servlets.TestEmail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestName</servlet-name>
+        <servlet-class>com.locus305.servlets.TestName</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterUser</servlet-name>
+        <servlet-class>com.locus305.servlets.RegisterUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LocusImage</servlet-name>
         <url-pattern>/LocusImage.png</url-pattern>
@@ -27,6 +35,14 @@
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestName</servlet-name>
+        <url-pattern>/testName.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterUser</servlet-name>
+        <url-pattern>/RegisterUser.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

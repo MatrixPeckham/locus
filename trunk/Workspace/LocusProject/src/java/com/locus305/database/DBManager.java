@@ -51,18 +51,18 @@ public class DBManager {
         }
     }
     
-    public String addUser(String email, String fname, String lname, String password){
+    public String addUser(String email, String name, String password){
         try {
             con.setAutoCommit(false);
             Statement stmt = con.createStatement();
-            stmt.execute("INSERT INTO wpeckham.persons (last_name,first_name,email,password) VALUES("+lname+","+fname+","+email+","+password+")",Statement.RETURN_GENERATED_KEYS);
+            stmt.execute("INSERT INTO wpeckham.persons (display_name,email_address,password) VALUES(\""+name+"\",\""+email+"\",\""+password+"\")",Statement.RETURN_GENERATED_KEYS);
             ResultSet keys = stmt.getGeneratedKeys();
             int userid = 0;
             while(keys.next()){
                 userid=keys.getInt(1);
             }
             
-            stmt.execute("INSERT INTO wpeckham.accounts (Account_Creatoin_Date,state) VALUES("+"CURDATE()"+","+0+")",Statement.RETURN_GENERATED_KEYS);
+            stmt.execute("INSERT INTO wpeckham.accounts (Account_Creation_Date,state) VALUES("+"CURDATE()"+","+0+")",Statement.RETURN_GENERATED_KEYS);
             keys = stmt.getGeneratedKeys();
             int accountid = 0;
             while(keys.next()){
@@ -76,6 +76,7 @@ public class DBManager {
             con.commit();
             
             con.setAutoCommit(true);
+            return "OK";
         } catch (SQLException ex) {
             try {
                 con.rollback();
@@ -85,9 +86,7 @@ public class DBManager {
                 return ex.getMessage();
             }
         } finally {
-            
         } 
-        return "An Unknown Error Occured";
     }
     
     public boolean contains(String table, String colName, String value){
