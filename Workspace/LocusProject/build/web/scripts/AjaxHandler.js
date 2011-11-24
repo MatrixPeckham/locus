@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-function changePage(page){
+function getRequest(){
     var xmlhttp;
     if (window.XMLHttpRequest)
     {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -13,6 +13,11 @@ function changePage(page){
     {// code for IE6, IE5
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
+    return xmlhttp;
+}
+
+function changePage(page){
+    var xmlhttp=getRequest();
     xmlhttp.onreadystatechange=function()
     {
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -25,15 +30,7 @@ function changePage(page){
 }
 
 function post(page, params){
-    var xmlhttp;
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
-    }
-    else
-    {// code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
+    var xmlhttp=getRequest();
     xmlhttp.onreadystatechange=function()
     {
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
@@ -47,16 +44,8 @@ function post(page, params){
 }
 
 function emailExists(str){
-    var xmlhttp;
+    var xmlhttp=getRequest();
     document.getElementById("testing").style.display = 'block';
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
-    }
-    else
-    {// code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
     xmlhttp.onreadystatechange=function()
     {
         document.getElementById("testing").style.display = 'none';
@@ -73,4 +62,94 @@ function emailExists(str){
     xmlhttp.open("POST","./testEmail.htm",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("email="+encodeURI(str));
+}
+
+function nameExists(str){
+    var xmlhttp=getRequest();
+    document.getElementById("testingname").style.display = 'block';
+    xmlhttp.onreadystatechange=function()
+    {
+        document.getElementById("testingname").style.display = 'none';
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            var mess = xmlhttp.responseText;
+            //document.getElementById("content").innerHTML=mess;
+            if(mess=="true")
+                document.getElementById("uniquename").style.display = 'block';
+            else
+                document.getElementById("uniquename").style.display = 'none';
+        } 
+    }
+    xmlhttp.open("POST","./testName.htm",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("name="+encodeURI(str));
+}
+
+function validateAndSubmitRegistration(){
+    var valid = true;
+    var email=document.getElementById("email").value;
+    var atpos=email.indexOf("@");
+    var dotpos=email.lastIndexOf(".");
+    if (email==null||email==""){
+        document.getElementById("requiredemail").style.display='block';
+        valid=false;
+    }
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length){
+        document.getElementById("invalidemail").style.display = 'block';
+        valid=false;
+    }
+    var emailreq=getRequest();
+    emailreq.open("POST","./testEmail.htm",false);
+    emailreq.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    emailreq.send("email="+encodeURI(email));
+    if(emailreq.responseText=="true"){
+        document.getElementById("uniqueemail").style.display = 'block';
+        valid=false;
+    }
+    var name=document.getElementById("name").value;
+    if(name==""||name==null){
+        document.getElementById("requiredname").style.display='block';
+        valid=false;
+    }
+    var namereq=getRequest();
+    namereq.open("POST","./testName.htm",false);
+    namereq.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    namereq.send("name="+encodeURI(name));
+    if(namereq.responseText=="true"){
+        document.getElementById("uniquename").style.display = 'block';
+        valid=false;
+    }
+    var pass1=document.getElementById("pass").value;
+    var pass2=document.getElementById("pass2").value;
+    if(pass1==null||pass1==""){
+        document.getElementById("requiredpass").style.display='block';
+        valid=false;
+    }
+    if(pass2==null||pass2==""){
+        document.getElementById("requiredpass2").style.display='block';
+        valid=false;
+    }
+    if(pass1!=pass2){
+        document.getElementById("mustmatch1").style.display='block';
+        document.getElementById("mustmatch2").style.display='block';
+        valid=false;
+    }
+    if(!valid){
+        return false;
+    }
+    var addreq = getRequest();
+    addreq.open("POST","./RegisterUser.htm", false);
+    addreq.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    addreq.send("name="+encodeURI(name) + "&" +
+                 "email="+encodeURI(email) + "&" +
+                 "pass="+encodeURI(pass1));
+    if(addreq.responseText!="OK"){
+        document.getElementById("servererrname").style.display='block';
+        document.getElementById("servererrname").innerHTML=addreq.responseText;
+        return false;
+    }
+    
+    changePage('JSPChunks/Home.jsp');
+    
+    return true;
 }
