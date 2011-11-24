@@ -11,7 +11,7 @@
     out.print(false);
     for(int i = 0; i < 10; i++){
 %>
-<p class="round-corner"><image src="./LocusImage.png?points=<% out.print(i+50); %>" alt="Image Failed to Load" /><br/></p>
+<p class="round-corner"><image src="./LocusImage.png?points=<% out.print(i+50); %>&height=<% out.print(10+i*50); %>" alt="Image Failed to Load" /><br/></p>
 <%
     }
 %>

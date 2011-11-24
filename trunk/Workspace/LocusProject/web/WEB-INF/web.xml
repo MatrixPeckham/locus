@@ -28,10 +28,10 @@
         <servlet-name>RegisterUser</servlet-name>
         <servlet-class>com.locus305.servlets.RegisterUser</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>LocusImage</servlet-name>
-        <url-pattern>/LocusImage.png</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>LocusLogo</servlet-name>
+        <servlet-class>com.locus305.servlets.LocusLogo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -43,6 +43,15 @@
     <servlet-mapping>
         <servlet-name>RegisterUser</servlet-name>
         <url-pattern>/RegisterUser.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LocusImage</servlet-name>
+        <url-pattern>/LocusImage2.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LocusLogo</servlet-name>
+        <url-pattern>/LocusImage.png</url-pattern>
+        <url-pattern>/LocusLogo.png</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

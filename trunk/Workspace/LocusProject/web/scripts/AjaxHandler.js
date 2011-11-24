@@ -163,3 +163,4 @@ function validateAndSubmitRegistration(){
     
     return true;
 }
+
