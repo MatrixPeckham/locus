@@ -201,4 +201,5 @@ function logout(){
         } 
     }
     xmlhttp.send(null);
+    location.reload(true);
 }

@@ -3,15 +3,21 @@
     Created on : Nov 24, 2011, 10:54:48 PM
     Author     : Owner
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="l" uri="com.locus305.tags" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<div id="userinfo" class="round-corner">
+    
+    <form id="userinfo">
+        
+    </form>
+    
+    
+    you have accounts
+    <table>
+        <l:LoopUserAccounts username="${sessionScope.userInfo.username}" var="acct">
+            <tr><td>${acct.ccn}</td></tr>
+        </l:LoopUserAccounts>
+    </table>
+
+</div>
