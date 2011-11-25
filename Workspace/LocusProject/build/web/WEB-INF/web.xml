@@ -32,6 +32,14 @@
         <servlet-name>LocusLogo</servlet-name>
         <servlet-class>com.locus305.servlets.LocusLogo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>com.locus305.servlets.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.locus305.servlets.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -52,6 +60,14 @@
         <servlet-name>LocusLogo</servlet-name>
         <url-pattern>/LocusImage.png</url-pattern>
         <url-pattern>/LocusLogo.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

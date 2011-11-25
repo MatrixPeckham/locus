@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package com.locus305.database;
+import com.locus305.beans.UserBean;
 import com.mysql.jdbc.ResultSetImpl;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -89,6 +90,30 @@ public class DBManager {
         } 
     }
     
+    public void fillUserBean(UserBean ub, String username, String password) throws Exception{
+        try {
+            ResultSet rs = select("*", "persons", "display_name='"+username+"'");
+            if(rs.next()){
+                String pass = rs.getString("password");
+                if(!pass.equals(password)){
+                    throw new Exception("Incorrect Password");
+                }
+                ub.setAddr(rs.getString("address"));
+                ub.setCity(rs.getString("city"));
+                ub.setFname(rs.getString("first_name"));
+                ub.setLname(rs.getString("last_name"));
+                ub.setPhone(rs.getString("telephone"));
+                ub.setUsername(username);
+                ub.setZip(rs.getInt("zip_code"));
+            } else {
+                throw new Exception("User Name does not exist");
+            }
+        } catch (SQLException ex) {
+            throw new Exception("An Unknown Error Occurred");
+        }
+        
+    }
+    
     public boolean contains(String table, String colName, String value){
         String query = format(GENERAL_SELECT, "*", table, colName + "='" + value + "'");
         try {
@@ -113,5 +138,7 @@ public class DBManager {
         out.format(str, args);
         return writer.toString();
     }
+    
+
     
 }
