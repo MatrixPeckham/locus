@@ -3,6 +3,16 @@
   <tlib-version>1.0</tlib-version>
   <short-name>locustags</short-name>
   <uri>com.locus305.tags</uri>
+  <tag>
+    <name>LoopCircles</name>
+    <tag-class>com.locus305.taghandlers.ListCirclesTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>user</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>

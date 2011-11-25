@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <td><span class="smalltext"><span class="required">*</span> indicates a required field</span></td>
-                <td><input type="Submit" value="Submit"></input><input type="submit" value="Cancel"></input></td>
+                <td><input type="Submit" value="Submit"></input></td>
             </tr>
         </table>
     </form>

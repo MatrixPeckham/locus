@@ -40,6 +40,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>com.locus305.servlets.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditUserInfo</servlet-name>
+        <servlet-class>com.locus305.servlets.EditUserInfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -68,6 +72,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserInfo</servlet-name>
+        <url-pattern>/EditUserInfo.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

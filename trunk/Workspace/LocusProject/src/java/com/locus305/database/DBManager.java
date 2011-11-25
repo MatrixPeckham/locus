@@ -105,12 +105,40 @@ public class DBManager {
                 ub.setPhone(rs.getString("telephone"));
                 ub.setUsername(username);
                 ub.setZip(rs.getInt("zip_code"));
+                ub.setUserid(rs.getInt("SSN"));
             } else {
                 throw new Exception("User Name does not exist");
             }
         } catch (SQLException ex) {
             throw new Exception("An Unknown Error Occurred");
         }
+        
+    }
+
+    public boolean updateUserData(UserBean user){
+        String addr = user.getAddr();
+        String city = user.getCity();
+        String fname= user.getFname();
+        String lname= user.getLname();
+        String phone= user.getPhone();
+        int zip  = user.getZip();
+        int uid = user.getUserid();
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "update wpeckham.persons set " +
+                    "address=\"" + addr+ "\" "+
+                    "city=\"" + city+ "\" "+
+                    "first_name=\"" + fname+ "\" "+
+                    "last_name=\"" + lname+ "\" "+
+                    "telephone=\"" + phone+ "\" "+
+                    "zip_code=" + zip+ " "+
+                    "where ssn="+uid;
+            stmt.executeUpdate(sql);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+        
         
     }
     
@@ -139,6 +167,6 @@ public class DBManager {
         return writer.toString();
     }
     
-
+    
     
 }

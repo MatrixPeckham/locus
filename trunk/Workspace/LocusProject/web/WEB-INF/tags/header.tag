@@ -23,6 +23,9 @@
                 <a>Temp <% out.print(i + 1);%></a>
             </td>
             <%}%>
+            <td>
+                <a href="TroubleShooting.jsp">Troubleshooting</a>
+            </td>
         </tr>
     </table>
 </div>
