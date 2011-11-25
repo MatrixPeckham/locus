@@ -3,6 +3,8 @@
     Created on : Nov 23, 2011, 2:20:45 PM
     Author     : William Peckham
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="l" uri="com.locus305.tags" %>
 
 <h1>Hello World!</h1>
 <%

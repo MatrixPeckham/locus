@@ -3,11 +3,13 @@
  * and open the template in the editor.
  */
 package com.locus305.database;
+import com.locus305.beans.AccountBean;
 import com.locus305.beans.UserBean;
 import com.mysql.jdbc.ResultSetImpl;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -140,6 +142,44 @@ public class DBManager {
         }
         
         
+    }
+    
+    public ArrayList<AccountBean> getUserAccounts(String usr){
+        
+        ArrayList<Integer> acctIds = new ArrayList<Integer>();
+        ArrayList<AccountBean> beans = new ArrayList<AccountBean>();
+        try{
+            Statement stmt = con.createStatement();
+            String query = format(GENERAL_SELECT,"ssn","persons","display_name='"+usr+"'");
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            int ssn = rs.getInt("ssn");
+            query = format(GENERAL_SELECT, "account_number","user_has_account","user_id='"+ssn+"'");
+            rs=stmt.executeQuery(query);
+            while(rs.next()){
+                acctIds.add(rs.getInt("account_number"));
+            }
+            for(int id : acctIds){
+                AccountBean b = new AccountBean();
+                b.setAccnum(id);
+                query=format(GENERAL_SELECT,"Credit_Card_Number","accounts","account_number="+id);
+                rs=stmt.executeQuery(query);
+                rs.next();
+                String card = rs.getString("credit_card_number");
+                if(card==null) {
+                    card="";
+                    b.setCcn(card);
+                } else {
+                    b.setCcn(card.substring(card.length()-4));
+                }
+                beans.add(b);
+            }
+            return beans;
+        }catch(SQLException e){
+            int i = 29;
+        }
+        
+        return null;
     }
     
     public boolean contains(String table, String colName, String value){
