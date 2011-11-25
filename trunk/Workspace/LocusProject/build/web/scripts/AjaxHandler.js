@@ -151,8 +151,8 @@ function validateAndSubmitRegistration(){
     addreq.open("POST","./RegisterUser.htm", false);
     addreq.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     addreq.send("name="+encodeURI(name) + "&" +
-                 "email="+encodeURI(email) + "&" +
-                 "pass="+encodeURI(pass1));
+        "email="+encodeURI(email) + "&" +
+        "pass="+encodeURI(pass1));
     if(addreq.responseText!="OK"){
         document.getElementById("servererrname").style.display='block';
         document.getElementById("servererrname").innerHTML=addreq.responseText;
@@ -164,3 +164,41 @@ function validateAndSubmitRegistration(){
     return true;
 }
 
+function login(){
+    var name=document.getElementById("logname").value;
+    var pass=document.getElementById("logpass").value;
+    var xmlhttp = getRequest();
+    xmlhttp.open("POST","./Login.htm",false);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("username="+encodeURI(name)+"&password="+encodeURI(pass));
+    var resp=xmlhttp.responseText;
+    if(resp.indexOf("Welcome")==0){
+        document.getElementById("loginerr").style.display='none';
+        document.getElementById("login").innerHTML=resp;
+    } else {
+        document.getElementById("loginerr").style.display='block';
+        document.getElementById("loginerr").innerHTML=resp;
+        
+    }
+}
+
+function logout(){
+    var xmlhttp=getRequest();
+    var loginText = '<form id="login" action="javascript:void(0)" onsubmit="login()">'+
+    '<span><label>Display Name:</label><input type="text" id="logname"></input></span>'+
+    '<span><label>Password:</label><input type="password" id="logpass"></input></span>'+
+    '<span><input type="submit" id="loggo" value="Go"></input></span>'+
+    '<br />'+
+    '<span><label class="error" id="loginerr"></label></span>'+
+    '<br/>Not a Member? Click <a onclick="changePage(\'JSPChunks/Registration.jsp\')" href="#">here</a> to register.'+
+    '</form>';
+    xmlhttp.open("GET","./Logout.htm",false)
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("login").innerHTML=loginText;
+        } 
+    }
+    xmlhttp.send(null);
+}

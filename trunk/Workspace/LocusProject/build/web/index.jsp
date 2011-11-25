@@ -9,6 +9,7 @@
 <%@taglib prefix="l" uri="com.locus305.tags" %>
 <!DOCTYPE html>
 <html>
+<jsp:useBean scope="session" id="userInfo" class="com.locus305.beans.UserBean" />
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="./CSS/MainStyle.css" />

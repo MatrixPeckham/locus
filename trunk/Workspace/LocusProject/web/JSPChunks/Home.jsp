@@ -5,7 +5,6 @@
 --%>
 
 <h1>Hello World!</h1>
-<a onclick="changePage('JSPChunks/Registration.jsp')" href="#">REGISTER</a>
 <%
     out.print(true + " ");
     out.print(false);

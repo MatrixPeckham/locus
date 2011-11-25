@@ -18,9 +18,9 @@
                 <image src="./LocusImage.png?height=100" alt="Failed to Load Image" />
             </td>
             <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/Home.jsp')">Home</a></td>
-            <%for(int i=0; i<5; i++){%>
+            <%for (int i = 0; i < 5; i++) {%>
             <td>
-                <a>Temp <% out.print(i+1); %></a>
+                <a>Temp <% out.print(i + 1);%></a>
             </td>
             <%}%>
         </tr>
@@ -28,16 +28,18 @@
 </div>
 <div id="login">
     <c:choose>
-        <c:when test="${sessionScope.username==null}">
-            <form id="login" action="" onsubmit="">
+        <c:when test="${sessionScope.userInfo.username==''}">
+            <form id="login" action="javascript:void(0)" onsubmit="login()">
                 <span><label>Display Name:</label><input type="text" id="logname"></input></span>
-                <span><label>Password:</label><input type="text" id="logpass"></input></span>
+                <span><label>Password:</label><input type="password" id="logpass"></input></span>
                 <span><input type="submit" id="loggo" value="Go"></input></span>
+                <br />
+                <span><label class="error" id="loginerr"></label></span>
+                <br/>Not a Member? Click <a onclick="changePage('JSPChunks/Registration.jsp')" href="#">here</a> to register.
             </form>
         </c:when>
         <c:otherwise>
-            <span>Welcome ${sessionScope.username}</span>
+            Welcome ${sessionScope.userInfo.username} <a href="javascript:void(0)" onclick="logout()">logout</a>
         </c:otherwise>
     </c:choose>
 </div>
-            
