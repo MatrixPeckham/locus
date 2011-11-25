@@ -45,7 +45,7 @@ public class LocusLogo extends HttpServlet {
             int h = Integer.parseInt(getParam(request,"height","200"));
             int n = Integer.parseInt(getParam(request,"points","50"));
             int nl = Integer.parseInt(getParam(request,"lines","50"));
-            int smallrad = 10;
+            int smallrad = 4;
             BufferedImage bi = new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D)bi.getGraphics();
             Font f = getFontWithHeight(h, 5, g);
@@ -76,7 +76,8 @@ public class LocusLogo extends HttpServlet {
 //            g.setPaint(new GradientPaint(0, 20, Color.blue, 0, 0, Color.green,
 //                    true));
   //          g.setPaint(p);
-            g.setColor(Color.black);
+            Color logoColor = new Color(12,12,90);
+            g.setColor(logoColor);
             g.setFont(f);
             g.drawString("L", 0, yf);
             g.drawString("cus", loWid, yf);
@@ -101,7 +102,7 @@ public class LocusLogo extends HttpServlet {
                 Ellipse2D.Double e1 = list.get(l1);
                 Ellipse2D.Double e2 = list.get(l2);
                 if(e1!=e2){
-                    g.setColor(Color.red); 
+                    g.setColor(Color.lightGray); 
                     g.draw(new Line2D.Double(e1.getX()+smallrad/2,e1.getY()+smallrad/2,e2.getX()+smallrad/2,e2.getY()+smallrad/2));
                 }
 
@@ -153,7 +154,7 @@ public class LocusLogo extends HttpServlet {
                 pts2=pts;
                 pts=npts;
             }
-            f = new Font("serif", Font.BOLD, pts);
+            f = new Font("serif", Font.ITALIC, pts);
             met = g.getFontMetrics(f);
         } while(h-met.getHeight()>thresh||h-met.getHeight()<0);
         return f;
