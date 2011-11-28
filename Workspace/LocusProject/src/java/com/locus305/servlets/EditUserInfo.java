@@ -4,10 +4,12 @@
  */
 package com.locus305.servlets;
 
+import com.locus305.beans.AccountBean;
 import com.locus305.beans.UserBean;
 import com.locus305.database.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,10 +40,21 @@ public class EditUserInfo extends HttpServlet {
         user.setLname(request.getParameter("lname"));
         user.setPhone(request.getParameter("phone"));
         user.setState(request.getParameter("state"));
+        user.setPreferences(request.getParameter("preferences"));
         user.setZip(Integer.parseInt(request.getParameter("zip")));
-        
+        ArrayList<AccountBean> accounts = new ArrayList<AccountBean>();
+        int numCards = Integer.parseInt(request.getParameter("numCards"));
+        for(int i=0;i<=numCards;i++){
+            AccountBean b = new AccountBean();
+            
+            int num = Integer.parseInt(request.getParameter("cardacc"+i));
+            String ccn = request.getParameter("cardnum"+i);
+            b.setAccnum(num);
+            b.setCcn(ccn);
+            accounts.add(b);
+        }
         try {
-            out.print(DBManager.get().updateUserData(user));
+            out.print(DBManager.get().updateUserData(user)&&DBManager.get().updateUserAccounts(user.getUserid(), accounts));
         } finally {            
             out.close();
         }

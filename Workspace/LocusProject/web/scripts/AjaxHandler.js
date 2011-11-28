@@ -180,6 +180,7 @@ function login(){
         document.getElementById("loginerr").innerHTML=resp;
         
     }
+    location.reload(true);
 }
 
 function logout(){
@@ -202,4 +203,44 @@ function logout(){
     }
     xmlhttp.send(null);
     location.reload(true);
+}
+
+function addCard(){
+    var numCards = parseInt(document.getElementById("numCards").value);
+    var tabConts = document.getElementById("cardtable").innerHTML;
+    var newrow = '<tr><td>New Credit Card Number #'+(numCards+1)+'</td><td><input type="hidden" value="-1" id="cardacc'+numCards+'"/><input type="text" id="cardnum'+numCards+'" value=""/></td></tr>';
+    numCards=numCards+1;
+    document.getElementById("numCards").value=numCards;
+    document.getElementById("cardtable").innerHTML=tabConts+newrow;
+}
+
+function val(id){
+    if(document.getElementById(id)!=null){
+        return document.getElementById(id).value;
+    }
+    return "";
+}
+
+function saveProfile(){
+    var params = "./EditUserInfo.htm?fname="+val("fname")+'&';
+    params=params+'lname='+val("lname")+'&';
+    params=params+'addr='+val("addr")+'&';
+    params=params+'city='+val("city")+'&';
+    params=params+'state='+val("state")+'&';
+    params=params+'zip='+val("zip")+'&';
+    params=params+'preferences='+val("preferences")+'&';
+    params=params+'phone='+val("phone");
+    var numcards = parseInt(val("numCards"));
+    params=params+"&numCards="+numcards;
+    for(var i=0;i<=numcards;i++){
+        params=params+"&cardacc"+i+"="+val("cardacc"+i);
+        params=params+"&cardnum"+i+"="+val("cardnum"+i);
+    }
+    var editreq=getRequest();
+    editreq.open("GET",params,false);
+    editreq.send(null);
+    changePage("JSPChunks/Profile.jsp");
+}
+function incNumCards(){
+    document.getElementById("numCards").value=(parseInt(document.getElementById("numCards").value)+1);
 }

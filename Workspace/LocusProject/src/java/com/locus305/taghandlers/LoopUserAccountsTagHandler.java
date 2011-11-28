@@ -19,6 +19,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public class LoopUserAccountsTagHandler extends SimpleTagSupport {
     private String var;
+    private String ivar;
     private String username;
 
     /**
@@ -28,7 +29,7 @@ public class LoopUserAccountsTagHandler extends SimpleTagSupport {
      */
     @Override
     public void doTag() throws JspException {
-              JspWriter out = getJspContext().getOut();
+        JspWriter out = getJspContext().getOut();
         JspContext context = getJspContext();
         try {
 
@@ -38,13 +39,16 @@ public class LoopUserAccountsTagHandler extends SimpleTagSupport {
             
             if(accounts==null)
                 return;
-            
+            int i=0;
             for(AccountBean b : accounts){ 
+                context.setAttribute(ivar,i);
                 context.setAttribute(var, b);
                 if (f != null) {
                     f.invoke(out);
                 }
+                i++;
             }
+            context.setAttribute(ivar, null);
             context.setAttribute(var, null);
 
             // TODO: insert code to write html after writing the body content.
@@ -59,6 +63,10 @@ public class LoopUserAccountsTagHandler extends SimpleTagSupport {
 
     public void setVar(String var) {
         this.var = var;
+    }
+
+    public void setIvar(String ivar) {
+        this.ivar = ivar;
     }
 
     public void setUsername(String username) {

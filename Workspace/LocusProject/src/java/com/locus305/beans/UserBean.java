@@ -20,6 +20,7 @@ public class UserBean implements Serializable {
     private String state="";
     private int zip = -1;
     private String phone="";
+    private String preferences;
     
     public UserBean() {
     }
@@ -94,6 +95,14 @@ public class UserBean implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
     }
     
 }
