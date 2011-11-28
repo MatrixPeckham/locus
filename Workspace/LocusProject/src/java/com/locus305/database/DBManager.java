@@ -284,7 +284,7 @@ public class DBManager {
                 int id = b.getOwnerID();
                 ResultSet own = select("display_name", "persons", "ssn="+id);
                 own.next();
-                b.setCatagory(own.getString(1));
+                b.setOwnerName(own.getString(1));
                 list.add(b);
             }
             return list;
