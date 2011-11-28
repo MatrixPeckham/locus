@@ -4,6 +4,10 @@
  */
 package com.locus305.taghandlers;
 
+import com.locus305.beans.CircleBean;
+import com.locus305.database.DBManager;
+import java.util.ArrayList;
+import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
@@ -24,23 +28,23 @@ public class ListCirclesTagHandler extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException {
         JspWriter out = getJspContext().getOut();
-        
+        JspContext context = getJspContext();
         try {
-            // TODO: insert code to write html before writing the body content.
-            // e.g.:
-            //
-            // out.println("<strong>" + attribute_1 + "</strong>");
-            // out.println("    <blockquote>");
-
+            ArrayList<CircleBean> list;
+            
+            //if(user==null){
+                list=DBManager.get().getCircles();
+           // } else {
+                
+            //}
             JspFragment f = getJspBody();
-            if (f != null) {
-                f.invoke(out);
+            for(CircleBean b : list){
+                context.setAttribute("curCircle", b);
+                if (f != null) {
+                    f.invoke(out);
+                }
             }
-
-            // TODO: insert code to write html after writing the body content.
-            // e.g.:
-            //
-            // out.println("    </blockquote>");
+            context.removeAttribute("curCircle");
 
         } catch (java.io.IOException ex) {
             throw new JspException("Error in ListCirclesTagHandler tag", ex);

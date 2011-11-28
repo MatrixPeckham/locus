@@ -48,13 +48,9 @@ public class LoopUserAccountsTagHandler extends SimpleTagSupport {
                 }
                 i++;
             }
-            context.setAttribute(ivar, null);
-            context.setAttribute(var, null);
+            context.removeAttribute(ivar);
+            context.removeAttribute(var);
 
-            // TODO: insert code to write html after writing the body content.
-            // e.g.:
-            //
-            // out.println("    </blockquote>");
 
         } catch (java.io.IOException ex) {
             throw new JspException("Error in ListUsersAccountsTagHandler tag", ex);
