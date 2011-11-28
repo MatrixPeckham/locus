@@ -11,6 +11,7 @@
       <name>user</name>
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
+      <required>false</required>
     </attribute>
   </tag>
   <tag>
@@ -19,6 +20,12 @@
     <body-content>scriptless</body-content>
     <attribute>
       <name>var</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>ivar</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>

@@ -18,11 +18,9 @@
                 <image src="./LocusImage.png?height=100" alt="Failed to Load Image" />
             </td>
             <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/Home.jsp')">Home</a></td>
-            <%for (int i = 0; i < 5; i++) {%>
             <td>
-                <a>Temp <% out.print(i + 1);%></a>
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp')">Profile</a>
             </td>
-            <%}%>
             <td>
                 <a href="TroubleShooting.jsp">Troubleshooting</a>
             </td>
