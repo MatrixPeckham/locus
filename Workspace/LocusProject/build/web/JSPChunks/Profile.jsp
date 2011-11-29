@@ -46,7 +46,7 @@
                         </script>
                     </l:LoopUserAccounts>
                 </table>
-                <!--<input type="submit" onclick="addCard()" value="Add Another"/><br/>-->
+                <input type="submit" onclick="addCard()" value="Add Another"/><br/>
                 <input type="submit" onclick="saveProfile()" value="Save"/>
             </form>
         </c:when>

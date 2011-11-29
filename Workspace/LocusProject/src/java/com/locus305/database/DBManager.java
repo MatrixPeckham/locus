@@ -6,6 +6,8 @@ package com.locus305.database;
 
 import com.locus305.beans.AccountBean;
 import com.locus305.beans.CircleBean;
+import com.locus305.beans.CommentBean;
+import com.locus305.beans.PostBean;
 import com.locus305.beans.UserBean;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -55,6 +57,19 @@ public class DBManager {
             Statement stmt = con.createStatement();
             return stmt.executeQuery(query);
         } catch (SQLException ex) {
+            int i =0;
+            return null;
+        }
+    }
+
+    public ResultSet select(String what, String from, String where, String orderby) {
+        String query = format(GENERAL_SELECT, what, from, where);
+        query=query+" order by " + orderby + " asc";
+        try {
+            Statement stmt = con.createStatement();
+            return stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            int i =0;
             return null;
         }
     }
@@ -70,14 +85,14 @@ public class DBManager {
                 userid = keys.getInt(1);
             }
 
-            stmt.execute("INSERT INTO wpeckham.accounts (Account_Creation_Date,state) VALUES(" + "CURDATE()" + "," + 0 + ")", Statement.RETURN_GENERATED_KEYS);
+            stmt.execute("INSERT INTO wpeckham.accounts (Account_Creation_Date,state) VALUES(" + "now()" + "," + 0 + ")", Statement.RETURN_GENERATED_KEYS);
             keys = stmt.getGeneratedKeys();
             int accountid = 0;
             while (keys.next()) {
                 accountid = keys.getInt(1);
             }
 
-            stmt.executeUpdate("INSERT INTO wpeckham.users (user_id,account_creation_date,rating) VALUES (" + userid + ",CURDATE(),0)");
+            stmt.executeUpdate("INSERT INTO wpeckham.users (user_id,account_creation_date,rating) VALUES (" + userid + ",now(),0)");
 
             stmt.executeUpdate("INSERT INTO wpeckham.user_has_account (user_id, account_number) VALUES (" + userid + "," + accountid + ")");
 
@@ -157,7 +172,7 @@ public class DBManager {
                 preflist.add(prefs.nextToken());
             }
             sql = "delete from wpeckham.user_preferences where id=" + uid;
-            stmt.executeUpdate(sql); 
+            stmt.executeUpdate(sql);
             for (String s : preflist) {
                 sql = "insert into wpeckham.user_preferences (id, preference) values (" + uid + ",'" + s + "')";
                 stmt.executeUpdate(sql);
@@ -191,7 +206,7 @@ public class DBManager {
             } else {
                 try {
                     con.setAutoCommit(false);
-                    String sql = "insert into wpeckham.accounts (account_creation_date, credit_card_number, state) values ( CURDATE()," + b.getCcn() + ",0)";
+                    String sql = "insert into wpeckham.accounts (account_creation_date, credit_card_number, state) values ( now()," + b.getCcn() + ",0)";
                     stmt.execute(sql, Statement.RETURN_GENERATED_KEYS);
                     ResultSet rs = stmt.getGeneratedKeys();
                     rs.next();
@@ -271,29 +286,102 @@ public class DBManager {
         return false;
     }
 
-    public ArrayList<CircleBean> getCircles(){
+    public ArrayList<CircleBean> getCircles() {
         try {
             ResultSet rs = select("*", "circles", "1=1");
             ArrayList<CircleBean> list = new ArrayList<CircleBean>();
-            while(rs.next()){
+            while (rs.next()) {
                 CircleBean b = new CircleBean();
                 b.setCatagory(rs.getString("catagory"));
                 b.setName(rs.getString("circle_name"));
                 b.setId(rs.getInt("circle_id"));
                 b.setOwnerID(rs.getInt("owner_of_circle"));
                 int id = b.getOwnerID();
-                ResultSet own = select("display_name", "persons", "ssn="+id);
+                ResultSet own = select("display_name", "persons", "ssn=" + id);
                 own.next();
                 b.setOwnerName(own.getString(1));
                 list.add(b);
             }
             return list;
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
             return null;
         }
     }
-    
+
+    public CircleBean getCircle(int circle) {
+        try {
+            ResultSet rs = select("*", "circles", "circle_id=" + circle);
+            rs.next();
+            CircleBean b = new CircleBean();
+            b.setCatagory(rs.getString("catagory"));
+            b.setName(rs.getString("circle_name"));
+            b.setId(rs.getInt("circle_id"));
+            b.setOwnerID(rs.getInt("owner_of_circle"));
+            int id = b.getOwnerID();
+            ResultSet own = select("display_name", "persons", "ssn=" + id);
+            own.next();
+            b.setOwnerName(own.getString(1));
+            return b;
+        } catch (SQLException ex) {
+            int i = 0;
+            return null;
+        }
+    }
+
+    public ArrayList<PostBean> getPosts(int circle) {
+        try {
+            ArrayList<PostBean> list = new ArrayList<PostBean>();
+            ResultSet posts = select("*", "posts", "circle=" + circle,"_date");
+            while (posts.next()) {
+                PostBean b = new PostBean();
+                b.setAuthor(posts.getInt("author"));
+                ResultSet auth = select("display_name", "persons", "ssn=" + b.getAuthor());
+                auth.next();
+                b.setName(auth.getString(1));
+                b.setCircle(posts.getInt("circle"));
+                b.setContent(posts.getString("content"));
+                b.setDate(posts.getDate("_date"));
+                b.setId(posts.getInt("post_id"));
+                ResultSet likes = select("count(*)", "user_likes_post", "post_id=" + b.getId());
+                likes.next();
+                b.setLikes(likes.getInt(1));
+                list.add(b);
+            }
+
+            return list;
+        } catch (SQLException e) {
+            int i = 0;
+            return null;
+        }
+    }
+
+    public ArrayList<CommentBean> getComments(int post) {
+        try {
+            ArrayList<CommentBean> list = new ArrayList<CommentBean>();
+            ResultSet comms = select("*", "comments", "post=" + post,"_date");
+            while (comms.next()) {
+                CommentBean b = new CommentBean();
+                b.setAuthor(comms.getInt("author"));
+                ResultSet auth = select("display_name", "persons", "ssn=" + b.getAuthor());
+                auth.next();
+                b.setAuthorName(auth.getString(1));
+                b.setContent(comms.getString("content"));
+                b.setDate(comms.getDate("_date"));
+                b.setId(comms.getInt("comment_id"));
+                b.setPost(comms.getInt("post"));
+                ResultSet likes = select("count(*)", "user_likes_comment", "comment_id=" + b.getId());
+                likes.next();
+                b.setLikes(likes.getInt(1));
+                list.add(b);
+            }
+            return list;
+        } catch (SQLException e) {
+            int i = 0;
+            return null;
+        }
+    }
+
     public static String format(String str, Object... args) {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
