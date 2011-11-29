@@ -36,6 +36,7 @@ body {
     border-color:black;
     border-width:5px;
     padding:5px;
+    margin:5px;
     
 }
 
@@ -84,3 +85,50 @@ label.error{
     font-size:small;
 }
 
+div.postview{
+    clear:both;
+    position:relative;
+}
+
+div.clearmarker{
+    clear:both;
+}
+
+div.postinfo{
+    float:left;
+    border-right-style:solid;
+    border-right-width:2px;
+}
+div.commentview{
+    clear:both;
+    position:relative;
+}
+div.postauthor{
+    
+}
+div.postcontent{
+    float:left;
+}
+div.postdate{
+    
+}
+div.postlikes{
+    
+}
+div.commentinfo{
+    float:left;
+    border-right-style:solid;
+    border-right-width:2px;
+}
+div.commentauthor{
+    
+}
+div.commentdate{
+    
+}
+div.commentcontent{
+    float:left;
+}
+div.commentlikes{
+    
+}

@@ -12,13 +12,13 @@ import java.util.Date;
  * @author Owner
  */
 public class CommentBean implements Serializable{
-    private int id;
-    private Date date;
-    private String content;
-    private int post;
-    private int author;
-    private String authorName;
-    private int likes;
+    private int id=-1;
+    private Date date=null;
+    private String content="";
+    private int post=-1;
+    private int author=-1;
+    private String authorName="";
+    private int likes=0;
 
     public int getAuthor() {
         return author;

@@ -37,6 +37,45 @@
       <type>java.lang.String</type>
     </attribute>
   </tag>
+  <tag>
+    <name>LoopPosts</name>
+    <tag-class>com.locus305.taghandlers.LoopPostsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>circle</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>LoopComments</name>
+    <tag-class>com.locus305.taghandlers.LoopCommentsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>post</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>GetCircle</name>
+    <tag-class>com.locus305.taghandlers.GetCircleTagHandler</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>circle</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>
