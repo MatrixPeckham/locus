@@ -61,6 +61,10 @@
         <servlet-class>com.locus305.servlets.UnlikeComment</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SendMessage</servlet-name>
+        <servlet-class>com.locus305.servlets.SendMessage</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddPost</servlet-name>
         <servlet-class>com.locus305.servlets.AddPost</servlet-class>
     </servlet>
@@ -112,6 +116,10 @@
     <servlet-mapping>
         <servlet-name>UnlikeComment</servlet-name>
         <url-pattern>/UnlikeComment.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendMessage</servlet-name>
+        <url-pattern>/SendMessage.htm</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddPost</servlet-name>
