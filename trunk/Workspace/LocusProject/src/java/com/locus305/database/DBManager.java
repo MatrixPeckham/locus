@@ -479,7 +479,7 @@ public class DBManager {
     
     public boolean sendMessage(MessageBean b){
         try {
-            String sql = "insert into wpeckham.messages (sender,receiver,subject,content,_date) values (" + b.getSender() + "," + b.getReceiver() + ","+b.getSubject() + "," +b.getContent() + ",now())";
+            String sql = "insert into wpeckham.messages (sender,receiver,subject,content,_date) values (" + b.getSender() + "," + b.getReceiver() + ",\""+b.getSubject() + "\",\"" +b.getContent() + "\",now())";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             return true;
@@ -490,18 +490,55 @@ public class DBManager {
     
     public void addPost(PostBean b){
         try {
-            String sql = "insert into wpeckham.posts (circle,content,author,_date) values (" + b.getCircle() + "," + b.getContent()  + "," +b.getAuthor() + ",now())";
+            String sql = "insert into wpeckham.posts (circle,content,author,_date) values (" + b.getCircle() + ",\"" + b.getContent()  + "\"," +b.getAuthor() + ",now())";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
+            int i = 0;
         }
     }
     public void addComment(CommentBean b){
         try {
-            String sql = "insert into wpeckham.posts (post,content,author,_date) values (" + b.getPost() + "," + b.getContent()  + "," +b.getAuthor() + ",now())";
+            String sql = "insert into wpeckham.comments (post,content,author,_date) values (" + b.getPost() + ",\"" + b.getContent()  + "\"," +b.getAuthor() + ",now())";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
+    public void removePost(int post) {
+        try {
+            String sql = "delete from wpeckham.posts where post_id="+post;
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        
+    }
+    public void removeComment(int comment) {
+        try {
+            String sql = "delete from wpeckham.comments where comment_id="+comment;
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        
+    }
+    
+    public int getUserIDFromName(String name){
+        ResultSet rs = select("ssn", "persons", "display_name="+name);
+        try {
+            if(rs.next()){
+                return rs.getInt(1);
+            } else {
+                return -1;
+            }
+        } catch (SQLException ex) {
+            int i=0;
+            return -1;
         }
     }
     
