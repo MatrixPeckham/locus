@@ -12,6 +12,8 @@ import java.util.Date;
  * @author Owner
  */
 public class MessageBean implements Serializable{
+    final int MAX_CONTENT_LENGTH = 100;
+    final int MAX_SUBJECT_LENGTH = 50;
     private int id=-1;
     private Date date=null;
     private String subject="";
@@ -26,6 +28,9 @@ public class MessageBean implements Serializable{
     }
 
     public void setContent(String content) {
+        if(content.length() > MAX_CONTENT_LENGTH){
+            content = content.substring(0, MAX_CONTENT_LENGTH -1);
+        }
         this.content = content;
     }
 
@@ -82,6 +87,9 @@ public class MessageBean implements Serializable{
     }
 
     public void setSubject(String subject) {
+        if(subject.length() > MAX_SUBJECT_LENGTH){
+            subject = subject.substring(0, MAX_SUBJECT_LENGTH -1);
+        }
         this.subject = subject;
     }
     

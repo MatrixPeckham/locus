@@ -278,6 +278,14 @@ function showMessage(index){
     document.getElementById("messagecontent"+index).style.display='block';
 }
 
+function sendMessage(targetUser){
+    var content = document.getElementById("newmessage").value;
+    var params = "recipient="+recipient+"&subject="+subject+"&content="+content;
+    post("./SendMessage.htm",params);
+    changePage("JSPChunks/ViewMessages.jsp");
+}
+
+
 function addPost(circle){
     var content = document.getElementById("newpost").value;
     var params="circle="+circle+"&content="+content;
