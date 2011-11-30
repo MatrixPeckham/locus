@@ -44,6 +44,22 @@
         <servlet-name>EditUserInfo</servlet-name>
         <servlet-class>com.locus305.servlets.EditUserInfo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LikePost</servlet-name>
+        <servlet-class>com.locus305.servlets.LikePost</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnlikePost</servlet-name>
+        <servlet-class>com.locus305.servlets.UnlikePost</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LikeComment</servlet-name>
+        <servlet-class>com.locus305.servlets.LikeComment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnlikeComment</servlet-name>
+        <servlet-class>com.locus305.servlets.UnlikeComment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -76,6 +92,22 @@
     <servlet-mapping>
         <servlet-name>EditUserInfo</servlet-name>
         <url-pattern>/EditUserInfo.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LikePost</servlet-name>
+        <url-pattern>/LikePost.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnlikePost</servlet-name>
+        <url-pattern>/UnlikePost.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LikeComment</servlet-name>
+        <url-pattern>/LikeComment.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnlikeComment</servlet-name>
+        <url-pattern>/UnlikeComment.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

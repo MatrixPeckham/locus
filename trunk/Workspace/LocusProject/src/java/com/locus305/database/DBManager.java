@@ -7,6 +7,7 @@ package com.locus305.database;
 import com.locus305.beans.AccountBean;
 import com.locus305.beans.CircleBean;
 import com.locus305.beans.CommentBean;
+import com.locus305.beans.MessageBean;
 import com.locus305.beans.PostBean;
 import com.locus305.beans.UserBean;
 import java.io.PrintWriter;
@@ -388,4 +389,92 @@ public class DBManager {
         out.format(str, args);
         return writer.toString();
     }
+
+    public boolean userLikesPost(int userid, int post) {
+        ResultSet rs = select("*", "user_likes_post", "post_id="+post+" and user_id="+userid);
+        try { 
+            return rs.next();
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    public boolean userLikesComment(int userid, int comment) {
+        ResultSet rs = select("*", "user_likes_comment", "comment_id="+comment+" and user_id="+userid);
+        try {
+            return rs.next();
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+
+    public void likePost(int userid, int post) {
+        try {
+            String sql = "insert into wpeckham.user_likes_post (user_id,post_id) values (" +userid+","+post+")";
+            Statement stmt = con.createStatement(); 
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        
+    }
+
+    public void unlikePost(int userid, int post) {
+        try{
+            String sql = "delete from wpeckham.user_likes_post where user_id=" + userid + " and post_id=" +post;
+            Statement stmt = con.createStatement(); 
+            stmt.executeUpdate(sql);
+        } catch(SQLException e){
+            int i =0; 
+        }
+    }
+
+    public void likeComment(int userid, int comment) {
+        try {
+            String sql = "insert into wpeckham.user_likes_comment (user_id,comment_id) values (" +userid+","+comment+")";
+            Statement stmt = con.createStatement(); 
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        
+    }
+
+    public void unlikeComment(int userid, int comment) {
+        try{
+            String sql = "delete from wpeckham.user_likes_comment where user_id=" + userid + " and comment_id=" +comment;
+            Statement stmt = con.createStatement(); 
+            stmt.executeUpdate(sql);
+        } catch(SQLException e){
+            int i =0; 
+        }
+    }
+    
+    public ArrayList<MessageBean> getMessages(int userid){
+        try {
+            ArrayList<MessageBean> list = new ArrayList<MessageBean>(); 
+            ResultSet rs = select("*", "messages", "receiver="+userid, "_date");
+            while(rs.next()){
+                MessageBean b = new MessageBean();
+                b.setContent(rs.getString("content"));
+                b.setDate(rs.getDate("_date"));
+                b.setId(rs.getInt("message_id"));
+                b.setReceiver(rs.getInt("receiver"));
+                b.setSender(rs.getInt("sender"));
+                b.setSubject(rs.getString("subject"));
+                ResultSet send = select("display_name", "persons", "ssn=" + b.getSender());
+                send.next();
+                b.setSendername(send.getString(1));
+                ResultSet rece = select("display_name", "persons", "ssn=" + b.getReceiver());
+                rece.next();
+                b.setReceivername(rece.getString(1));
+                list.add(b);
+            }
+            return list;
+        } catch (SQLException ex) {
+            return null;
+        }
+        
+    }
+    
 }

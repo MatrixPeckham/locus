@@ -4,6 +4,7 @@
  */
 package com.locus305.beans;
 
+import com.locus305.database.DBManager;
 import java.io.Serializable;
 
 /**
@@ -104,5 +105,12 @@ public class UserBean implements Serializable {
     public void setPreferences(String preferences) {
         this.preferences = preferences;
     }
-    
+    public static boolean doesLikePost(UserBean usr, int post){
+        if(usr==null) return false;
+        return DBManager.get().userLikesPost(usr.userid,post);
+    }
+    public static boolean doesLikeComment(UserBean usr, int comment){
+        if(usr==null) return false;
+        return DBManager.get().userLikesComment(usr.userid,comment);
+    }
 }

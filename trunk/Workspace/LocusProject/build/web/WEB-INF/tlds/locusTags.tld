@@ -76,6 +76,29 @@
       <type>int</type>
     </attribute>
   </tag>
+  <function>
+    <description>Returns true if user likes a post</description>
+    <function-class>com.locus305.beans.UserBean</function-class>
+    <name>doesLikePost</name>
+    <function-signature>boolean doesLikePost(com.locus305.beans.UserBean, int)</function-signature>
+  </function>
+  <function>
+    <description>Returns true if user likes a comment</description>
+    <function-class>com.locus305.beans.UserBean</function-class>
+    <name>doesLikeComment</name>
+    <function-signature>boolean doesLikeComment(com.locus305.beans.UserBean, int)</function-signature>
+  </function>
+  <tag>
+    <name>ListMessages</name>
+    <tag-class>com.locus305.taghandlers.ListMessagesTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>user</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>
