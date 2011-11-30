@@ -22,6 +22,9 @@
                 <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp')">Profile</a>
             </td>
             <td>
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewMessages.jsp')">View Messagess</a>
+            </td>
+            <td>
                 <a href="TroubleShooting.jsp">Troubleshooting</a>
             </td>
         </tr>

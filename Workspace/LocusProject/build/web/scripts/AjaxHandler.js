@@ -244,3 +244,43 @@ function saveProfile(){
 function incNumCards(){
     document.getElementById("numCards").value=(parseInt(document.getElementById("numCards").value)+1);
 }
+
+function likePost(user, post, circle){
+    var req = getRequest();
+    var url = './LikePost.htm?user='+user+'&post='+post;
+    req.open("GET",url,false);
+    req.send(null);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+}
+
+function unlikePost(user, post, circle){
+    var req = getRequest();
+    var url = './UnlikePost.htm?user='+user+'&post='+post;
+    req.open("GET",url,false);
+    req.send(null);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+}
+
+function likeComment(user, comment, circle){
+    var req = getRequest();
+    var url = './LikeComment.htm?user='+user+'&comment='+comment;
+    req.open("GET",url,false);
+    req.send(null);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+}
+
+function unlikeComment(user, comment, circle){
+    var req = getRequest();
+    var url = './UnlikeComment.htm?user='+user+'&comment='+comment;
+    req.open("GET",url,false);
+    req.send(null);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+}
+
+function showMessage(index){
+    var numMessages = parseInt(document.getElementById("nummessages").value);
+    for(var i=0;i<numMessages;i++){
+        document.getElementById("messagecontent"+i).style.display='none';
+    }
+    document.getElementById("messagecontent"+index).style.display='block';
+}

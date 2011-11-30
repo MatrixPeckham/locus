@@ -132,3 +132,10 @@ div.commentcontent{
 div.commentlikes{
     
 }
+
+div.message{
+    background-color:#ffffff
+}
+div.message:hover{
+    background-color:#f0f0ff
+}
