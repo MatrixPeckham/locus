@@ -477,4 +477,32 @@ public class DBManager {
         
     }
     
+    public boolean sendMessage(MessageBean b){
+        try {
+            String sql = "insert into wpeckham.messages (sender,receiver,subject,content,_date) values (" + b.getSender() + "," + b.getReceiver() + ","+b.getSubject() + "," +b.getContent() + ",now())";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    public void addPost(PostBean b){
+        try {
+            String sql = "insert into wpeckham.posts (circle,content,author,_date) values (" + b.getCircle() + "," + b.getContent()  + "," +b.getAuthor() + ",now())";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+    public void addComment(CommentBean b){
+        try {
+            String sql = "insert into wpeckham.posts (post,content,author,_date) values (" + b.getPost() + "," + b.getContent()  + "," +b.getAuthor() + ",now())";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+        }
+    }
+    
 }
