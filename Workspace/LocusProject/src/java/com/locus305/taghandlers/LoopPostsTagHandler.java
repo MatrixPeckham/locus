@@ -32,14 +32,17 @@ public class LoopPostsTagHandler extends SimpleTagSupport {
         try {
             JspFragment f = getJspBody();
             ArrayList<PostBean> posts = DBManager.get().getPosts(circle);
-            
+            int i = 0;
             for(PostBean post : posts){
                 context.setAttribute("curPost", post);
+                context.setAttribute("curIndext", i);
                 if (f != null) {
                     f.invoke(out);
                 }
+                i++;
             }
             context.removeAttribute("curPost");
+            context.removeAttribute("curIndex");
             
         } catch (java.io.IOException ex) {
             throw new JspException("Error in LoopPostsTagHandler tag", ex);

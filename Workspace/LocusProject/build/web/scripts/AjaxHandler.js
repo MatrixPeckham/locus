@@ -31,14 +31,7 @@ function changePage(page){
 
 function post(page, params){
     var xmlhttp=getRequest();
-    xmlhttp.onreadystatechange=function()
-    {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-            document.getElementById("content").innerHTML=xmlhttp.responseText;
-        }
-    }
-    xmlhttp.open("POST",page,true);
+    xmlhttp.open("POST",page,false);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send(params);
 }
@@ -283,4 +276,11 @@ function showMessage(index){
         document.getElementById("messagecontent"+i).style.display='none';
     }
     document.getElementById("messagecontent"+index).style.display='block';
+}
+
+function addPost(circle){
+    var content = document.getElementById("newpost").value;
+    var params="circle="+circle+"&content="+content;
+    post("./AddPost.htm",params);
+    changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
 }
