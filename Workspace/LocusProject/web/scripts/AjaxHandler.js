@@ -292,3 +292,22 @@ function addPost(circle){
     post("./AddPost.htm",params);
     changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
 }
+
+function removePost(postid, circle){
+    var params="post="+postid;
+    post("./RemovePost.htm",params);
+    changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
+}
+
+function addComment(postid,circle){
+    var content=document.getElementById("newcomment"+postid).value;
+    var params="post="+postid+"&content="+content;
+    post("./AddComment.htm",params);
+    changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
+}
+
+function removeComment(comment, circle){
+    var params="comment="+comment;
+    post("./RemoveComment.htm",params);
+    changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
+}
