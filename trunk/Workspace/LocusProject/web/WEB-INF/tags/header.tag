@@ -19,11 +19,14 @@
             </td>
             <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/Home.jsp')">Home</a></td>
             <td>
-                <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp')">Profile</a>
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${sessionScope.userInfo.username}')">Profile</a>
             </td>
             <td>
                 <a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewMessages.jsp')">View Messagess</a>
             </td>
+            <c:if test="${sessionScope.userInfo.type==1}">
+                <td><a href="javascript:void(0);" onclick="">Manage Advertisements</a></td>
+            </c:if>
             <td>
                 <a href="TroubleShooting.jsp">Troubleshooting</a>
             </td>

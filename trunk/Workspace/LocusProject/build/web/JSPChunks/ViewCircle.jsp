@@ -10,12 +10,13 @@
 <div id="circleview">
     <div id="circlehead">
         <h1>${circle.name}</h1>
+        <h3>Owner: <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${circle.ownerName}')">${circle.ownerName}</a></h3>
     </div>
     <l:LoopPosts circle="${circle.id}" >
         <div class="postview round-corner">
             <div class="postinfo">
                 <div class="postauthor">
-                    ${curPost.name}
+                    <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${curPost.name}')">${curPost.name}</a>
                 </div>
                 <div class="postlikes">
                     This Post has ${curPost.likes} likes.
@@ -46,7 +47,7 @@
                 <div class="commentview round-corner">
                     <div class="commentinfo">
                         <div class="commentauthor">
-                            ${curComment.authorName}
+                            <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${curComment.authorName}')">${curComment.authorName}</a>
                         </div>
                         <div class="commentlikes">
                             This Comment has ${curComment.likes} likes.

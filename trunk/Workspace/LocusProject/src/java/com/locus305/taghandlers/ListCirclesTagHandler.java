@@ -18,7 +18,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  * @author Owner
  */
 public class ListCirclesTagHandler extends SimpleTagSupport {
-    private String user;
+    private String user=null;
 
     /**
      * Called by the container to invoke this tag. 
@@ -32,11 +32,11 @@ public class ListCirclesTagHandler extends SimpleTagSupport {
         try {
             ArrayList<CircleBean> list;
             
-            //if(user==null){
+            if(user!=null){
+                list=DBManager.get().getCircles(user);
+            } else {
                 list=DBManager.get().getCircles();
-           // } else {
-                
-            //}
+            }
             JspFragment f = getJspBody();
             for(CircleBean b : list){
                 context.setAttribute("curCircle", b);

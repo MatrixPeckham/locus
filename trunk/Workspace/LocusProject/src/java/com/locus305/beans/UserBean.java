@@ -22,6 +22,16 @@ public class UserBean implements Serializable {
     private int zip = -1;
     private String phone="";
     private String preferences;
+    private int type=0;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
     
     public UserBean() {
     }
