@@ -46,7 +46,7 @@ body {
     right:0px;
     left:0px;
     background-color:white;
-    z-index:100;
+    z-index:99;
 }
 
 #login{
@@ -54,6 +54,7 @@ body {
     top:20px;
     right:20px;
     background-color:white;
+    z-index:100;
 }
 
 #content{
@@ -123,6 +124,9 @@ div.commentinfo{
 }
 div.commentauthor{
     
+}
+#memberof{
+    float:left;
 }
 div.commentdate{
     

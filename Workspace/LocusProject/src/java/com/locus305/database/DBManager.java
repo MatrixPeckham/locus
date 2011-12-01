@@ -35,6 +35,14 @@ public class DBManager {
         if (inst == null) {
             inst = new DBManager();
         }
+        try {
+            if(!inst.con.isValid(0)){
+                inst=new DBManager();
+            }
+        } catch (SQLException ex) {
+            inst=new DBManager();
+        }
+        
         return inst;
     }
 
@@ -126,17 +134,23 @@ public class DBManager {
                 ub.setFname(rs.getString("first_name"));
                 ub.setLname(rs.getString("last_name"));
                 ub.setPhone(rs.getString("telephone"));
+                ub.setState(rs.getString("state"));
                 ub.setUsername(username);
                 ub.setZip(rs.getInt("zip_code"));
                 ub.setUserid(rs.getInt("SSN"));
                 rs = select("preference", "user_preferences", "id=" + ub.getUserid());
+                ub.setPreferences("");
                 boolean first = true;
                 while (rs.next()) {
-                    if (!first) {
-                        ub.setPreferences(ub.getPreferences() + ",");
-                    }
-                    ub.setPreferences(ub.getPreferences() + rs.getString("preference"));
+                    ub.setPreferences(ub.getPreferences() + (first?"":",") + rs.getString("preference"));
                     first = false;
+                }
+                ub.setType(0);
+                if(contains("employees", "ssn", ub.getUserid()+"")){
+                    ub.setType(1);
+                }
+                if(contains("managers", "ssn", ub.getUserid()+"")){
+                    ub.setType(2);
                 }
             } else {
                 throw new Exception("User Name does not exist");
@@ -147,6 +161,37 @@ public class DBManager {
 
     }
 
+    public void fillUserBean(UserBean ub, String username) {
+        try {
+            ResultSet rs = select("*", "persons", "display_name='" + username + "'");
+            if (rs.next()) {
+                ub.setCity(rs.getString("city"));
+                ub.setFname(rs.getString("first_name"));
+                ub.setLname(rs.getString("last_name"));
+                ub.setState(rs.getString("state"));
+                ub.setUsername(username);
+                ub.setUserid(rs.getInt("SSN"));
+                rs = select("preference", "user_preferences", "id=" + ub.getUserid());
+                ub.setPreferences("");
+                boolean first = true;
+                while (rs.next()) {
+                    ub.setPreferences(ub.getPreferences() + (first?"":",") + rs.getString("preference"));
+                    first = false;
+                }
+                ub.setType(0);
+                if(contains("employees", "ssn", ub.getUserid()+"")){
+                    ub.setType(1);
+                }
+                if(contains("managers", "ssn", ub.getUserid()+"")){
+                    ub.setType(2);
+                }
+            }
+        } catch (SQLException ex) {
+        }
+
+    }
+    
+    
     public boolean updateUserData(UserBean user) {
         String addr = user.getAddr();
         String city = user.getCity();
@@ -529,7 +574,7 @@ public class DBManager {
     }
     
     public int getUserIDFromName(String name){
-        ResultSet rs = select("ssn", "persons", "display_name="+name);
+        ResultSet rs = select("ssn", "persons", "display_name=\""+name+"\"");
         try {
             if(rs.next()){
                 return rs.getInt(1);
@@ -539,6 +584,27 @@ public class DBManager {
         } catch (SQLException ex) {
             int i=0;
             return -1;
+        }
+    }
+
+    public ArrayList<CircleBean> getCircles(String user) {
+        try {
+            ArrayList<CircleBean> list = getCircles();
+            int id = getUserIDFromName(user);
+            ResultSet rs = select("circleid", "circle_memberships", "customerid=\""+id+"\"");
+            ArrayList<CircleBean> ret = new ArrayList<CircleBean>();
+            while(rs.next()){
+                for(CircleBean b : list){
+                    if(b.getId()==rs.getInt(1)){
+                        ret.add(b);
+                        break;
+                    }
+                }
+            }
+            return ret;
+        } catch (SQLException ex) {
+            int i =0;
+            return null;
         }
     }
     

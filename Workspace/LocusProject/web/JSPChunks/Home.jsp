@@ -10,6 +10,6 @@
 <h2>Currently Active Circles</h2>
 <l:LoopCircles>
     <div class="round-corner" style="margin:20px">
-        <span><h3><a href="javascript:void(0)" onclick="changePage('JSPChunks/ViewCircle.jsp?circle=${curCircle.id}')">${curCircle.name}</a></h3> created by <!--TODO make link--> <a href="javascript:void(0);">${curCircle.ownerName}</a></span>
+        <span><h3><a href="javascript:void(0)" onclick="changePage('JSPChunks/ViewCircle.jsp?circle=${curCircle.id}')">${curCircle.name}</a></h3> created by <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${curCircle.ownerName}')">${curCircle.ownerName}</a></span>
     </div>
 </l:LoopCircles>
