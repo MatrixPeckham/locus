@@ -18,91 +18,91 @@
     </servlet>
     <servlet>
         <servlet-name>TestEmail</servlet-name>
-        <servlet-class>com.locus305.servlets.TestEmail</servlet-class>
+        <servlet-class>com.locus305.servlets.testers.TestEmail</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TestName</servlet-name>
-        <servlet-class>com.locus305.servlets.TestName</servlet-class>
+        <servlet-class>com.locus305.servlets.testers.TestName</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterUser</servlet-name>
-        <servlet-class>com.locus305.servlets.RegisterUser</servlet-class>
+        <servlet-class>com.locus305.servlets.users.RegisterUser</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LocusLogo</servlet-name>
-        <servlet-class>com.locus305.servlets.LocusLogo</servlet-class>
+        <servlet-class>com.locus305.servlets.images.LocusLogo</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>com.locus305.servlets.Login</servlet-class>
+        <servlet-class>com.locus305.servlets.users.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>com.locus305.servlets.Logout</servlet-class>
+        <servlet-class>com.locus305.servlets.users.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUserInfo</servlet-name>
-        <servlet-class>com.locus305.servlets.EditUserInfo</servlet-class>
+        <servlet-class>com.locus305.servlets.users.EditUserInfo</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LikePost</servlet-name>
-        <servlet-class>com.locus305.servlets.LikePost</servlet-class>
+        <servlet-class>com.locus305.servlets.likeing.LikePost</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UnlikePost</servlet-name>
-        <servlet-class>com.locus305.servlets.UnlikePost</servlet-class>
+        <servlet-class>com.locus305.servlets.likeing.UnlikePost</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LikeComment</servlet-name>
-        <servlet-class>com.locus305.servlets.LikeComment</servlet-class>
+        <servlet-class>com.locus305.servlets.likeing.LikeComment</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UnlikeComment</servlet-name>
-        <servlet-class>com.locus305.servlets.UnlikeComment</servlet-class>
+        <servlet-class>com.locus305.servlets.likeing.UnlikeComment</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SendMessage</servlet-name>
-        <servlet-class>com.locus305.servlets.SendMessage</servlet-class>
+        <servlet-class>com.locus305.servlets.messaging.SendMessage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddPost</servlet-name>
-        <servlet-class>com.locus305.servlets.AddPost</servlet-class>
+        <servlet-class>com.locus305.servlets.posts.AddPost</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemovePost</servlet-name>
-        <servlet-class>com.locus305.servlets.RemovePost</servlet-class>
+        <servlet-class>com.locus305.servlets.posts.RemovePost</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddComment</servlet-name>
-        <servlet-class>com.locus305.servlets.AddComment</servlet-class>
+        <servlet-class>com.locus305.servlets.comments.AddComment</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RemoveComment</servlet-name>
-        <servlet-class>com.locus305.servlets.RemoveComment</servlet-class>
+        <servlet-class>com.locus305.servlets.comments.RemoveComment</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdatePost</servlet-name>
-        <servlet-class>com.locus305.servlets.UpdatePost</servlet-class>
+        <servlet-class>com.locus305.servlets.posts.UpdatePost</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateComment</servlet-name>
-        <servlet-class>com.locus305.servlets.UpdateComment</servlet-class>
+        <servlet-class>com.locus305.servlets.comments.UpdateComment</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>JoinCircle</servlet-name>
-        <servlet-class>com.locus305.servlets.JoinCircle</servlet-class>
+        <servlet-class>com.locus305.servlets.membership.JoinCircle</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AcceptMember</servlet-name>
-        <servlet-class>com.locus305.servlets.AcceptMember</servlet-class>
+        <servlet-class>com.locus305.servlets.membership.AcceptMember</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeclineMember</servlet-name>
-        <servlet-class>com.locus305.servlets.DeclineMember</servlet-class>
+        <servlet-class>com.locus305.servlets.membership.DeclineMember</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UnjoinCircle</servlet-name>
-        <servlet-class>com.locus305.servlets.UnjoinCircle</servlet-class>
+        <servlet-class>com.locus305.servlets.membership.UnjoinCircle</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
