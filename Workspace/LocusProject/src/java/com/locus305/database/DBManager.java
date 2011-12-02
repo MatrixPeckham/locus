@@ -345,6 +345,7 @@ public class DBManager {
                 ResultSet own = select("display_name", "persons", "ssn=" + id);
                 own.next();
                 b.setOwnerName(own.getString(1));
+                b.setPub(rs.getBoolean("public"));
                 list.add(b);
             }
             return list;
@@ -367,6 +368,7 @@ public class DBManager {
             ResultSet own = select("display_name", "persons", "ssn=" + id);
             own.next();
             b.setOwnerName(own.getString(1));
+            b.setPub(rs.getBoolean("public"));
             return b;
         } catch (SQLException ex) {
             int i = 0;
@@ -619,6 +621,7 @@ public class DBManager {
                 b.setName(rs.getString("circle_name"));
                 b.setId(rs.getInt("circle_id"));
                 b.setOwnerID(rs.getInt("owner_of_circle"));
+                b.setPub(rs.getBoolean("public"));
                 int id = b.getOwnerID();
                 ResultSet own = select("display_name", "persons", "ssn=" + id);
                 own.next();
@@ -631,25 +634,120 @@ public class DBManager {
 
         return list;
     }
+
+    public void updatePost(PostBean b) {
+        try {
+            String sql = "update wpeckham.posts set _date=now(), content=\"" + b.getContent() + "\" where post_id=" + b.getId();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
+    public void updateComment(CommentBean b) {
+        try {
+            String sql = "update wpeckham.comments set _date=now(), content=\"" + b.getContent() + "\" where comment_id=" + b.getId();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
+    public static boolean isMember(int uid, int circle) {
+        ResultSet rs = get().select("*", "circle_memberships", "customerid=" + uid + " and circleid=" + circle);
+        try {
+            return rs.next();
+        } catch (SQLException ex) {
+            int i = 0;
+            return false;
+        }
+    }
+
+    public String joinCircle(int uid, int circle) {
+        try {
+            CircleBean b = getCircle(circle);
+            String uname = getUserNameFromID(uid);
+            if (b.isPub()) {
+                String sql = "insert into wpeckham.circle_memberships (customerid,circleid) values (" + uid + "," + circle + ")";
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(sql);
+                return "You Joined " + b.getName() + " successfully.";
+            } else {
+                MessageBean m = new MessageBean();
+                String userlink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"changePage('JSPChunks/Profile.jsp?user=" + uname + "')\\\">" + uname + "</a>";
+                String circlelink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"changePage('JSPChunks/ViewCircle.jsp?circle=" + b.getId() + "')\\\">" + b.getName() + "</a>";
+                String acceptlink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"acceptMember(" + uid + "," + circle + ")\\\">" + "Accept" + "</a>";
+                String declinelink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"declineMember(" + uid + "," + circle + ")\\\">" + "Decline" + "</a>";
+                String message = userlink + " has requested to be in your circle: " + circlelink + " <br /> You can " + acceptlink + " or " + declinelink;
+                m.setContent(message);
+                m.setSubject("You have a Circle Membership Request");
+                m.setReceiver(b.getOwnerID());
+                m.setSender(0);
+                sendMessage(m);
+                return "You have requested to join " + b.getName() + ".";
+            }
+
+
+        } catch (SQLException e) {
+            int i = 0;
+        }
+        return "ERROR";
+    }
     
-    public void updatePost(PostBean b){
+    public void unjoinCircle(int uid, int circle){
         try {
-            String sql="update wpeckham.posts set _date=now(), content=\""+b.getContent()+"\" where post_id="+b.getId();
+            Statement stmt =con.createStatement();
+            String sql="delete from wpeckham.circle_memberships where circleid="+circle+" and customerid="+uid;
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i =0;
+        }
+    }
+
+    public void acceptUser(int uid, int circle) {
+        try {
+            CircleBean b = getCircle(circle);
+            String sql = "insert into wpeckham.circle_memberships (customerid,circleid) values (" + uid + "," + circle + ")";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
+            String circlelink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"changePage('JSPChunks/ViewCircle.jsp?circle=" + b.getId() + "')\\\">" + b.getName() + "</a>";
+            MessageBean m = new MessageBean();
+            m.setSubject("You were accepted into a Circle");
+            m.setContent("You were accepted into " + circlelink);
+            m.setSender(0);
+            m.setReceiver(uid);
+            sendMessage(m);
         } catch (SQLException ex) {
             int i = 0;
         }
     }
 
-        public void updateComment(CommentBean b){
+    public void declineUser(int uid, int circle) {
+        CircleBean b = getCircle(circle);
+        String circlelink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"changePage('JSPChunks/ViewCircle.jsp?circle=" + b.getId() + "')\\\">" + b.getName() + "</a>";
+        MessageBean m = new MessageBean();
+        m.setSubject("You were denied access into a Circle");
+        m.setContent("You were denied access into " + circlelink);
+        m.setSender(0);
+        m.setReceiver(uid);
+        sendMessage(m);
+    } 
+
+    public String getUserNameFromID(int uid) {
+        ResultSet rs = select("display_name", "persons", "ssn=" + uid);
         try {
-            String sql="update wpeckham.comments set _date=now(), content=\""+b.getContent()+"\" where comment_id="+b.getId();
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
+            if (rs.next()) {
+                return rs.getString(1);
+            } else {
+                return "";
+            }
         } catch (SQLException ex) {
             int i = 0;
+            return "";
         }
     }
-
+    
+    
 }

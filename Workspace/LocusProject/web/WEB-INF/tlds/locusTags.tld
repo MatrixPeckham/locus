@@ -83,6 +83,12 @@
     <function-signature>boolean doesLikePost(com.locus305.beans.UserBean, int)</function-signature>
   </function>
   <function>
+    <description>Returns true if user is a member of a circle</description>
+    <function-class>com.locus305.database.DBManager</function-class>
+    <name>isMember</name>
+    <function-signature>boolean isMember(int, int)</function-signature>
+  </function>
+  <function>
     <description>Returns true if user likes a comment</description>
     <function-class>com.locus305.beans.UserBean</function-class>
     <name>doesLikeComment</name>
