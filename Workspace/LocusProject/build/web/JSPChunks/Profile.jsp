@@ -77,6 +77,14 @@
                     </div>
                 </l:LoopCircles>
             </div>
+            <div id="ownerof" class="round-corner">
+                <h4>Owner of:</h4>
+                <div>
+                    <l:LoopOwnedCircles user="${prof.userid}">
+                        <h5><a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewCircle.jsp?circle=${curCircle.id}')">${curCircle.name}</a></h5>
+                    </l:LoopOwnedCircles>
+                </div>
+            </div>
         </div>
         <div class="clearmarker"></div>
     </c:if>

@@ -333,3 +333,27 @@ function removeComment(comment, circle){
     post("./RemoveComment.htm",params);
     changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
 }
+
+function editPost(post){
+    document.getElementById("postcontent"+post).style.display='none';
+    document.getElementById("postedit"+post).style.display='block';
+}
+
+function savePost(postid,circle){
+    var content = document.getElementById('posteditcontent'+postid).value;
+    var params="content="+content+"&post="+postid;
+    post("./UpdatePost.htm",params);
+    changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
+}
+
+function editComment(comment){
+    document.getElementById("commentcontent"+comment).style.display='none';
+    document.getElementById("commentedit"+comment).style.display='block';
+}
+
+function saveComment(commentid,circle){
+    var content = document.getElementById('commenteditcontent'+commentid).value;
+    var params="content="+content+"&comment="+commentid;
+    post("./UpdateComment.htm",params);
+    changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
+}

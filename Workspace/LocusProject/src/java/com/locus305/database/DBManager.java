@@ -36,13 +36,13 @@ public class DBManager {
             inst = new DBManager();
         }
         try {
-            if(!inst.con.isValid(0)){
-                inst=new DBManager();
+            if (!inst.con.isValid(0)) {
+                inst = new DBManager();
             }
         } catch (SQLException ex) {
-            inst=new DBManager();
+            inst = new DBManager();
         }
-        
+
         return inst;
     }
 
@@ -66,19 +66,19 @@ public class DBManager {
             Statement stmt = con.createStatement();
             return stmt.executeQuery(query);
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
             return null;
         }
     }
 
     public ResultSet select(String what, String from, String where, String orderby) {
         String query = format(GENERAL_SELECT, what, from, where);
-        query=query+" order by " + orderby + " asc";
+        query = query + " order by " + orderby + " asc";
         try {
             Statement stmt = con.createStatement();
             return stmt.executeQuery(query);
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
             return null;
         }
     }
@@ -142,14 +142,14 @@ public class DBManager {
                 ub.setPreferences("");
                 boolean first = true;
                 while (rs.next()) {
-                    ub.setPreferences(ub.getPreferences() + (first?"":",") + rs.getString("preference"));
+                    ub.setPreferences(ub.getPreferences() + (first ? "" : ",") + rs.getString("preference"));
                     first = false;
                 }
                 ub.setType(0);
-                if(contains("employees", "ssn", ub.getUserid()+"")){
+                if (contains("employees", "ssn", ub.getUserid() + "")) {
                     ub.setType(1);
                 }
-                if(contains("managers", "ssn", ub.getUserid()+"")){
+                if (contains("managers", "ssn", ub.getUserid() + "")) {
                     ub.setType(2);
                 }
             } else {
@@ -175,14 +175,14 @@ public class DBManager {
                 ub.setPreferences("");
                 boolean first = true;
                 while (rs.next()) {
-                    ub.setPreferences(ub.getPreferences() + (first?"":",") + rs.getString("preference"));
+                    ub.setPreferences(ub.getPreferences() + (first ? "" : ",") + rs.getString("preference"));
                     first = false;
                 }
                 ub.setType(0);
-                if(contains("employees", "ssn", ub.getUserid()+"")){
+                if (contains("employees", "ssn", ub.getUserid() + "")) {
                     ub.setType(1);
                 }
-                if(contains("managers", "ssn", ub.getUserid()+"")){
+                if (contains("managers", "ssn", ub.getUserid() + "")) {
                     ub.setType(2);
                 }
             }
@@ -190,8 +190,7 @@ public class DBManager {
         }
 
     }
-    
-    
+
     public boolean updateUserData(UserBean user) {
         String addr = user.getAddr();
         String city = user.getCity();
@@ -378,7 +377,7 @@ public class DBManager {
     public ArrayList<PostBean> getPosts(int circle) {
         try {
             ArrayList<PostBean> list = new ArrayList<PostBean>();
-            ResultSet posts = select("*", "posts", "circle=" + circle,"_date");
+            ResultSet posts = select("*", "posts", "circle=" + circle, "_date");
             while (posts.next()) {
                 PostBean b = new PostBean();
                 b.setAuthor(posts.getInt("author"));
@@ -405,7 +404,7 @@ public class DBManager {
     public ArrayList<CommentBean> getComments(int post) {
         try {
             ArrayList<CommentBean> list = new ArrayList<CommentBean>();
-            ResultSet comms = select("*", "comments", "post=" + post,"_date");
+            ResultSet comms = select("*", "comments", "post=" + post, "_date");
             while (comms.next()) {
                 CommentBean b = new CommentBean();
                 b.setAuthor(comms.getInt("author"));
@@ -436,8 +435,8 @@ public class DBManager {
     }
 
     public boolean userLikesPost(int userid, int post) {
-        ResultSet rs = select("*", "user_likes_post", "post_id="+post+" and user_id="+userid);
-        try { 
+        ResultSet rs = select("*", "user_likes_post", "post_id=" + post + " and user_id=" + userid);
+        try {
             return rs.next();
         } catch (SQLException ex) {
             return false;
@@ -445,7 +444,7 @@ public class DBManager {
     }
 
     public boolean userLikesComment(int userid, int comment) {
-        ResultSet rs = select("*", "user_likes_comment", "comment_id="+comment+" and user_id="+userid);
+        ResultSet rs = select("*", "user_likes_comment", "comment_id=" + comment + " and user_id=" + userid);
         try {
             return rs.next();
         } catch (SQLException ex) {
@@ -455,51 +454,51 @@ public class DBManager {
 
     public void likePost(int userid, int post) {
         try {
-            String sql = "insert into wpeckham.user_likes_post (user_id,post_id) values (" +userid+","+post+")";
-            Statement stmt = con.createStatement(); 
+            String sql = "insert into wpeckham.user_likes_post (user_id,post_id) values (" + userid + "," + post + ")";
+            Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             int i = 0;
         }
-        
+
     }
 
     public void unlikePost(int userid, int post) {
-        try{
-            String sql = "delete from wpeckham.user_likes_post where user_id=" + userid + " and post_id=" +post;
-            Statement stmt = con.createStatement(); 
+        try {
+            String sql = "delete from wpeckham.user_likes_post where user_id=" + userid + " and post_id=" + post;
+            Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
-        } catch(SQLException e){
-            int i =0; 
+        } catch (SQLException e) {
+            int i = 0;
         }
     }
 
     public void likeComment(int userid, int comment) {
         try {
-            String sql = "insert into wpeckham.user_likes_comment (user_id,comment_id) values (" +userid+","+comment+")";
-            Statement stmt = con.createStatement(); 
+            String sql = "insert into wpeckham.user_likes_comment (user_id,comment_id) values (" + userid + "," + comment + ")";
+            Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             int i = 0;
         }
-        
+
     }
 
     public void unlikeComment(int userid, int comment) {
-        try{
-            String sql = "delete from wpeckham.user_likes_comment where user_id=" + userid + " and comment_id=" +comment;
-            Statement stmt = con.createStatement(); 
+        try {
+            String sql = "delete from wpeckham.user_likes_comment where user_id=" + userid + " and comment_id=" + comment;
+            Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
-        } catch(SQLException e){
-            int i =0; 
+        } catch (SQLException e) {
+            int i = 0;
         }
     }
-    
-    public ArrayList<MessageBean> getMessages(int userid){
+
+    public ArrayList<MessageBean> getMessages(int userid) {
         try {
-            ArrayList<MessageBean> list = new ArrayList<MessageBean>(); 
-            ResultSet rs = select("*", "messages", "receiver="+userid, "_date");
-            while(rs.next()){
+            ArrayList<MessageBean> list = new ArrayList<MessageBean>();
+            ResultSet rs = select("*", "messages", "receiver=" + userid, "_date");
+            while (rs.next()) {
                 MessageBean b = new MessageBean();
                 b.setContent(rs.getString("content"));
                 b.setDate(rs.getDate("_date"));
@@ -519,12 +518,12 @@ public class DBManager {
         } catch (SQLException ex) {
             return null;
         }
-        
+
     }
-    
-    public boolean sendMessage(MessageBean b){
+
+    public boolean sendMessage(MessageBean b) {
         try {
-            String sql = "insert into wpeckham.messages (sender,receiver,subject,content,_date) values (" + b.getSender() + "," + b.getReceiver() + ",\""+b.getSubject() + "\",\"" +b.getContent() + "\",now())";
+            String sql = "insert into wpeckham.messages (sender,receiver,subject,content,_date) values (" + b.getSender() + "," + b.getReceiver() + ",\"" + b.getSubject() + "\",\"" + b.getContent() + "\",now())";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             return true;
@@ -532,19 +531,20 @@ public class DBManager {
             return false;
         }
     }
-    
-    public void addPost(PostBean b){
+
+    public void addPost(PostBean b) {
         try {
-            String sql = "insert into wpeckham.posts (circle,content,author,_date) values (" + b.getCircle() + ",\"" + b.getContent()  + "\"," +b.getAuthor() + ",now())";
+            String sql = "insert into wpeckham.posts (circle,content,author,_date) values (" + b.getCircle() + ",\"" + b.getContent() + "\"," + b.getAuthor() + ",now())";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             int i = 0;
         }
     }
-    public void addComment(CommentBean b){
+
+    public void addComment(CommentBean b) {
         try {
-            String sql = "insert into wpeckham.comments (post,content,author,_date) values (" + b.getPost() + ",\"" + b.getContent()  + "\"," +b.getAuthor() + ",now())";
+            String sql = "insert into wpeckham.comments (post,content,author,_date) values (" + b.getPost() + ",\"" + b.getContent() + "\"," + b.getAuthor() + ",now())";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -554,35 +554,36 @@ public class DBManager {
 
     public void removePost(int post) {
         try {
-            String sql = "delete from wpeckham.posts where post_id="+post;
+            String sql = "delete from wpeckham.posts where post_id=" + post;
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             int i = 0;
         }
-        
+
     }
+
     public void removeComment(int comment) {
         try {
-            String sql = "delete from wpeckham.comments where comment_id="+comment;
+            String sql = "delete from wpeckham.comments where comment_id=" + comment;
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             int i = 0;
         }
-        
+
     }
-    
-    public int getUserIDFromName(String name){
-        ResultSet rs = select("ssn", "persons", "display_name=\""+name+"\"");
+
+    public int getUserIDFromName(String name) {
+        ResultSet rs = select("ssn", "persons", "display_name=\"" + name + "\"");
         try {
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getInt(1);
             } else {
                 return -1;
             }
         } catch (SQLException ex) {
-            int i=0;
+            int i = 0;
             return -1;
         }
     }
@@ -591,11 +592,11 @@ public class DBManager {
         try {
             ArrayList<CircleBean> list = getCircles();
             int id = getUserIDFromName(user);
-            ResultSet rs = select("circleid", "circle_memberships", "customerid=\""+id+"\"");
+            ResultSet rs = select("circleid", "circle_memberships", "customerid=\"" + id + "\"");
             ArrayList<CircleBean> ret = new ArrayList<CircleBean>();
-            while(rs.next()){
-                for(CircleBean b : list){
-                    if(b.getId()==rs.getInt(1)){
+            while (rs.next()) {
+                for (CircleBean b : list) {
+                    if (b.getId() == rs.getInt(1)) {
                         ret.add(b);
                         break;
                     }
@@ -603,9 +604,52 @@ public class DBManager {
             }
             return ret;
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
             return null;
         }
     }
+
+    public ArrayList<CircleBean> getOwnedCircles(int user) {
+        ArrayList<CircleBean> list = new ArrayList<CircleBean>();
+        ResultSet rs = select("*", "circles", "owner_of_circle=" + user);
+        try {
+            while (rs.next()) {
+                CircleBean b = new CircleBean();
+                b.setCatagory(rs.getString("catagory"));
+                b.setName(rs.getString("circle_name"));
+                b.setId(rs.getInt("circle_id"));
+                b.setOwnerID(rs.getInt("owner_of_circle"));
+                int id = b.getOwnerID();
+                ResultSet own = select("display_name", "persons", "ssn=" + id);
+                own.next();
+                b.setOwnerName(own.getString(1));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+
+        return list;
+    }
     
+    public void updatePost(PostBean b){
+        try {
+            String sql="update wpeckham.posts set _date=now(), content=\""+b.getContent()+"\" where post_id="+b.getId();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
+        public void updateComment(CommentBean b){
+        try {
+            String sql="update wpeckham.comments set _date=now(), content=\""+b.getContent()+"\" where comment_id="+b.getId();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
 }
