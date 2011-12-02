@@ -41,7 +41,23 @@
                 </div>
             </div>
             <div class="postcontent">
-                ${curPost.content}
+                <div id="postcontent${curPost.id}">
+                    ${curPost.content}
+                    <c:if test="${userInfo.userid==circle.ownerID || userInfo.userid==curPost.author}">
+                        <div>
+                            <a href="javascript:void(0);" onclick="editPost('${curPost.id}')">
+                                Edit
+                            </a>
+                        </div>
+                    </c:if>
+                </div>
+                <div id="postedit${curPost.id}" class="hidden">
+                    <form action="javascript:void(0);" id="">
+                        <textarea id="posteditcontent${curPost.id}">${curPost.content}</textarea>
+                        <br />
+                        <input type="submit" onclick="savePost('${curPost.id}','${circle.id}')" value="Save" /> 
+                    </form>
+                </div>
             </div>
             <l:LoopComments post="${curPost.id}">
                 <div class="commentview round-corner">
@@ -72,7 +88,23 @@
                         </div>
                     </div>
                     <div class="commentcontent">
-                        ${curComment.content}
+                        <div id="commentcontent${curComment.id}">
+                            ${curComment.content}
+                            <c:if test="${userInfo.userid==circle.ownerID || userInfo.userid==curComment.author}">
+                                <div>
+                                    <a href="javascript:void(0);" onclick="editComment('${curComment.id}')">
+                                        Edit
+                                    </a>
+                                </div>
+                            </c:if>
+                        </div>
+                    </div>
+                    <div id="commentedit${curComment.id}" class="hidden">
+                        <form action="javascript:void(0);" id="">
+                            <textarea id="commenteditcontent${curComment.id}">${curComment.content}</textarea>
+                            <br />
+                            <input type="submit" onclick="saveComment('${curComment.id}','${circle.id}')" value="Save" /> 
+                        </form>
                     </div>
                     <div class="clearmarker" ></div>
                 </div>

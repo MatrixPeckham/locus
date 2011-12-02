@@ -80,6 +80,14 @@
         <servlet-name>RemoveComment</servlet-name>
         <servlet-class>com.locus305.servlets.RemoveComment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdatePost</servlet-name>
+        <servlet-class>com.locus305.servlets.UpdatePost</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateComment</servlet-name>
+        <servlet-class>com.locus305.servlets.UpdateComment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -148,6 +156,14 @@
     <servlet-mapping>
         <servlet-name>RemoveComment</servlet-name>
         <url-pattern>/RemoveComment.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePost</servlet-name>
+        <url-pattern>/UpdatePost.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateComment</servlet-name>
+        <url-pattern>/UpdateComment.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

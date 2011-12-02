@@ -116,6 +116,17 @@
       <type>java.lang.String</type>
     </attribute>
   </tag>
+  <tag>
+    <name>LoopOwnedCircles</name>
+    <tag-class>com.locus305.taghandlers.LoopOwnedCirclesTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>user</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>
