@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Owner
  */
 public class MessageBean implements Serializable{
-    final int MAX_CONTENT_LENGTH = 100;
+    final int MAX_CONTENT_LENGTH = 1000;
     final int MAX_SUBJECT_LENGTH = 50;
     private int id=-1;
     private Date date=null;

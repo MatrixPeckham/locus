@@ -11,6 +11,18 @@
     <div id="circlehead">
         <h1>${circle.name}</h1>
         <h3>Owner: <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${circle.ownerName}')">${circle.ownerName}</a></h3>
+        <h4>
+            <c:choose>
+                <c:when test="${ !l:isMember(sessionScope.userInfo.userid,circle.id) }">
+                    You are not a member of this circle, <a href="javascript:void(0);" onclick="joinCircle(${sessionScope.userInfo.userid},${circle.id})" >Join?</a>
+                    <br />
+                    <span class="hidden" id="joinmessage">You have requested to join this circle, if you are accepted or declined you will receive a message.</span>
+                </c:when>
+                <c:otherwise>
+                    You are a member of this circle, <a href="javascript:void(0);" onclick="unjoinCircle(${sessionScope.userInfo.userid},${circle.id})" >Unjoin?</a>
+                </c:otherwise>
+            </c:choose>
+        </h4>
     </div>
     <l:LoopPosts circle="${circle.id}" >
         <div class="postview round-corner">
@@ -21,7 +33,7 @@
                 <div class="postlikes">
                     This Post has ${curPost.likes} likes.
                     <c:choose>
-                        <c:when test="${userInfo.userid!=-1 && !l:doesLikePost(userInfo,curPost.id)}">
+                        <c:when test="${userInfo.userid!=-1 && !l:doesLikePost(userInfo,curPost.id) }">
                             <a href="javascript:void(0);" onclick="likePost('${userInfo.userid}','${curPost.id}','${circle.id}')">Like</a>
                         </c:when>
                         <c:when test="${userInfo.userid!=-1 && l:doesLikePost(userInfo,curPost.id)}">
@@ -111,7 +123,7 @@
             </l:LoopComments>
             <div class="clearmarker"></div>
             <c:choose>
-                <c:when test="${userInfo.userid!=-1}">
+                <c:when test="${userInfo.userid!=-1 && l:isMember(sessionScope.userInfo.userid,circle.id)}">
                     <div id="newcommentview"> 
                         <form action="javascript:void(0)" onsubmit="" >
                             <textarea id="newcomment${curPost.id}"></textarea><br />
@@ -119,20 +131,26 @@
                         </form>
                     </div>
                 </c:when>
+                <c:when test="${userInfo.userid!=-1 && !l:isMember(sessionScope.userInfo.userid,circle.id)}">
+                    You must be a member of the circle to add a Comment.
+                </c:when>
                 <c:otherwise>
-                    You must be logged in to add a post.
+                    You must be logged in to add a comment.
                 </c:otherwise>
             </c:choose>
         </div>
     </l:LoopPosts>
     <c:choose>
-        <c:when test="${userInfo.userid!=-1}">
+        <c:when test="${userInfo.userid!=-1 && l:isMember(sessionScope.userInfo.userid,circle.id)}">
             <div id="newpostview">
                 <form action="javascript:void(0)" onsubmit="" >
                     <textarea id="newpost"></textarea><br />
                     <input type="submit" onclick="addPost('${circle.id}')" value="Add Post"></input>
                 </form>
             </div>
+        </c:when>
+        <c:when test="${userInfo.userid!=-1 && !l:isMember(sessionScope.userInfo.userid,circle.id)}">
+            You must be a member of the circle to add a post.
         </c:when>
         <c:otherwise>
             You must be logged in to add a post.

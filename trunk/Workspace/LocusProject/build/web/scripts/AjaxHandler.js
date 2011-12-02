@@ -34,6 +34,7 @@ function post(page, params){
     xmlhttp.open("POST",page,false);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send(params);
+    return xmlhttp.response;
 }
 
 function emailExists(str){
@@ -356,4 +357,35 @@ function saveComment(commentid,circle){
     var params="content="+content+"&comment="+commentid;
     post("./UpdateComment.htm",params);
     changePage("JSPChunks/ViewCircle.jsp?circle="+circle);
+}
+
+function joinCircle(uid,circle){
+    var params='user='+uid+"&circle="+circle;
+    var resp = post("./JoinCircle.htm",params);
+    if(resp.indexOf('Joined')!=-1){
+        changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+        return;
+    } else 
+    if(resp.indexOf('ERROR')!=-1){
+        return;
+    } else {
+    
+        document.getElementById("joinmessage").style.display='block';
+    }
+}
+
+function acceptMember(uid,circle){
+    var params='user='+uid+"&circle="+circle;
+    var resp = post("./AcceptMember.htm",params);
+}
+
+function declineMember(uid,circle){
+    var params='user='+uid+"&circle="+circle;
+    var resp = post("./DeclineMember.htm",params);
+}
+
+function unjoinCircle(uid,circle){
+    var params='user='+uid+"&circle="+circle;
+    var resp = post("./UnjoinCircle.htm",params);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
 }

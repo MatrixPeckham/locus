@@ -88,6 +88,22 @@
         <servlet-name>UpdateComment</servlet-name>
         <servlet-class>com.locus305.servlets.UpdateComment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JoinCircle</servlet-name>
+        <servlet-class>com.locus305.servlets.JoinCircle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptMember</servlet-name>
+        <servlet-class>com.locus305.servlets.AcceptMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeclineMember</servlet-name>
+        <servlet-class>com.locus305.servlets.DeclineMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnjoinCircle</servlet-name>
+        <servlet-class>com.locus305.servlets.UnjoinCircle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -164,6 +180,22 @@
     <servlet-mapping>
         <servlet-name>UpdateComment</servlet-name>
         <url-pattern>/UpdateComment.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JoinCircle</servlet-name>
+        <url-pattern>/JoinCircle.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptMember</servlet-name>
+        <url-pattern>/AcceptMember.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeclineMember</servlet-name>
+        <url-pattern>/DeclineMember.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnjoinCircle</servlet-name>
+        <url-pattern>/UnjoinCircle.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

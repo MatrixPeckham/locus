@@ -16,6 +16,15 @@ public class CircleBean implements Serializable{
     private int ownerID=-1;
     private String catagory="";
     private String ownerName="";
+    private boolean pub = true;
+
+    public boolean isPub() {
+        return pub;
+    }
+
+    public void setPub(boolean pub) {
+        this.pub = pub;
+    }
 
     public String getOwnerName() {
         return ownerName;
