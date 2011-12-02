@@ -31,6 +31,10 @@
                     </div>
                 </div>
             </l:ListMessages>
+            <div>
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/SendMessage.jsp')">Send New Message</a>
+            </div>
+            
         </c:when>
         <c:otherwise>
             You must be logged in to view this page.

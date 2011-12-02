@@ -278,13 +278,35 @@ function showMessage(index){
     document.getElementById("messagecontent"+index).style.display='block';
 }
 
-function sendMessage(targetUser){
-    var content = document.getElementById("newmessage").value;
-    var params = "recipient="+recipient+"&subject="+subject+"&content="+content;
+function sendMessage(){
+    var msgcontent = document.getElementById("msgcontent").value;
+    var subject = document.getElementById("subject").value;
+    var recipient = document.getElementById("recipient").value;
+    var params = "recipient="+recipient+"&subject="+subject+"&msgcontent="+msgcontent;
     post("./SendMessage.htm",params);
     changePage("JSPChunks/ViewMessages.jsp");
 }
 
+function targetNameValid(str){
+    var xmlhttp=getRequest();
+    document.getElementById("lookupname").style.display = 'block';
+    xmlhttp.onreadystatechange=function()
+    {
+        document.getElementById("lookupname").style.display = 'none';
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            var mess = xmlhttp.responseText;
+            //document.getElementById("content").innerHTML=mess;
+            if(mess=="true")
+                document.getElementById("usernotfound").style.display = 'none';
+            else
+                document.getElementById("usernotfound").style.display = 'block';
+        } 
+    }
+    xmlhttp.open("POST","./testName.htm",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("name="+encodeURI(str));
+}
 
 function addPost(circle){
     var content = document.getElementById("newpost").value;
