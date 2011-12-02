@@ -11,6 +11,16 @@
     <div id="circlehead">
         <h1>${circle.name}</h1>
         <h3>Owner: <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${circle.ownerName}')">${circle.ownerName}</a></h3>
+        <h5>
+            Members:
+            <l:LoopMembers circle="${circle.id}">
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${curUsr.username}')">${curUsr.username}</a>
+                <c:if test="${userInfo.userid==circle.ownerID}">
+                    <a href="javascript:void(0);" onclick="removeMember('${curUsr.userid}','${circle.id}')">(remove)</a>
+                </c:if>
+                    , 
+            </l:LoopMembers>
+        </h5>
         <h4>
             <c:choose>
                 <c:when test="${ !l:isMember(sessionScope.userInfo.userid,circle.id) }">

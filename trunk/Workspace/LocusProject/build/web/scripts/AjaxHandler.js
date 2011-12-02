@@ -389,3 +389,9 @@ function unjoinCircle(uid,circle){
     var resp = post("./UnjoinCircle.htm",params);
     changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
 }
+
+function removeMember(uid,circle){
+    var params='user='+uid+"&circle="+circle;
+    var resp = post("./RemoveUser.htm",params);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+}

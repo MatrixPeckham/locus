@@ -104,6 +104,10 @@
         <servlet-name>UnjoinCircle</servlet-name>
         <servlet-class>com.locus305.servlets.membership.UnjoinCircle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveUser</servlet-name>
+        <servlet-class>com.locus305.servlets.membership.RemoveUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -196,6 +200,10 @@
     <servlet-mapping>
         <servlet-name>UnjoinCircle</servlet-name>
         <url-pattern>/UnjoinCircle.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUser</servlet-name>
+        <url-pattern>/RemoveUser.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
