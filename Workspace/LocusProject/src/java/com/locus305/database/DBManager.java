@@ -695,14 +695,14 @@ public class DBManager {
         }
         return "ERROR";
     }
-    
-    public void unjoinCircle(int uid, int circle){
+
+    public void unjoinCircle(int uid, int circle) {
         try {
-            Statement stmt =con.createStatement();
-            String sql="delete from wpeckham.circle_memberships where circleid="+circle+" and customerid="+uid;
+            Statement stmt = con.createStatement();
+            String sql = "delete from wpeckham.circle_memberships where circleid=" + circle + " and customerid=" + uid;
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
         }
     }
 
@@ -733,7 +733,25 @@ public class DBManager {
         m.setSender(0);
         m.setReceiver(uid);
         sendMessage(m);
-    } 
+    }
+
+    public void removeMember(int uid, int circle) {
+        try {
+            CircleBean b = getCircle(circle);
+            Statement stmt = con.createStatement();
+            String sql = "delete from wpeckham.circle_memberships where circleid=" + circle + " and customerid=" + uid;
+            stmt.executeUpdate(sql);
+            String circlelink = "<a href=\\\"javascript:void(0);\\\" onclick=\\\"changePage('JSPChunks/ViewCircle.jsp?circle=" + b.getId() + "')\\\">" + b.getName() + "</a>";
+            MessageBean m = new MessageBean();
+            m.setSubject("You were removed from a Circle");
+            m.setContent("You were removed from " + circlelink);
+            m.setSender(0);
+            m.setReceiver(uid);
+            sendMessage(m);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
 
     public String getUserNameFromID(int uid) {
         ResultSet rs = select("display_name", "persons", "ssn=" + uid);
@@ -748,6 +766,20 @@ public class DBManager {
             return "";
         }
     }
-    
-    
+
+    public ArrayList<UserBean> listMembers(int circle) {
+        ArrayList<UserBean> list = new ArrayList<UserBean>();
+        try { 
+            ResultSet rs = select("customerid", "circle_memberships", "circleid=" + circle);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                UserBean b = new UserBean();
+                fillUserBean(b, getUserNameFromID(id));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        return list;
+    }
 }

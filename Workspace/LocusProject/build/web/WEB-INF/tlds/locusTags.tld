@@ -133,6 +133,17 @@
       <type>int</type>
     </attribute>
   </tag>
+  <tag>
+    <name>LoopMembers</name>
+    <tag-class>com.locus305.taghandlers.LoopMembersTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>circle</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>
