@@ -288,6 +288,12 @@ function sendMessage(){
     changePage("JSPChunks/ViewMessages.jsp");
 }
 
+function delMessage(msgToDelete){
+    var params = "messageToDelete=" + msgToDelete;
+    post("./DelMsg.htm",params);
+    changePage("JSPChunks/ViewMessages.jsp");
+}
+
 function targetNameValid(str){
     var xmlhttp=getRequest();
     document.getElementById("lookupname").style.display = 'block';

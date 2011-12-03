@@ -522,6 +522,17 @@ public class DBManager {
         }
 
     }
+    
+    public boolean removeMessage(int id){
+        try{
+            String sql = "delete from wpeckham.messages where Message_Id ="+id;
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            return true;
+        } catch (SQLException ex){
+            return false;
+        }
+    }
 
     public boolean sendMessage(MessageBean b) {
         try {
