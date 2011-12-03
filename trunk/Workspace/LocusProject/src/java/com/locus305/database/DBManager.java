@@ -793,4 +793,17 @@ public class DBManager {
         }
         return list;
     }
+    
+    public void editCircle(CircleBean b){
+        try{
+            Statement stmt = con.createStatement();
+            String sql="update wpeckham.circles set circle_name=\""+b.getName()+"\",catagory=\"" + b.getCatagory() + "\",public="+(b.isPub() ? 1 :0)+ " where circle_id="+b.getId();
+            stmt.executeUpdate(sql);
+        }catch(SQLException e){
+            int i = 0;
+        }
+    }
+    
 }
+
+
