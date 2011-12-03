@@ -8,7 +8,7 @@
 
 <div id="userinfo" class="round-corner">
     <l:GetUser usr="${param.user}" var="prof" />
-    <div>
+    <div> 
         <h1>Profile ${param.user}</h1>
     </div>
     <c:choose>

@@ -112,6 +112,10 @@
         <servlet-name>DelMsg</servlet-name>
         <servlet-class>com.locus305.servlets.messaging.DelMsg</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditCircle</servlet-name>
+        <servlet-class>com.locus305.servlets.circles.EditCircle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -212,6 +216,10 @@
     <servlet-mapping>
         <servlet-name>DelMsg</servlet-name>
         <url-pattern>/DelMsg.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCircle</servlet-name>
+        <url-pattern>/EditCircle.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

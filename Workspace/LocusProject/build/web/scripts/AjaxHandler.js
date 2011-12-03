@@ -401,3 +401,17 @@ function removeMember(uid,circle){
     var resp = post("./RemoveUser.htm",params);
     changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
 }
+
+function editCircle(){
+    document.getElementById("circlehead").style.display='none';
+    document.getElementById("editcirclediv").style.display='block';
+}
+
+function saveCircle(circle){
+    var name=document.getElementById("editcirclename").value;
+    var pub=document.getElementById("publiccheck").checked;
+    var cat=document.getElementById("editcirclecatagory").value;
+    var params = "name="+name+"&pub="+pub+"&circle="+circle+"&catagory="+cat;
+    post("./EditCircle.htm",params);
+    changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
+}
