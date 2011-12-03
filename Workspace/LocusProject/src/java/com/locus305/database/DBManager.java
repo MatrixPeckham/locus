@@ -522,14 +522,14 @@ public class DBManager {
         }
 
     }
-    
-    public boolean removeMessage(int id){
-        try{
-            String sql = "delete from wpeckham.messages where Message_Id ="+id;
+
+    public boolean removeMessage(int id) {
+        try {
+            String sql = "delete from wpeckham.messages where Message_Id =" + id;
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             return true;
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             return false;
         }
     }
@@ -780,7 +780,7 @@ public class DBManager {
 
     public ArrayList<UserBean> listMembers(int circle) {
         ArrayList<UserBean> list = new ArrayList<UserBean>();
-        try { 
+        try {
             ResultSet rs = select("customerid", "circle_memberships", "circleid=" + circle);
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -793,17 +793,39 @@ public class DBManager {
         }
         return list;
     }
-    
-    public void editCircle(CircleBean b){
-        try{
+
+    public void editCircle(CircleBean b) {
+        try {
             Statement stmt = con.createStatement();
-            String sql="update wpeckham.circles set circle_name=\""+b.getName()+"\",catagory=\"" + b.getCatagory() + "\",public="+(b.isPub() ? 1 :0)+ " where circle_id="+b.getId();
+            String sql = "update wpeckham.circles set circle_name=\"" + b.getName() + "\",catagory=\"" + b.getCatagory() + "\",public=" + (b.isPub() ? 1 : 0) + " where circle_id=" + b.getId();
             stmt.executeUpdate(sql);
-        }catch(SQLException e){
+        } catch (SQLException e) {
+            int i = 0;
+        }
+    }
+
+    public void newCircle(CircleBean b) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "insert into wpeckham.circles (circle_name,owner_of_circle,catagory,public) values (\"" + b.getName() + "\"," + b.getOwnerID() + ",\"" + b.getCatagory() + "\"," + (b.isPub() ? 1 : 0) + ")";
+            stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            sql = "insert into wpeckham.circle_memberships (customerid,circleid) values (" + b.getOwnerID() + "," + rs.getInt(1) + ")";
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
             int i = 0;
         }
     }
     
+    public void removeCircle(int circle){
+        String sql="delete from wpeckham.circles where circle_id="+circle;
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i =0;
+        }
+    }
+    
 }
-
-

@@ -415,3 +415,18 @@ function saveCircle(circle){
     post("./EditCircle.htm",params);
     changePage('JSPChunks/ViewCircle.jsp?circle='+circle);
 }
+
+function newCircle(username, userid){
+    var name=document.getElementById("newcirclename").value;
+    var pub=document.getElementById("newpubliccheck").checked;
+    var cat=document.getElementById("newcirclecatagory").value;
+    var params = "name="+name+"&pub="+pub+"&catagory="+cat+"&user="+userid;
+    post("./NewCircle.htm",params);
+    changePage('JSPChunks/Profile.jsp?user='+username);
+}
+
+function removeCircle(circle,username){
+    var params = "circle="+circle;
+    post("./RemoveCircle.htm",params);
+    changePage('JSPChunks/Profile.jsp?user='+username);
+}

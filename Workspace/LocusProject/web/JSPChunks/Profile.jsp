@@ -81,8 +81,14 @@
                 <h4>Owner of:</h4>
                 <div>
                     <l:LoopOwnedCircles user="${prof.userid}">
-                        <h5><a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewCircle.jsp?circle=${curCircle.id}')">${curCircle.name}</a></h5>
+                        <h5><a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewCircle.jsp?circle=${curCircle.id}')">${curCircle.name}</a> <a href="javascript:void(0);" onclick="removeCircle('${curCircle.id}','${sessionScope.userInfo.username}')"> (remove)</a></h5>
                     </l:LoopOwnedCircles>
+                    <form onsubmit="javascript:void(0)" action="javascript:void(0)" >
+                        Name: <input type="text" id="newcirclename" value=""></input>
+                         Category: <input type="text" id="newcirclecatagory" value=""></input>
+                        <input type="checkbox" id="newpubliccheck" checked>Public</input>
+                        <input type="submit" value="Create" onclick="newCircle('${sessionScope.userInfo.username}','${sessionScope.userInfo.userid}')"></input>
+                    </form>
                 </div>
             </div>
         </div>
