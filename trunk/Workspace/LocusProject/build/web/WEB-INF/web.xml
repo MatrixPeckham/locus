@@ -116,6 +116,14 @@
         <servlet-name>EditCircle</servlet-name>
         <servlet-class>com.locus305.servlets.circles.EditCircle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewCircle</servlet-name>
+        <servlet-class>com.locus305.servlets.circles.NewCircle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveCircle</servlet-name>
+        <servlet-class>com.locus305.servlets.circles.RemoveCircle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -220,6 +228,14 @@
     <servlet-mapping>
         <servlet-name>EditCircle</servlet-name>
         <url-pattern>/EditCircle.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewCircle</servlet-name>
+        <url-pattern>/NewCircle.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCircle</servlet-name>
+        <url-pattern>/RemoveCircle.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
