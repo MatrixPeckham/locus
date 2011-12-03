@@ -29,6 +29,9 @@
                     <div id="messagecontent${curIndex}" class="hidden">
                         ${curMessage.content}
                     </div>
+                        <div id="deletemessage${curIndex}">
+                            <a href ="javascript:void(0);" onclick="delMessage(${curMessage.id})">Delete</a>
+                        </div>
                 </div>
             </l:ListMessages>
             <div>
