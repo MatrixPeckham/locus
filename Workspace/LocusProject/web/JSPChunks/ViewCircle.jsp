@@ -25,16 +25,20 @@
             </h5>
             <h4>
                 <c:choose>
-                    <c:when test="${ !l:isMember(sessionScope.userInfo.userid,circle.id) && !userInfo.username==circle.ownerName}">
+                    <c:when test="${ !l:isMember(sessionScope.userInfo.userid,circle.id) && !(sessionScope.userInfo.username==circle.ownerName)}">
                         You are not a member of this circle, <a href="javascript:void(0);" onclick="joinCircle(${sessionScope.userInfo.userid},${circle.id})" >Join?</a>
                         <br />
                         <span class="hidden" id="joinmessage">You have requested to join this circle, if you are accepted or declined you will receive a message.</span>
                     </c:when>
-                    <c:when test="${userInfo.username==circle.ownerName}">
+                    <c:when test="${sessionScope.userInfo.username==circle.ownerName && l:isMember(sessionScope.userInfo.userid,circle.id) }">
                         You own this circle. <a href="javascript:void(0);" onclick="editCircle()">Edit</a>
                     </c:when>
-                    <c:otherwise>
+                    <c:when test="${ l:isMember(sessionScope.userInfo.userid,circle.id) && !(sessionScope.userInfo.username==circle.ownerName)}">
                         You are a member of this circle, <a href="javascript:void(0);" onclick="unjoinCircle(${sessionScope.userInfo.userid},${circle.id})" >Unjoin?</a>
+                    </c:when>
+                    <c:otherwise>
+                        It is unknown if you are a member. ${sessionScope.userInfo.userid} ${sessionScope.userInfo.username}
+                        ${l:isMember(sessionScope.userInfo.userid,circle.id)}
                     </c:otherwise>
                 </c:choose>
             </h4>
