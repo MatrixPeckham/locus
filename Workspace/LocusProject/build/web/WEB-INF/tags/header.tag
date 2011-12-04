@@ -25,7 +25,10 @@
                 <a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewMessages.jsp')">View Messagess</a>
             </td>
             <c:if test="${sessionScope.userInfo.type==1}">
-                <td><a href="javascript:void(0);" onclick="">Manage Advertisements</a></td>
+                <td><a href="javascript:void(0);" onclick="">Employee Page</a></td>
+            </c:if>
+            <c:if test="${sessionScope.userInfo.type==2}">
+                <td><a href="javascript:void(0);" onclick="">Manager Page</a></td>
             </c:if>
             <td>
                 <a href="TroubleShooting.jsp">Troubleshooting</a>
