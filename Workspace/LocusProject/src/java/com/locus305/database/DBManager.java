@@ -5,6 +5,7 @@
 package com.locus305.database;
 
 import com.locus305.beans.AccountBean;
+import com.locus305.beans.AdBean;
 import com.locus305.beans.CircleBean;
 import com.locus305.beans.CommentBean;
 import com.locus305.beans.EmployeeBean;
@@ -908,4 +909,41 @@ public class DBManager {
             int i = 0;
         }
     }
+    public ArrayList<AdBean> getAdsForUser(int uid){
+        ArrayList<AdBean> userAds = new ArrayList<AdBean>();
+        try{
+            Statement stmt = con.createStatement();
+            String sql;
+            if(uid > 0){
+                sql ="CALL getAdsForUser(" + uid +")";    
+            }
+            else{
+                sql = "SELECT * FROM wpeckham.advertisement";
+            }
+            ResultSet rs =  stmt.executeQuery(sql);
+            ArrayList<AdBean> allResults = new ArrayList<AdBean>();
+            while(rs.next())
+            {
+                AdBean b = new AdBean();
+                b.setId(rs.getInt(1));
+                b.setEmpId(rs.getInt(2));
+                b.setCat(rs.getString(3));
+                b.setDate(rs.getDate(4));
+                b.setCompany(rs.getString(5));
+                b.setItem(rs.getString(6));
+                b.setAdContent(rs.getString(7));
+                b.setUnitPrice(rs.getInt(8));
+                b.setAvailable(rs.getInt(9));
+                userAds.add(b);
+            }
+            if(allResults.size() <= 0){
+                allResults = getAdsForUser(-1);
+            }
+        }
+        catch (SQLException ex){
+            int i = 0;
+        }
+        return userAds;
+    }
+    
 }
