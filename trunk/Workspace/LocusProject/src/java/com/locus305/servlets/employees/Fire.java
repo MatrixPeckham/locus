@@ -2,21 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.locus305.servlets.users;
+package com.locus305.servlets.employees;
 
+import com.locus305.database.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sun.security.pkcs11.Secmod.DbMode;
 
-import com.locus305.database.DBManager;
 /**
  *
  * @author Owner
  */
-public class RegisterUser extends HttpServlet {
+public class Fire extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,16 +28,11 @@ public class RegisterUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain");
-        response.setHeader("Cache-Control", "no-cache");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        DBManager dbm=DBManager.get();
         try {
-            int i = dbm.addUser(email, name, pass);
-            out.print(i==-1?"error":"OK");
+            int user = Integer.parseInt(request.getParameter("user"));
+            DBManager.get().fire(user);
         } finally {            
             out.close();
         }

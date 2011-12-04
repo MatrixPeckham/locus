@@ -7,6 +7,7 @@ package com.locus305.database;
 import com.locus305.beans.AccountBean;
 import com.locus305.beans.CircleBean;
 import com.locus305.beans.CommentBean;
+import com.locus305.beans.EmployeeBean;
 import com.locus305.beans.MessageBean;
 import com.locus305.beans.PostBean;
 import com.locus305.beans.UserBean;
@@ -83,7 +84,7 @@ public class DBManager {
         }
     }
 
-    public String addUser(String email, String name, String password) {
+    public int addUser(String email, String name, String password) {
         try {
             con.setAutoCommit(false);
             Statement stmt = con.createStatement();
@@ -108,14 +109,14 @@ public class DBManager {
             con.commit();
 
             con.setAutoCommit(true);
-            return "OK";
+            return userid;
         } catch (SQLException ex) {
             try {
                 con.rollback();
                 con.setAutoCommit(true);
-                return ex.getMessage();
+                return -1;
             } catch (SQLException ex1) {
-                return ex.getMessage();
+                return -1;
             }
         } finally {
         }
@@ -817,15 +818,74 @@ public class DBManager {
             int i = 0;
         }
     }
-    
-    public void removeCircle(int circle){
-        String sql="delete from wpeckham.circles where circle_id="+circle;
+
+    public void removeCircle(int circle) {
+        String sql = "delete from wpeckham.circles where circle_id=" + circle;
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
         }
     }
-    
+
+    public void hire(EmployeeBean b) {
+        int id = b.getUsr().getUserid();
+        String sql = "insert into wpeckham.employees (ssn, start_date,hourly_rate,manager) values (" + id + ",now()," + b.getHourly() + "," + b.getManager() + ")";
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
+    public void fire(int id) {
+        String sql = "delete from wpeckham.employees where ssn=" + id;
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            int i = 0;
+        }
+    }
+
+    public ArrayList<EmployeeBean> getEmployees(int manager) {
+        ArrayList<EmployeeBean> list = new ArrayList<EmployeeBean>();
+
+        ResultSet rs = select("*", "employees", "manager=" + manager);
+        try {
+            while (rs.next()) {
+                UserBean b = new UserBean();
+                fillUserBean(b, getUserNameFromID(rs.getInt("ssn")));
+                EmployeeBean eb = new EmployeeBean();
+                eb.setUsr(b);
+                eb.setHourly(rs.getInt("hourly_rate"));
+                eb.setDate(rs.getDate("start_date"));
+                eb.setManager(manager);
+                list.add(eb);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+
+
+        return list;
+    }
+
+    public void fillEmployeeBean(EmployeeBean b, int empl) {
+        ResultSet rs = select("*", "employees", "ssn=" + empl);
+        try {
+            rs.next();
+            UserBean ub = new UserBean();
+            fillUserBean(ub, getUserNameFromID(rs.getInt("ssn")));
+            b.setUsr(ub);
+            b.setHourly(rs.getInt("hourly_rate"));
+            b.setDate(rs.getDate("start_date"));
+            b.setManager(rs.getInt("manager"));
+            b.setManagerName(getUserNameFromID(b.getManager()));
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
 }

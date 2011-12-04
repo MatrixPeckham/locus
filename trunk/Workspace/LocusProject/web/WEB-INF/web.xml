@@ -124,6 +124,18 @@
         <servlet-name>RemoveCircle</servlet-name>
         <servlet-class>com.locus305.servlets.circles.RemoveCircle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Hire</servlet-name>
+        <servlet-class>com.locus305.servlets.employees.Hire</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Fire</servlet-name>
+        <servlet-class>com.locus305.servlets.employees.Fire</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditEmployee</servlet-name>
+        <servlet-class>com.locus305.servlets.employees.EditEmployee</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -236,6 +248,18 @@
     <servlet-mapping>
         <servlet-name>RemoveCircle</servlet-name>
         <url-pattern>/RemoveCircle.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Hire</servlet-name>
+        <url-pattern>/Hire.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Fire</servlet-name>
+        <url-pattern>/Fire.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditEmployee</servlet-name>
+        <url-pattern>/EditEmployee.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

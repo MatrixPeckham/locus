@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.locus305.servlets.users;
+package com.locus305.servlets.employees;
 
+import com.locus305.beans.UserBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.locus305.database.DBManager;
 /**
  *
  * @author Owner
  */
-public class RegisterUser extends HttpServlet {
+public class EditEmployee extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,16 +27,19 @@ public class RegisterUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/plain");
-        response.setHeader("Cache-Control", "no-cache");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        DBManager dbm=DBManager.get();
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String addr = request.getParameter("addr");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
+        String phone = request.getParameter("phone");
+        int zip = Integer.parseInt(request.getParameter("zip"));
+        int hourly = Integer.parseInt(request.getParameter("hourly"));
+        int manager = ((UserBean)request.getSession().getAttribute("userInfo")).getUserid();
         try {
-            int i = dbm.addUser(email, name, pass);
-            out.print(i==-1?"error":"OK");
+            
         } finally {            
             out.close();
         }

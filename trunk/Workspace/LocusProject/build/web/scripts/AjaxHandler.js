@@ -430,3 +430,39 @@ function removeCircle(circle,username){
     post("./RemoveCircle.htm",params);
     changePage('JSPChunks/Profile.jsp?user='+username);
 }
+
+function createEmployee(){
+    var link = "./Hire.htm";
+    var params = "fname="+val("fname")+'&';
+    params=params+'lname='+val("lname")+'&';
+    params=params+'pass='+val("pass")+'&';
+    params=params+'addr='+val("addr")+'&';
+    params=params+'city='+val("city")+'&';
+    params=params+'state='+val("state")+'&';
+    params=params+'zip='+val("zip")+'&';
+    params=params+'preferences='+val("preferences")+'&';
+    params=params+'phone='+val("phone")+'&';
+    params=params+'email='+val("email")+'&';
+    params=params+'username='+val("usrname")+'&';
+    params=params+'hourly='+val("hourly");
+    post(link,params);
+    changePage('JSPChunks/Management.jsp');
+}
+
+function editEmployee(){
+    var link = "./EditEmployee.htm";
+    var params = "fname="+val("fname")+'&';
+    params=params+'lname='+val("lname")+'&';
+    params=params+'pass='+val("pass")+'&';
+    params=params+'addr='+val("addr")+'&';
+    params=params+'city='+val("city")+'&';
+    params=params+'state='+val("state")+'&';
+    params=params+'zip='+val("zip")+'&';
+    params=params+'preferences='+val("preferences")+'&';
+    params=params+'phone='+val("phone")+'&';
+    params=params+'email='+val("email")+'&';
+    params=params+'username='+val("usrname")+'&';
+    params=params+'hourly='+val("hourly");
+    post(link,params);
+    changePage('JSPChunks/Management.jsp');
+}
