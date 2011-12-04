@@ -47,7 +47,7 @@ public class DBManager {
         return inst;
     }
 
-    public DBManager() {
+    private DBManager() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -170,7 +170,10 @@ public class DBManager {
                 ub.setFname(rs.getString("first_name"));
                 ub.setLname(rs.getString("last_name"));
                 ub.setState(rs.getString("state"));
-                ub.setUsername(username);
+                ub.setAddr(rs.getString("address"));
+                ub.setZip(rs.getInt("zip_code"));
+                ub.setPhone(rs.getString("telephone"));
+                ub.setUsername(username); 
                 ub.setUserid(rs.getInt("SSN"));
                 rs = select("preference", "user_preferences", "id=" + ub.getUserid());
                 ub.setPreferences("");
@@ -195,6 +198,7 @@ public class DBManager {
     public boolean updateUserData(UserBean user) {
         String addr = user.getAddr();
         String city = user.getCity();
+        String state = user.getState();
         String fname = user.getFname();
         String lname = user.getLname();
         String phone = user.getPhone();
@@ -206,22 +210,25 @@ public class DBManager {
             String sql = "update wpeckham.persons set "
                     + "address='" + addr + "', "
                     + "city='" + city + "', "
+                    + "state='" + state + "', "
                     + "first_name='" + fname + "', "
                     + "last_name='" + lname + "', "
                     + "telephone='" + phone + "', "
                     + "zip_code=" + zip + " "
                     + "where ssn=" + uid;
             stmt.executeUpdate(sql);
-            StringTokenizer prefs = new StringTokenizer(prefe, ",", false);
-            ArrayList<String> preflist = new ArrayList<String>();
-            while (prefs.hasMoreTokens()) {
-                preflist.add(prefs.nextToken());
-            }
-            sql = "delete from wpeckham.user_preferences where id=" + uid;
-            stmt.executeUpdate(sql);
-            for (String s : preflist) {
-                sql = "insert into wpeckham.user_preferences (id, preference) values (" + uid + ",'" + s + "')";
+            if (prefe != null) {
+                StringTokenizer prefs = new StringTokenizer(prefe, ",", false);
+                ArrayList<String> preflist = new ArrayList<String>();
+                while (prefs.hasMoreTokens()) {
+                    preflist.add(prefs.nextToken());
+                }
+                sql = "delete from wpeckham.user_preferences where id=" + uid;
                 stmt.executeUpdate(sql);
+                for (String s : preflist) {
+                    sql = "insert into wpeckham.user_preferences (id, preference) values (" + uid + ",'" + s + "')";
+                    stmt.executeUpdate(sql);
+                }
             }
             return true;
         } catch (SQLException ex) {
@@ -867,6 +874,8 @@ public class DBManager {
             }
         } catch (SQLException ex) {
             int i = 0;
+        } catch (Exception e){
+            int i = 0;
         }
 
 
@@ -876,14 +885,25 @@ public class DBManager {
     public void fillEmployeeBean(EmployeeBean b, int empl) {
         ResultSet rs = select("*", "employees", "ssn=" + empl);
         try {
-            rs.next();
-            UserBean ub = new UserBean();
-            fillUserBean(ub, getUserNameFromID(rs.getInt("ssn")));
-            b.setUsr(ub);
-            b.setHourly(rs.getInt("hourly_rate"));
-            b.setDate(rs.getDate("start_date"));
-            b.setManager(rs.getInt("manager"));
-            b.setManagerName(getUserNameFromID(b.getManager()));
+            if (rs.next()) {
+                UserBean ub = new UserBean();
+                fillUserBean(ub, getUserNameFromID(rs.getInt("ssn")));
+                b.setUsr(ub);
+                b.setHourly(rs.getInt("hourly_rate"));
+                b.setDate(rs.getDate("start_date"));
+                b.setManager(rs.getInt("manager"));
+                b.setManagerName(getUserNameFromID(b.getManager()));
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
+
+    public void editEmployee(EmployeeBean eb) {
+        try {
+            String sql = "update wpeckham.employees set hourly_rate=" + eb.getHourly() + " where ssn=" + eb.getUsr().getUserid();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             int i = 0;
         }
