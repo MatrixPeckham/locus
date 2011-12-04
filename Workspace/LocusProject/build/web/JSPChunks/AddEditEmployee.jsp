@@ -9,7 +9,7 @@
 <div id="addeditemployee">
     <form id="userinfo" action="javascript:void(0);">
         <div>
-            <span><label>User Name: </label></span><span><input type="text" value="${em.usr.username}" id="usrname" ${ param.type!=add? "readonly=true":"" }></input></span>
+            <span><label>User Name: </label></span><span><input type="text" value="${em.usr.username}" id="usrname" ${ param.type!="add" ? "readonly=true":"" }></input></span>
         </div>
         <c:if test="${ param.type == 'add' }">
             <div>
@@ -43,6 +43,6 @@
         <div>
             <span><label>Hourly Rate: </label></span><span><input type="text" id="hourly" value="${em.hourly}"></input></span>
         </div>
-        <input type="submit" onclick=${param.type=="add"?"createEmployee()":"saveEmployee()"} value="${param.type=="add"?"Hire":"Save"}"/>
+        <input type="submit" onclick=${param.type=="add"?"createEmployee()":"editEmployee()"} value="${param.type=="add"?"Hire":"Save"}"/>
     </form>
 </div>

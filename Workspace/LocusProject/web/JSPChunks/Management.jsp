@@ -9,9 +9,11 @@
 <div id="manamgerpage">
     <div id="employees" class="round-corner">
         <l:LoopEmployees manager="${sessionScope.userInfo.userid}">
-            <a href="javascript:void(0);" onclick="changePage('JSPChunks/AddEditEmployee.jsp?type=edit&empl=${curEmployee.usr.userid}')">${curEmployee.usr.fname} ${curEmployee.usr.lname} earns ${curEmployee.hourly}/h</a>
-            <a href="javascript:void(0);" onclick="fire('${curEmployee.usr.userid}')">(fire)</a>
+            <div>
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/AddEditEmployee.jsp?type=edit&empl=${curEmployee.usr.userid}')">${curEmployee.usr.fname} ${curEmployee.usr.lname} earns ${curEmployee.hourly}/h</a>
+                <a href="javascript:void(0);" onclick="fireEmployee('${curEmployee.usr.userid}')">(fire)</a>
+            </div>
         </l:LoopEmployees>
-        <a href="javascript:void(0);" onclick="changePage('JSPChunks/AddEditEmployee.jsp?type=add')">Add User</a>
+        <a href="javascript:void(0);" onclick="changePage('JSPChunks/AddEditEmployee.jsp?type=add')">Add Employee</a>
     </div>
 </div>

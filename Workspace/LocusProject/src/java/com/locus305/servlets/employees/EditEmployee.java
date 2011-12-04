@@ -4,7 +4,9 @@
  */
 package com.locus305.servlets.employees;
 
+import com.locus305.beans.EmployeeBean;
 import com.locus305.beans.UserBean;
+import com.locus305.database.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,12 +36,32 @@ public class EditEmployee extends HttpServlet {
         String addr = request.getParameter("addr");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
+        String username = request.getParameter("username");
         String phone = request.getParameter("phone");
         int zip = Integer.parseInt(request.getParameter("zip"));
         int hourly = Integer.parseInt(request.getParameter("hourly"));
         int manager = ((UserBean)request.getSession().getAttribute("userInfo")).getUserid();
         try {
-            
+            UserBean b = new UserBean();
+            b.setUsername(username);
+            b.setFname(fname);
+            b.setLname(lname);
+            b.setAddr(addr);
+            b.setCity(city);
+            b.setState(state);
+            b.setPhone(phone);
+            b.setZip(zip);
+            b.setType(1);
+
+            int id = DBManager.get().getUserIDFromName( username );
+            b.setUserid(id);
+            DBManager.get().updateUserData(b);
+
+            EmployeeBean eb = new EmployeeBean();
+            eb.setUsr(b);
+            eb.setHourly(hourly);
+            eb.setManager(manager);
+            DBManager.get().editEmployee(eb);
         } finally {            
             out.close();
         }
