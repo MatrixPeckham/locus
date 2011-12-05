@@ -915,7 +915,7 @@ public class DBManager {
             Statement stmt = con.createStatement();
             String sql;
             if(uid > 0){
-                sql ="CALL getAdsForUser(" + uid +")";    
+                sql ="CALL wpeckham.getAdsForUser(" + uid +")";    
             }
             else{
                 sql = "SELECT * FROM wpeckham.advertisement";
@@ -936,7 +936,7 @@ public class DBManager {
                 b.setAvailable(rs.getInt(9));
                 userAds.add(b);
             }
-            if(allResults.size() <= 0){
+            if((allResults.size() <= 0)&& (uid > 0 )){
                 allResults = getAdsForUser(-1);
             }
         }
@@ -945,5 +945,33 @@ public class DBManager {
         }
         return userAds;
     }
+    public void fillAdBean(AdBean b, int adId){
+        ResultSet rs = select("*", "advertisement", "Advertisement_Id=" +adId);
+        try{
+            if(rs.next()){
+                b.setId(rs.getInt(1));
+                b.setEmpId(rs.getInt(2));
+                b.setCat(rs.getString(3));
+                b.setDate(rs.getDate(4));
+                b.setCompany(rs.getString(5));
+                b.setItem(rs.getString(6));
+                b.setAdContent(rs.getString(7));
+                b.setUnitPrice(rs.getInt(8));
+                b.setAvailable(rs.getInt(9));
+             }
+                 
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+    }
     
+    public void addAd(AdBean b){
+        try{
+            String sql = "INSERT INTO wpeckham.advertisement(Advertisement_Id, Employee, Catagory, _Date, Company, Item_Name, Content, Unit_Price, Available_Units) VALUES ("+b.getId() +"," + b.getEmpId()+","+b.getCat()+",NOW(),"+b.getCompany()+","+b.getItem()+","+b.getAdContent()+","+b.getUnitPrice()+","+b.getAvailable()+")";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        }catch (SQLException ex) {
+            int i = 0;
+        }
+    }
 }
