@@ -174,8 +174,28 @@
   </tag>
   <tag>
     <name>GetAdTagHandler</name>
-    <tag-class>com.locus305.taghandlers.GetAdTagHandler</tag-class>   
+    <tag-class>com.locus305.taghandlers.GetAdTagHandler</tag-class>
     <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>DateSelector</name>
+    <tag-class>com.locus305.taghandlers.DateSelectorTagHandler</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>LoopTransactions</name>
+    <tag-class>com.locus305.taghandlers.LoopTransactionsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>month</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+    <attribute>
+      <name>year</name>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
   </tag>
   <tag-file>
     <name>header</name>
