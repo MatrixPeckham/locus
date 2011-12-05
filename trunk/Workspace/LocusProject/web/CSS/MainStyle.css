@@ -147,3 +147,10 @@ div.message{
 div.message:hover{
     background-color:#f0f0ff
 }
+
+div.floatleft{
+    float:left;
+}
+div.floatright{
+    float:right;
+}

@@ -15,10 +15,9 @@ import com.locus305.beans.UserBean;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.*;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -974,4 +973,20 @@ public class DBManager {
             int i = 0;
         }
     }
+    public Date getEaliestTransactionDate(){
+        String sql = "select unique _date from wpeckham.transactions where 1=1 order by _date desc";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                Date d = rs.getDate(1);
+                return d;
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        return new Date();
+        
+    }
+    
 }
