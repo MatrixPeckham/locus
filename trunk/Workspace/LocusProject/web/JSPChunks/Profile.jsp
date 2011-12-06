@@ -12,43 +12,40 @@
         <h1>Profile ${param.user}</h1>
     </div>
     <c:choose>
-        <c:when test="${sessionScope.userInfo.username!='' && sessionScope.userInfo.username==param.user}">
+        <c:when test="${sessionScope.userInfo.username!='' && (sessionScope.userInfo.username==param.user || sessionScope.userInfo.type==1)}">
             <div id="profileinfo" class="round-corner">
-                <form id="userinfo" action="javascript:void(0);">
+                <form id="userinfoform" action="javascript:void(0);">
                     <div>
-                        <span><label>User Name: </label></span><span><input type="text" readonly="true" value="${sessionScope.userInfo.username}"></input></span>
+                        <span><label>User Name: </label></span><span><input type="text" readonly value="${sessionScope.userInfo.username}" /></span>
                     </div>
                     <div>
-                        <span><label>First Name: </label></span><span><input type="text" id="fname" value="${sessionScope.userInfo.fname}"></input></span>
+                        <span><label>First Name: </label></span><span><input type="text" id="fname" value="${sessionScope.userInfo.fname}" /></span>
                     </div>
                     <div>
-                        <span><label>Last Name: </label></span><span><input type="text" id="lname" value="${sessionScope.userInfo.lname}"></input></span>
+                        <span><label>Last Name: </label></span><span><input type="text" id="lname" value="${sessionScope.userInfo.lname}" /></span>
                     </div>
                     <div>
-                        <span><label>Address: </label></span><span><input type="text" id="addr" value="${sessionScope.userInfo.addr}"></input></span>
+                        <span><label>Address: </label></span><span><input type="text" id="addr" value="${sessionScope.userInfo.addr}" /></span>
                     </div>
                     <div>
-                        <span><label>City: </label></span><span><input type="text" id="city" value="${sessionScope.userInfo.city}"></input></span>
+                        <span><label>City: </label></span><span><input type="text" id="city" value="${sessionScope.userInfo.city}" /></span>
                     </div>
                     <div>
-                        <span><label>State: </label></span><span><input type="text" id="state" value="${sessionScope.userInfo.state}"></input></span>
+                        <span><label>State: </label></span><span><input type="text" id="state" value="${sessionScope.userInfo.state}" /></span>
                     </div>
                     <div>
-                        <span><label>Zip Code: </label></span><span><input type="text" id="zip" value="${sessionScope.userInfo.zip}"></input></span>
+                        <span><label>Zip Code: </label></span><span><input type="text" id="zip" value="${sessionScope.userInfo.zip}" /></span>
                     </div>
                     <div>
-                        <span><label>Phone Number: </label></span><span><input type="text" id="phone" value="${sessionScope.userInfo.phone}"></input></span>
+                        <span><label>Phone Number: </label></span><span><input type="text" id="phone" value="${sessionScope.userInfo.phone}" /></span>
                     </div>
                     <div>
-                        <span><label>Advertisement Preferences:<br/>Comma Separated</label></span><span><input type="text" id="preferences" value="${sessionScope.userInfo.preferences}"></input></span>
+                        <span><label>Advertisement Preferences:<br/>Comma Separated</label></span><span><input type="text" id="preferences" value="${sessionScope.userInfo.preferences}" /></span>
                     </div>
                     <input type="hidden" id="numCards" value="0"/>
                     <table id="cardtable"> 
                         <l:LoopUserAccounts username="${sessionScope.userInfo.username}" var="acct" ivar="ind">
                             <tr><td>Credit Card Number #${ind+1}</td><td><input type="hidden" value="${acct.accnum}" id="cardacc${ind}"/><input type="text" id="cardnum${ind}" value="${acct.ccn}"/></td></tr>
-                            <script type="text/javascript">
-                                incNumCards();
-                            </script>
                         </l:LoopUserAccounts>
                     </table>
                     <input type="submit" onclick="addCard()" value="Add Another"/><br/>
@@ -90,10 +87,10 @@
                     </l:LoopOwnedCircles>
                     <c:if test="${sessionScope.userInfo.username!='' && sessionScope.userInfo.username==param.user}">
                         <form onsubmit="javascript:void(0)" action="javascript:void(0)" >
-                            Name: <input type="text" id="newcirclename" value=""></input>
-                            Category: <input type="text" id="newcirclecatagory" value=""></input>
-                            <input type="checkbox" id="newpubliccheck" checked>Public</input>
-                            <input type="submit" value="Create" onclick="newCircle('${sessionScope.userInfo.username}','${sessionScope.userInfo.userid}')"></input>
+                            Name: <input type="text" id="newcirclename" value="" />
+                            Category: <input type="text" id="newcirclecatagory" value="" />
+                            <input type="checkbox" id="newpubliccheck" checked />Public
+                            <input type="submit" value="Create" onclick="newCircle('${sessionScope.userInfo.username}','${sessionScope.userInfo.userid}')" />
                         </form>
                     </c:if>
                 </div>
