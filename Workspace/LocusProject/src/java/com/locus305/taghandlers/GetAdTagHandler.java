@@ -5,21 +5,21 @@
 package com.locus305.taghandlers;
 
 import com.locus305.beans.AdBean;
-import com.locus305.beans.UserBean;
 import com.locus305.database.DBManager;
-import java.util.ArrayList;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  *
- * @author Comedy Option
+ * @author Owner
  */
 public class GetAdTagHandler extends SimpleTagSupport {
+
+    private String var;
+    private String adid;
 
     /**
      * Called by the container to invoke this tag. 
@@ -29,27 +29,18 @@ public class GetAdTagHandler extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException {
         JspWriter out = getJspContext().getOut();
+
         JspContext context = getJspContext();
-        try {
-            UserBean currentUser = (UserBean)context.getAttribute("userInfo", PageContext.SESSION_SCOPE);
-            int userId = currentUser.getUserid();
-            ArrayList<AdBean> adsForUser = DBManager.get().getAdsForUser(userId);
-            if(adsForUser.size() > 0){
-                int randomAd = (int)(Math.random() * adsForUser.size());
-                context.setAttribute("curAd", adsForUser.get(randomAd));
-            }
-            JspFragment f = getJspBody();
-            if (f != null) {
-                f.invoke(out);
-            }
+        AdBean b = new AdBean();
+        DBManager.get().fillAdBean(b, Integer.parseInt(adid));
+        context.setAttribute(var, b);
+    }
 
-            // TODO: insert code to write html after writing the body content.
-            // e.g.:
-            //
-            // out.println("    </blockquote>");
+    public void setVar(String var) {
+        this.var = var;
+    }
 
-        } catch (java.io.IOException ex) {
-            throw new JspException("Error in GetAdTagHandler tag", ex);
-        }
+    public void setAdid(String adid) {
+        this.adid = adid;
     }
 }

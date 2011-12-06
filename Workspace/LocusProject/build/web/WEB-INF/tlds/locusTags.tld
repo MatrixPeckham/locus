@@ -173,9 +173,9 @@
     </attribute>
   </tag>
   <tag>
-    <name>GetAdTagHandler</name>
-    <tag-class>com.locus305.taghandlers.GetAdTagHandler</tag-class>
-    <body-content>scriptless</body-content>
+    <name>GetAdForUser</name>
+    <tag-class>com.locus305.taghandlers.GetAdForUserTagHandler</tag-class>
+    <body-content>empty</body-content>
   </tag>
   <tag>
     <name>DateSelector</name>
@@ -206,6 +206,23 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
       <type>int</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>GetAd</name>
+    <tag-class>com.locus305.taghandlers.GetAdTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>adid</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
     </attribute>
   </tag>
   <tag-file>

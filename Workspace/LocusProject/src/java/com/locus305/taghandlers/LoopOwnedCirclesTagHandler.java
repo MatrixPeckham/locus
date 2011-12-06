@@ -42,10 +42,6 @@ public class LoopOwnedCirclesTagHandler extends SimpleTagSupport {
             }
             context.removeAttribute("curCircle");
 
-            // TODO: insert code to write html after writing the body content.
-            // e.g.:
-            //
-            // out.println("    </blockquote>");
 
         } catch (java.io.IOException ex) {
             throw new JspException("Error in LoopOwnedCirclesTagHandler tag", ex);

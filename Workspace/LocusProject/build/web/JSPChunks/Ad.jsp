@@ -6,8 +6,8 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="l" uri="com.locus305.tags" %>
-<l:GetAdTagHandler></l:GetAdTagHandler>
-<div id="curadvert">
+<l:GetAdForUser />
+<div id="curadvert" onclick="changePage('JSPChunks/BuyItem.jsp?ad=${curAd.id}')">
     <h3>Advertisement</h3>
     <br />${curAd.item}
     <br />Only ${curAd.available} Left
