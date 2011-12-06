@@ -33,9 +33,9 @@ public class DBManager {
     private Connection con = null;
 
     public static DBManager get() {
-        if (inst == null) {
+        if (inst == null || inst.con==null) {
             inst = new DBManager();
-        }
+        } 
         try {
             if (!inst.con.isValid(0)) {
                 inst = new DBManager();
@@ -966,13 +966,41 @@ public class DBManager {
     
     public void addAd(AdBean b){
         try{
-            String sql = "INSERT INTO wpeckham.advertisement(Advertisement_Id, Employee, Catagory, _Date, Company, Item_Name, Content, Unit_Price, Available_Units) VALUES ("+b.getId() +"," + b.getEmpId()+","+b.getCat()+",NOW(),"+b.getCompany()+","+b.getItem()+","+b.getAdContent()+","+b.getUnitPrice()+","+b.getAvailable()+")";
+            String sql = "INSERT INTO wpeckham.advertisement( Employee, Catagory, _Date, Company, Item_Name, Content, Unit_Price, Available_Units) VALUES (" + b.getEmpId()+",\""+b.getCat()+"\",NOW(),\""+b.getCompany()+"\",\""+b.getItem()+"\",\""+b.getAdContent()+"\","+b.getUnitPrice()+","+b.getAvailable()+")";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         }catch (SQLException ex) {
             int i = 0;
         }
     }
+    
+    public void deleteAd(int adid){
+        try{
+            String sql = "delete from wpeckham.advertisement where advertisement_id="+adid;
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+        } catch(SQLException e){
+            int i = 0;
+        }
+    }
+    
+    public ArrayList<AdBean> getEmployeesAds(int empl){
+        ArrayList<AdBean> list = new ArrayList<AdBean>();
+        
+        try{
+            ResultSet rs = select("advertisement_id", "advertisement", "employee="+empl);
+            while(rs.next()){
+                AdBean b = new AdBean();
+                fillAdBean(b, rs.getInt(1));
+                list.add(b);
+            }
+        } catch(SQLException e){
+            int i=0;
+        }
+        
+        return list;
+    }
+    
     public Date getEaliestTransactionDate(){
         String sql = "select unique _date from wpeckham.transactions where 1=1 order by _date desc";
         try {

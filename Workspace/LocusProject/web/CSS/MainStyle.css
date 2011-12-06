@@ -45,6 +45,7 @@ body {
     top:0px;
     right:0px;
     left:0px;
+    height:130px;
     background-color:white;
     z-index:99;
 }
@@ -59,6 +60,7 @@ body {
 
 #content{
     margin-top:150px;
+    margin-right:150px;
 }
 
 #registertable{
@@ -153,4 +155,11 @@ div.floatleft{
 }
 div.floatright{
     float:right;
+}
+
+#AdvertiseDiv{
+    position:fixed;
+    right:0px;
+    top:170px;
+    width:150px;
 }

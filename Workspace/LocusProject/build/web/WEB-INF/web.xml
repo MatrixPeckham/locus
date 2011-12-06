@@ -136,6 +136,14 @@
         <servlet-name>EditEmployee</servlet-name>
         <servlet-class>com.locus305.servlets.employees.EditEmployee</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAd</servlet-name>
+        <servlet-class>com.locus305.servlets.advertisements.AddAd</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAd</servlet-name>
+        <servlet-class>com.locus305.servlets.advertisements.DeleteAd</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -260,6 +268,14 @@
     <servlet-mapping>
         <servlet-name>EditEmployee</servlet-name>
         <url-pattern>/EditEmployee.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAd</servlet-name>
+        <url-pattern>/AddAd.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAd</servlet-name>
+        <url-pattern>/DeleteAd.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

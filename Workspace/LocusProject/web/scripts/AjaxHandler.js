@@ -16,6 +16,19 @@ function getRequest(){
     return xmlhttp;
 }
 
+function changeAd(){
+    var xmlhttp=getRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("AdvertiseDiv").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","JSPChunks/Ad.jsp",true);
+    xmlhttp.send();
+}
+
 function changePage(page){
     var xmlhttp=getRequest();
     xmlhttp.onreadystatechange=function()
@@ -27,6 +40,7 @@ function changePage(page){
     }
     xmlhttp.open("GET",page,true);
     xmlhttp.send();
+    changeAd();
 }
 
 function post(page, params){
@@ -467,6 +481,22 @@ function editEmployee(){
 
 function fireEmployee(empl){
     var params = "user="+empl;
-    post("Fire.htm",params);
+    post("./Fire.htm",params);
     changePage('JSPChunks/Management.jsp');
+}
+
+function addAd(){
+    var params = "catagory=" + val("newcat");
+    params = params + "&company=" + val("newcomp");
+    params = params + "&item=" + val("newitem");
+    params = params + "&price=" + val("newprice");
+    params = params + "&number=" + val("newnum");
+    params = params + "&content=" + val("newcont");
+    post("./AddAd.htm",params);
+    changePage("JSPChunks/EmployeePage.jsp");
+}
+
+function deleteAd(adid){
+    post("./DeleteAd.htm","adid="+adid);
+    changePage("JSPChunks/EmployeePage.jsp");
 }

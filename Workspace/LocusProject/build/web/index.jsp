@@ -9,7 +9,7 @@
 <%@taglib prefix="l" uri="com.locus305.tags" %>
 <!DOCTYPE html>
 <html>
-<jsp:useBean scope="session" id="userInfo" class="com.locus305.beans.UserBean" />
+    <jsp:useBean scope="session" id="userInfo" class="com.locus305.beans.UserBean" />
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="./CSS/MainStyle.css" />
@@ -17,10 +17,13 @@
         <title>Locus</title>
     </head>
     <body>
-            
-       <l:header message="MESSAGE"/>
-       <div id="content">
-           <%@include file="JSPChunks/Home.jsp" %>
-       </div>
-     </body>
+
+        <l:header message="MESSAGE"/>
+        <div id="AdvertiseDiv">
+            <%@include file="JSPChunks/Ad.jsp" %>
+        </div>
+        <div id="content">
+            <%@include file="JSPChunks/Home.jsp" %>
+        </div>
+    </body>
 </html>
