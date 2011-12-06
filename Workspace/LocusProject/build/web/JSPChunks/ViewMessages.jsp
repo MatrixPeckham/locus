@@ -9,6 +9,9 @@
 <div id="messages" class="round-corner">
     <c:choose>
         <c:when test="${userInfo.userid!=-1}">
+            <div>
+                <a href="javascript:void(0);" onclick="changePage('JSPChunks/SendMessage.jsp')">Send New Message</a>
+            </div>
             <l:ListMessages user="${userInfo.userid}">
                 <div class="round-corner message" onclick="showMessage(${curIndex})">
                     <div id="messageheader${curIndex}}">
@@ -29,15 +32,13 @@
                     <div id="messagecontent${curIndex}" class="hidden">
                         ${curMessage.content}
                     </div>
-                        <div id="deletemessage${curIndex}">
-                            <a href ="javascript:void(0);" onclick="delMessage(${curMessage.id})">Delete</a>
-                        </div>
+                    <div id="deletemessage${curIndex}">
+                        <a href ="javascript:void(0);" onclick="delMessage(${curMessage.id})">Delete</a>
+                    </div>
                 </div>
             </l:ListMessages>
-            <div>
-                <a href="javascript:void(0);" onclick="changePage('JSPChunks/SendMessage.jsp')">Send New Message</a>
-            </div>
-            
+
+
         </c:when>
         <c:otherwise>
             You must be logged in to view this page.

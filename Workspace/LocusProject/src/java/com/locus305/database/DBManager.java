@@ -922,7 +922,6 @@ public class DBManager {
                 sql = "SELECT * FROM wpeckham.advertisement";
             }
             ResultSet rs =  stmt.executeQuery(sql);
-            ArrayList<AdBean> allResults = new ArrayList<AdBean>();
             while(rs.next())
             {
                 AdBean b = new AdBean();
@@ -937,8 +936,8 @@ public class DBManager {
                 b.setAvailable(rs.getInt(9));
                 userAds.add(b);
             }
-            if((allResults.size() <= 0)&& (uid > 0 )){
-                allResults = getAdsForUser(-1);
+            if((userAds.size() <= 0)&& (uid > 0 )){
+                userAds = getAdsForUser(-1);
             }
         }
         catch (SQLException ex){
