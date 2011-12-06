@@ -4,22 +4,22 @@
  */
 package com.locus305.taghandlers;
 
+import com.locus305.beans.AdBean;
 import com.locus305.beans.UserBean;
 import com.locus305.database.DBManager;
 import java.util.ArrayList;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  *
- * @author Owner
+ * @author Comedy Option
  */
-public class LoopMembersTagHandler extends SimpleTagSupport {
-
-    private int circle;
+public class GetAdForUserTagHandler extends SimpleTagSupport {
 
     /**
      * Called by the container to invoke this tag. 
@@ -31,25 +31,21 @@ public class LoopMembersTagHandler extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
         JspContext context = getJspContext();
         try {
-
-
+            UserBean currentUser = (UserBean)context.getAttribute("userInfo", PageContext.SESSION_SCOPE);
+            int userId = currentUser.getUserid();
+            ArrayList<AdBean> adsForUser = DBManager.get().getAdsForUser(userId);
+            if(adsForUser.size() > 0){
+                int randomAd = (int)(Math.random() * adsForUser.size());
+                context.setAttribute("curAd", adsForUser.get(randomAd));
+            }
             JspFragment f = getJspBody();
-            ArrayList<UserBean> list = DBManager.get().listMembers(circle);
-            for (UserBean b : list) {
-                context.setAttribute("curUsr", b);
-                if (f != null) {
-                    f.invoke(out);
-                }
+            if (f != null) {
+                f.invoke(out);
             }
 
-            context.removeAttribute("curUsr");
 
         } catch (java.io.IOException ex) {
-            throw new JspException("Error in LoopMembersTagHandler tag", ex);
+            throw new JspException("Error in GetAdTagHandler tag", ex);
         }
-    }
-
-    public void setCircle(int circle) {
-        this.circle = circle;
     }
 }

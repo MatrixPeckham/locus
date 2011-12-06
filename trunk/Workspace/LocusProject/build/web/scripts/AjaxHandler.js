@@ -500,3 +500,17 @@ function deleteAd(adid){
     post("./DeleteAd.htm","adid="+adid);
     changePage("JSPChunks/EmployeePage.jsp");
 }
+
+function makePurchase(adid){
+    var acct;
+    var accounts = document.getElementsByName('account');
+    for(var i = 0; i<accounts.length; i++){
+        if(accounts.item(i).checked){
+            acct=accounts.item(i).value;
+        }
+    }
+    var num = document.getElementById("numItems").value;
+    var params="adid=" + adid+"&acct="+acct+"&num="+num;
+    var resp = post("./Purchase.htm",params);
+    document.getElementById("buyItem").innerHTML=resp;
+}

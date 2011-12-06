@@ -18,6 +18,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -1015,6 +1017,50 @@ public class DBManager {
         }
         return new Date();
         
+    }
+
+    public int makePurchase(int account, int adid, int number) {
+        try{
+            con.setAutoCommit(false);
+            
+            AdBean b = new AdBean();
+            fillAdBean(b, adid);
+            ResultSet rs = select("credit_card_number", "accounts","account_number="+account );
+            String ccn = "";
+            if(rs.next()){
+                ccn = rs.getString(1);
+            } else {
+                return -1;
+            }
+            if(ccn==null||ccn.equals("")){
+                return -1;
+            }
+            if(b.getAvailable()<=number){
+                number=b.getAvailable();
+            }
+            
+            String sql = "insert into wpeckham.purchases (_date,advertisement,number_of_units,account) values (now(),"+b.getId()+","+number+","+account+")";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(sql);
+            
+            sql="update wpeckham.advertisement set available_units=" + (b.getAvailable()-number) + " where advertisement_id="+b.getId();
+            stmt.executeUpdate(sql);
+            
+            con.commit();
+            
+            con.setAutoCommit(true);
+            return number; 
+        } catch(SQLException e){
+            try {
+                con.rollback();
+                con.setAutoCommit(true);
+            } catch (SQLException ex) {
+                int i = 0;
+            }
+            int i = 0;
+        } 
+        
+        return -1;
     }
     
 }

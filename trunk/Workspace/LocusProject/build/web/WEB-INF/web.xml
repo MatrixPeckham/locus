@@ -144,6 +144,10 @@
         <servlet-name>DeleteAd</servlet-name>
         <servlet-class>com.locus305.servlets.advertisements.DeleteAd</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Purchase</servlet-name>
+        <servlet-class>com.locus305.servlets.advertisements.Purchase</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -276,6 +280,10 @@
     <servlet-mapping>
         <servlet-name>DeleteAd</servlet-name>
         <url-pattern>/DeleteAd.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Purchase</servlet-name>
+        <url-pattern>/Purchase.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
