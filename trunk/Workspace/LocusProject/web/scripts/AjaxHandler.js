@@ -545,3 +545,18 @@ function changeTransByItem(){
     xmlhttp.send();
     
 }
+
+function changeTransByName(){
+    var item = val("nameselect");
+    var xmlhttp=getRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("chosennamesales").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","JSPChunks/SalesByName.jsp?name="+item,true);
+    xmlhttp.send();
+    
+}

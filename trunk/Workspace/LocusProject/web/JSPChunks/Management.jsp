@@ -34,10 +34,18 @@
     </div>
     <div id="salesbyitem" class="round-corner floatleft">
         <form>
-            <l:ItemSelectorTagHandler />
+            <l:ItemSelector />
         </form>
         <div id="chosenitemsales">
             <%@include file="/JSPChunks/SalesByItem.jsp" %>
+        </div>
+    </div>
+    <div id="salesbyname" class="round-corner floatleft">
+        <form>
+            <l:NameSelector />
+        </form>
+        <div id="chosennamesales">
+            <%@include file="/JSPChunks/SalesByName.jsp" %>
         </div>
     </div>
 </div>
