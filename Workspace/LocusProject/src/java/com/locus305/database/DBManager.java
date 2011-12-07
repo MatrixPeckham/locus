@@ -11,6 +11,7 @@ import com.locus305.beans.CommentBean;
 import com.locus305.beans.EmployeeBean;
 import com.locus305.beans.MessageBean;
 import com.locus305.beans.PostBean;
+import com.locus305.beans.TransactionBean;
 import com.locus305.beans.UserBean;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -1060,6 +1061,30 @@ public class DBManager {
         } 
         
         return -1;
+    }
+
+    public ArrayList<TransactionBean> getAccountTransactions(int acct) {
+        ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
+        
+        String sql = "select * from wpeckham.purchases, wpeckham.advertisement where advertisement=advertisement_id and account=" +acct;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                AdBean b = new AdBean();
+                fillAdBean(b, rs.getInt("advertisement_id"));
+                TransactionBean tb = new TransactionBean();
+                tb.setB(b);
+                tb.setDate(rs.getDate("purchases._date"));
+                tb.setNumUnits(rs.getInt("number_of_units"));
+                list.add(tb);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        
+        
+        return list;
     }
     
 }

@@ -229,7 +229,7 @@ function val(id){
     return "";
 }
 
-function saveProfile(){
+function saveProfile(usr){
     var params = "./EditUserInfo.htm?fname="+val("fname")+'&';
     params=params+'lname='+val("lname")+'&';
     params=params+'addr='+val("addr")+'&';
@@ -247,7 +247,7 @@ function saveProfile(){
     var editreq=getRequest();
     editreq.open("GET",params,false);
     editreq.send(null);
-    changePage("JSPChunks/Profile.jsp");
+    changePage("JSPChunks/Profile.jsp?user="+usr);
 }
 function incNumCards(){
     document.getElementById("numCards").value=(parseInt(document.getElementById("numCards").value)+1);
