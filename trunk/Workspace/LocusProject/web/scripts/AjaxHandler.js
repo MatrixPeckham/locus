@@ -514,3 +514,19 @@ function makePurchase(adid){
     var resp = post("./Purchase.htm",params);
     document.getElementById("buyItem").innerHTML=resp;
 }
+
+function changeSalesReport(){
+    var month = val("monthselect");
+    var year = val("yearselect");
+    var xmlhttp=getRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("chosensales").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","JSPChunks/SalesReport.jsp?month="+month+"&year="+year,true);
+    xmlhttp.send();
+
+}

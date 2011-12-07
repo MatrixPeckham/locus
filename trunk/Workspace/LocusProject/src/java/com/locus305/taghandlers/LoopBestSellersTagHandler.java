@@ -4,10 +4,9 @@
  */
 package com.locus305.taghandlers;
 
-import com.locus305.beans.TransactionBean;
+import com.locus305.beans.BestSellerBean;
 import com.locus305.database.DBManager;
 import java.util.ArrayList;
-import java.util.Calendar;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
@@ -18,9 +17,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author Owner
  */
-public class LoopTransactionsTagHandler extends SimpleTagSupport {
-    private int month;
-    private int year;
+public class LoopBestSellersTagHandler extends SimpleTagSupport {
 
     /**
      * Called by the container to invoke this tag. 
@@ -32,35 +29,23 @@ public class LoopTransactionsTagHandler extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
         JspContext context = getJspContext();
         try {
+
             
             JspFragment f = getJspBody();
-            if(year==0){
-                Calendar c = Calendar.getInstance();
-                year=c.get(Calendar.YEAR);
-                month=c.get(Calendar.MONTH)+1;
-            }
-            ArrayList<TransactionBean> list = DBManager.get().getSalesForMonth(month,year);
+            ArrayList<BestSellerBean> list = DBManager.get().getBestSellers();
             
-            int total = 0;
-            for(TransactionBean b : list){
-                context.setAttribute("curTrans", b);
+            for(int i = 0; i<Math.min(list.size(), 3); i++){
+                context.setAttribute("curBest", list.get(i));
+                context.setAttribute("curInd", i+1);
                 if (f != null) {
                     f.invoke(out);
                 }
-                total+=b.getTotal();
             }
-            context.setAttribute("monthTotal", total);
-            context.removeAttribute("curTrans");
+            context.removeAttribute("curBest");
+            context.removeAttribute("curInd");
+     
         } catch (java.io.IOException ex) {
-            throw new JspException("Error in LoopTransactionsTagHandler tag", ex);
+            throw new JspException("Error in LoopBestSellersTagHandler tag", ex);
         }
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 }

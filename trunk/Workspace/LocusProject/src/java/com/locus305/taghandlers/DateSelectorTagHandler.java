@@ -39,16 +39,16 @@ public class DateSelectorTagHandler extends SimpleTagSupport {
             c2.setTime(d2);
 
 
-            out.print("Month: <select id=\"monthselect\">");
+            out.print("Month: <select onchange=\"changeSalesReport()\" id=\"monthselect\">");
 
             for (int i = 0; i <= 11; i++) {
-                out.print("<option value=\"" + i + "\""+(i==c2.get(Calendar.MONTH)?"selected=\"selected\"":"")+">" + (i+1) + "</option>");
+                out.print("<option value=\"" + (i+1) + "\""+(i==c2.get(Calendar.MONTH)?"selected=\"selected\"":"")+">" + (i+1) + "</option>");
             }
 
             out.print("</select>");
 
             
-            out.print("Year: <select id=\"yearselect\">");
+            out.print("Year: <select onchange=\"changeSalesReport()\" id=\"yearselect\">");
 
             for (int i = c1.get(Calendar.YEAR); i <= c2.get(Calendar.YEAR); i++) {
                 out.print("<option value=\"" + i + "\""+(i==c2.get(Calendar.YEAR)?"selected=\"selected\"":"")+">" + i + "</option>");

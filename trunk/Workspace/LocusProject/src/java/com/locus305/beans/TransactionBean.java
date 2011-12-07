@@ -15,6 +15,15 @@ public class TransactionBean implements Serializable{
     private AdBean b=null;
     private Date date = null;
     private int numUnits=-1;
+    private int total=0;
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
     public int getNumUnits() {
         return numUnits;
