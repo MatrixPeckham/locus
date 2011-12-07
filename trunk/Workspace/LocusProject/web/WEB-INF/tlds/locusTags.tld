@@ -225,6 +225,28 @@
       <type>java.lang.String</type>
     </attribute>
   </tag>
+  <tag>
+    <name>LoopUserAds</name>
+    <tag-class>com.locus305.taghandlers.LoopUserAdsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>userid</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>LoopAccountTransactions</name>
+    <tag-class>com.locus305.taghandlers.LoopAccountTransactionsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>account</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>

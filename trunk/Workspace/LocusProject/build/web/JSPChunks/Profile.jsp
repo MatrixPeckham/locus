@@ -44,12 +44,23 @@
                     </div>
                     <input type="hidden" id="numCards" value="0"/>
                     <table id="cardtable"> 
-                        <l:LoopUserAccounts username="${sessionScope.userInfo.username}" var="acct" ivar="ind">
-                            <tr><td>Credit Card Number #${ind+1}</td><td><input type="hidden" value="${acct.accnum}" id="cardacc${ind}"/><input type="text" id="cardnum${ind}" value="${acct.ccn}"/></td></tr>
+                        <l:LoopUserAccounts username="${param.user}" var="acct" ivar="ind">
+                            <tr>
+                                <td>
+                                    Credit Card Number #${ind+1}
+                                </td>
+                                <td>
+                                    <input type="hidden" value="${acct.accnum}" id="cardacc${ind}"/>
+                                    <input type="text" id="cardnum${ind}" value="${acct.ccn}"/>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" onclick="changePage('JSPChunks/AcctHistory.jsp?acct=${acct.accnum}&user=${param.user}')">View History</a>
+                                </td>
+                            </tr>
                         </l:LoopUserAccounts>
                     </table>
-                    <input type="submit" onclick="addCard()" value="Add Another"/><br/>
-                    <input type="submit" onclick="saveProfile()" value="Save"/>
+                    <!--input type="submit" onclick="addCard()" value="Add Another"/--><br/>
+                    <input type="submit" onclick="saveProfile('${param.user}')" value="Save"/>
                 </form>
             </div>
         </c:when>
@@ -95,6 +106,14 @@
                     </c:if>
                 </div>
             </div>
+        </div>
+        <div class="clearmarker round-corner">
+            Personalized ads for ${param.user}:
+            <l:LoopUserAds userid="${prof.userid}">
+                <div class="message round-corner" onclick="changePage('JSPChunks/BuyItem.jsp?ad=${curAd.id}')">
+                    ${curAd.item} from ${curAd.company} for $${curAd.unitPrice} From Category: ${curAd.cat}: ${curAd.adContent}
+                </div>
+            </l:LoopUserAds>
         </div>
         <div class="clearmarker"></div>
     </c:if>
