@@ -1130,6 +1130,26 @@ public class DBManager {
         
         return list;
     }
+
+    public ArrayList<TransactionBean> getItemTransactions(int item) {
+        ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
+        ResultSet rs = select("*", "purchases", "advertisement="+item);
+        try {
+            while(rs.next()){
+                AdBean b = new AdBean();
+                fillAdBean(b, rs.getInt("advertisement"));
+                TransactionBean tb = new TransactionBean();
+                tb.setB(b);
+                tb.setDate(rs.getDate("_date"));
+                tb.setNumUnits(rs.getInt("number_of_units"));
+                tb.setTotal(tb.getNumUnits()*b.getUnitPrice());
+                list.add(tb);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        return list;
+    }
     
     
     

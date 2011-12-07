@@ -26,10 +26,18 @@
         </div>
     </div>
     <div class="clearmarker"></div>
-    <div id="allads">
+    <div id="allads" class ="round-corner floatleft">
         <h3>All Ads:</h3>
         <l:LoopAllAds>
             <div>${curAd.item} by ${curAd.company}</div>
         </l:LoopAllAds>
+    </div>
+    <div id="salesbyitem" class="round-corner floatleft">
+        <form>
+            <l:ItemSelectorTagHandler />
+        </form>
+        <div id="chosenitemsales">
+            <%@include file="/JSPChunks/SalesByItem.jsp" %>
+        </div>
     </div>
 </div>

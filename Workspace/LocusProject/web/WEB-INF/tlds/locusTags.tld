@@ -257,6 +257,22 @@
     <tag-class>com.locus305.taghandlers.LoopAllAdsTagHandler</tag-class>
     <body-content>scriptless</body-content>
   </tag>
+  <tag>
+    <name>ItemSelectorTagHandler</name>
+    <tag-class>com.locus305.taghandlers.ItemSelectorTagHandler</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  <tag>
+    <name>LoopItemTransactions</name>
+    <tag-class>com.locus305.taghandlers.LoopItemTransactionsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>item</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>

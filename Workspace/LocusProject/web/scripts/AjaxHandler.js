@@ -530,3 +530,18 @@ function changeSalesReport(){
     xmlhttp.send();
 
 }
+
+function changeTransByItem(){
+    var item = val("itemselect");
+    var xmlhttp=getRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("chosenitemsales").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","JSPChunks/SalesByItem.jsp?item="+item,true);
+    xmlhttp.send();
+    
+}
