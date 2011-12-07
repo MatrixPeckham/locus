@@ -6,6 +6,7 @@ package com.locus305.database;
 
 import com.locus305.beans.AccountBean;
 import com.locus305.beans.AdBean;
+import com.locus305.beans.BestSellerBean;
 import com.locus305.beans.CircleBean;
 import com.locus305.beans.CommentBean;
 import com.locus305.beans.EmployeeBean;
@@ -1086,5 +1087,50 @@ public class DBManager {
         
         return list;
     }
+
+    public ArrayList<BestSellerBean> getBestSellers() {
+        String sql = "call wpeckham.Best_Sellers();";
+        ArrayList<BestSellerBean> list = new ArrayList<BestSellerBean>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                AdBean b = new AdBean();
+                fillAdBean(b, rs.getInt("Advertisement"));
+                BestSellerBean bsb = new BestSellerBean();
+                bsb.setB(b);
+                bsb.setNumsold(rs.getInt("NumSold"));
+                list.add(bsb);
+            }
+        } catch (SQLException ex) {
+            int i =0;
+        }
+        return list;
+    }
+
+    public ArrayList<TransactionBean> getSalesForMonth(int month, int year) {
+        String sql = "call wpeckham.salesReport("+month+","+year+")";
+        ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                AdBean b = new AdBean();
+                fillAdBean(b, rs.getInt("advertisement"));
+                TransactionBean tb = new TransactionBean();
+                tb.setB(b);
+                tb.setDate(rs.getDate("_date"));
+                tb.setNumUnits(rs.getInt("number_of_units"));
+                tb.setTotal(tb.getNumUnits()*b.getUnitPrice());
+                list.add(tb);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        
+        return list;
+    }
+    
+    
     
 }

@@ -7,5 +7,61 @@
 <%@taglib prefix="l" uri="com.locus305.tags" %>
 
 <div id="salesreport">
-    
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Unit Price
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Number Purchased
+                </th>
+                <th>
+                    Total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <l:LoopTransactions month="${param.month}" year="${param.year}">
+                <tr>
+                    <td>
+                        ${curTrans.b.item}
+                    </td>
+                    <td>
+                        ${curTrans.b.company}
+                    </td>
+                    <td>
+                        ${curTrans.b.unitPrice}
+                    </td>
+                    <td>
+                        ${curTrans.date}
+                    </td>
+                    <td>
+                        ${curTrans.numUnits}
+                    </td>
+                    <td>
+                        ${curTrans.total}
+                    </td>
+                </tr>
+            </l:LoopTransactions>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total:</td>
+                <td>${monthTotal}</td>
+            </tr>
+        </tbody>
+
+    </table>    
 </div>

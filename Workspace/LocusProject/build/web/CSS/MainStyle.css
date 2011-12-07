@@ -60,7 +60,7 @@ body {
 
 #content{
     margin-top:160px;
-    margin-right:150px;
+    margin-right:175px;
 }
 
 #registertable{
@@ -161,14 +161,12 @@ div.floatright{
     position:fixed;
     right:0px;
     top:170px;
-    width:150px;
-    background-color:#ffffff
+    width:175px;
 }
 
-#AdvertiseDiv:hover{
-    position:fixed;
-    right:0px;
-    top:170px;
-    width:150px;
-    background-color:#f0f0ff
+#curadvert{
+    background-color:white;
+}
+#curadvert:hover{
+    background-color:#f0f0ff;
 }
