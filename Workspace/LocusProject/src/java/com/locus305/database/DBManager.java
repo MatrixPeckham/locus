@@ -37,9 +37,9 @@ public class DBManager {
     private Connection con = null;
 
     public static DBManager get() {
-        if (inst == null || inst.con==null) {
+        if (inst == null || inst.con == null) {
             inst = new DBManager();
-        } 
+        }
         try {
             if (!inst.con.isValid(0)) {
                 inst = new DBManager();
@@ -177,7 +177,7 @@ public class DBManager {
                 ub.setAddr(rs.getString("address"));
                 ub.setZip(rs.getInt("zip_code"));
                 ub.setPhone(rs.getString("telephone"));
-                ub.setUsername(username); 
+                ub.setUsername(username);
                 ub.setUserid(rs.getInt("SSN"));
                 rs = select("preference", "user_preferences", "id=" + ub.getUserid());
                 ub.setPreferences("");
@@ -878,7 +878,7 @@ public class DBManager {
             }
         } catch (SQLException ex) {
             int i = 0;
-        } catch (Exception e){
+        } catch (Exception e) {
             int i = 0;
         }
 
@@ -912,20 +912,19 @@ public class DBManager {
             int i = 0;
         }
     }
-    public ArrayList<AdBean> getAdsForUser(int uid){
+
+    public ArrayList<AdBean> getAdsForUser(int uid) {
         ArrayList<AdBean> userAds = new ArrayList<AdBean>();
-        try{
+        try {
             Statement stmt = con.createStatement();
             String sql;
-            if(uid > 0){
-                sql ="CALL wpeckham.getAdsForUser(" + uid +")";    
-            }
-            else{
+            if (uid > 0) {
+                sql = "CALL wpeckham.getAdsForUser(" + uid + ")";
+            } else {
                 sql = "SELECT * FROM wpeckham.advertisement";
             }
-            ResultSet rs =  stmt.executeQuery(sql);
-            while(rs.next())
-            {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 b.setId(rs.getInt(1));
                 b.setEmpId(rs.getInt(2));
@@ -938,19 +937,19 @@ public class DBManager {
                 b.setAvailable(rs.getInt(9));
                 userAds.add(b);
             }
-            if((userAds.size() <= 0)&& (uid > 0 )){
+            if ((userAds.size() <= 0) && (uid > 0)) {
                 userAds = getAdsForUser(-1);
             }
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             int i = 0;
         }
         return userAds;
     }
-    public void fillAdBean(AdBean b, int adId){
-        ResultSet rs = select("*", "advertisement", "Advertisement_Id=" +adId);
-        try{
-            if(rs.next()){
+
+    public void fillAdBean(AdBean b, int adId) {
+        ResultSet rs = select("*", "advertisement", "Advertisement_Id=" + adId);
+        try {
+            if (rs.next()) {
                 b.setId(rs.getInt(1));
                 b.setEmpId(rs.getInt(2));
                 b.setCat(rs.getString(3));
@@ -960,56 +959,56 @@ public class DBManager {
                 b.setAdContent(rs.getString(7));
                 b.setUnitPrice(rs.getInt(8));
                 b.setAvailable(rs.getInt(9));
-             }
-                 
+            }
+
         } catch (SQLException ex) {
             int i = 0;
         }
     }
-    
-    public void addAd(AdBean b){
-        try{
-            String sql = "INSERT INTO wpeckham.advertisement( Employee, Catagory, _Date, Company, Item_Name, Content, Unit_Price, Available_Units) VALUES (" + b.getEmpId()+",\""+b.getCat()+"\",NOW(),\""+b.getCompany()+"\",\""+b.getItem()+"\",\""+b.getAdContent()+"\","+b.getUnitPrice()+","+b.getAvailable()+")";
+
+    public void addAd(AdBean b) {
+        try {
+            String sql = "INSERT INTO wpeckham.advertisement( Employee, Catagory, _Date, Company, Item_Name, Content, Unit_Price, Available_Units) VALUES (" + b.getEmpId() + ",\"" + b.getCat() + "\",NOW(),\"" + b.getCompany() + "\",\"" + b.getItem() + "\",\"" + b.getAdContent() + "\"," + b.getUnitPrice() + "," + b.getAvailable() + ")";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             int i = 0;
         }
     }
-    
-    public void deleteAd(int adid){
-        try{
-            String sql = "delete from wpeckham.advertisement where advertisement_id="+adid;
+
+    public void deleteAd(int adid) {
+        try {
+            String sql = "delete from wpeckham.advertisement where advertisement_id=" + adid;
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
-        } catch(SQLException e){
+        } catch (SQLException e) {
             int i = 0;
         }
     }
-    
-    public ArrayList<AdBean> getEmployeesAds(int empl){
+
+    public ArrayList<AdBean> getEmployeesAds(int empl) {
         ArrayList<AdBean> list = new ArrayList<AdBean>();
-        
-        try{
-            ResultSet rs = select("advertisement_id", "advertisement", "employee="+empl);
-            while(rs.next()){
+
+        try {
+            ResultSet rs = select("advertisement_id", "advertisement", "employee=" + empl);
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt(1));
                 list.add(b);
             }
-        } catch(SQLException e){
-            int i=0;
+        } catch (SQLException e) {
+            int i = 0;
         }
-        
+
         return list;
     }
-    
-    public Date getEaliestTransactionDate(){
+
+    public Date getEaliestTransactionDate() {
         String sql = "select unique _date from wpeckham.transactions where 1=1 order by _date desc";
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            if(rs.next()){
+            if (rs.next()) {
                 Date d = rs.getDate(1);
                 return d;
             }
@@ -1017,41 +1016,41 @@ public class DBManager {
             int i = 0;
         }
         return new Date();
-        
+
     }
 
     public int makePurchase(int account, int adid, int number) {
-        try{
+        try {
             con.setAutoCommit(false);
-            
+
             AdBean b = new AdBean();
             fillAdBean(b, adid);
-            ResultSet rs = select("credit_card_number", "accounts","account_number="+account );
+            ResultSet rs = select("credit_card_number", "accounts", "account_number=" + account);
             String ccn = "";
-            if(rs.next()){
+            if (rs.next()) {
                 ccn = rs.getString(1);
             } else {
                 return -1;
             }
-            if(ccn==null||ccn.equals("")){
+            if (ccn == null || ccn.equals("")) {
                 return -1;
             }
-            if(b.getAvailable()<=number){
-                number=b.getAvailable();
+            if (b.getAvailable() <= number) {
+                number = b.getAvailable();
             }
-            
-            String sql = "insert into wpeckham.purchases (_date,advertisement,number_of_units,account) values (now(),"+b.getId()+","+number+","+account+")";
+
+            String sql = "insert into wpeckham.purchases (_date,advertisement,number_of_units,account) values (now()," + b.getId() + "," + number + "," + account + ")";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
-            
-            sql="update wpeckham.advertisement set available_units=" + (b.getAvailable()-number) + " where advertisement_id="+b.getId();
+
+            sql = "update wpeckham.advertisement set available_units=" + (b.getAvailable() - number) + " where advertisement_id=" + b.getId();
             stmt.executeUpdate(sql);
-            
+
             con.commit();
-            
+
             con.setAutoCommit(true);
-            return number; 
-        } catch(SQLException e){
+            return number;
+        } catch (SQLException e) {
             try {
                 con.rollback();
                 con.setAutoCommit(true);
@@ -1059,19 +1058,19 @@ public class DBManager {
                 int i = 0;
             }
             int i = 0;
-        } 
-        
+        }
+
         return -1;
     }
 
     public ArrayList<TransactionBean> getAccountTransactions(int acct) {
         ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
-        
-        String sql = "select * from wpeckham.purchases, wpeckham.advertisement where advertisement=advertisement_id and account=" +acct;
+
+        String sql = "select * from wpeckham.purchases, wpeckham.advertisement where advertisement=advertisement_id and account=" + acct;
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt("advertisement_id"));
                 TransactionBean tb = new TransactionBean();
@@ -1083,8 +1082,8 @@ public class DBManager {
         } catch (SQLException ex) {
             int i = 0;
         }
-        
-        
+
+
         return list;
     }
 
@@ -1094,7 +1093,7 @@ public class DBManager {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt("Advertisement"));
                 BestSellerBean bsb = new BestSellerBean();
@@ -1103,46 +1102,46 @@ public class DBManager {
                 list.add(bsb);
             }
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
         }
         return list;
     }
 
     public ArrayList<TransactionBean> getSalesForMonth(int month, int year) {
-        String sql = "call wpeckham.salesReport("+month+","+year+")";
+        String sql = "call wpeckham.salesReport(" + month + "," + year + ")";
         ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt("advertisement"));
                 TransactionBean tb = new TransactionBean();
                 tb.setB(b);
                 tb.setDate(rs.getDate("_date"));
                 tb.setNumUnits(rs.getInt("number_of_units"));
-                tb.setTotal(tb.getNumUnits()*b.getUnitPrice());
+                tb.setTotal(tb.getNumUnits() * b.getUnitPrice());
                 list.add(tb);
             }
         } catch (SQLException ex) {
             int i = 0;
         }
-        
+
         return list;
     }
 
     public ArrayList<TransactionBean> getItemTransactions(int item) {
         ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
-        ResultSet rs = select("*", "purchases", "advertisement="+item);
+        ResultSet rs = select("*", "purchases", "advertisement=" + item);
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt("advertisement"));
                 TransactionBean tb = new TransactionBean();
                 tb.setB(b);
                 tb.setDate(rs.getDate("_date"));
                 tb.setNumUnits(rs.getInt("number_of_units"));
-                tb.setTotal(tb.getNumUnits()*b.getUnitPrice());
+                tb.setTotal(tb.getNumUnits() * b.getUnitPrice());
                 list.add(tb);
             }
         } catch (SQLException ex) {
@@ -1150,7 +1149,48 @@ public class DBManager {
         }
         return list;
     }
-    
-    
-    
+
+    public ArrayList<UserBean> getAllUsers() {
+        ArrayList<UserBean> list = new ArrayList<UserBean>();
+
+        ResultSet rs = select("display_name, ssn", "persons", "1=1", "display_name");
+        try {
+            while (rs.next()) {
+                UserBean b = new UserBean();
+                b.setUserid(rs.getInt("ssn"));
+                b.setUsername(rs.getString("display_name"));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+
+        return list;
+    }
+
+    public ArrayList<TransactionBean> getNameTransactions(int name) {
+        ArrayList<TransactionBean> list = new ArrayList<TransactionBean>();
+
+        ResultSet rs = select("account_number", "user_has_account", "user_id=" + name);
+        try {
+            while (rs.next()) {
+                int acct = rs.getInt(1);
+                ResultSet rs2 = select("*", "purchases", "account=" + acct);
+                while (rs2.next()) {
+                    AdBean b = new AdBean();
+                    fillAdBean(b, rs2.getInt("advertisement"));
+                    TransactionBean tb = new TransactionBean();
+                    tb.setB(b);
+                    tb.setDate(rs2.getDate("_date"));
+                    tb.setNumUnits(rs2.getInt("number_of_units"));
+                    tb.setTotal(tb.getNumUnits() * b.getUnitPrice());
+                    list.add(tb);
+                }
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+
+        return list;
+    }
 }
