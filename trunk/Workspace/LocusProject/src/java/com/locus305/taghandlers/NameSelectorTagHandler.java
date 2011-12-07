@@ -34,7 +34,7 @@ public class NameSelectorTagHandler extends SimpleTagSupport {
             
             JspFragment f = getJspBody();
             
-            out.print("Item: <select id=\"nameselect\" onchange=\"changeTransByName()\">");
+            out.print("User: <select id=\"nameselect\" onchange=\"changeTransByName()\">");
             out.print("<option value=\"\" selected=\"selected\"></option>");
             for(UserBean b : list){
                 out.print("<option value=\""+b.getUserid()+"\">"+b.getUsername()+"</option>");

@@ -48,6 +48,14 @@
                 <td>Total:</td>
                 <td>${itemTotal}</td>
             </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total Revenue:</td>
+                <td>${itemTotal*.1}</td>
+            </tr>
         </tbody>
 
     </table>    

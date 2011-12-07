@@ -61,6 +61,14 @@
                 <td>Total:</td>
                 <td>${monthTotal}</td>
             </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total Revenue:</td>
+                <td>${(monthTotal*.1)}</td>
+            </tr>
         </tbody>
 
     </table>    
