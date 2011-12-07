@@ -61,6 +61,14 @@
                 <td>Total:</td>
                 <td>${nameTotal}</td>
             </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total Revenue:</td>
+                <td>${(nameTotal*.1)}</td>
+            </tr>
         </tbody>
 
     </table>    
