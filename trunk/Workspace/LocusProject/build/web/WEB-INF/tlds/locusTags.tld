@@ -252,6 +252,11 @@
     <tag-class>com.locus305.taghandlers.LoopBestSellersTagHandler</tag-class>
     <body-content>scriptless</body-content>
   </tag>
+  <tag>
+    <name>LoopAllAds</name>
+    <tag-class>com.locus305.taghandlers.LoopAllAdsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>
