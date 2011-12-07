@@ -25,4 +25,11 @@
             <%@include file="/JSPChunks/SalesReport.jsp" %>
         </div>
     </div>
+    <div class="clearmarker"></div>
+    <div id="allads">
+        <h3>All Ads:</h3>
+        <l:LoopAllAds>
+            <div>${curAd.item} by ${curAd.company}</div>
+        </l:LoopAllAds>
+    </div>
 </div>
