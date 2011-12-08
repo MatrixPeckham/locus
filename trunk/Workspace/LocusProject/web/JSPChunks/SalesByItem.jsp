@@ -9,7 +9,9 @@
 
 <div id="itemreport">
     <table>
+        <caption>Sales</caption>
         <thead>
+
             <tr>
                 <th>
                     Unit Price
@@ -51,12 +53,21 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
                 <td>Total Revenue:</td>
                 <td>${itemTotal*.1}</td>
             </tr>
         </tbody>
-
-    </table>    
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Users who purchased
+                </th>
+            </tr>
+        </thead>
+        <l:LoopUsersWhoBought item="${param.item}">
+            <tr><td>${curUser.username}</td></tr>
+        </l:LoopUsersWhoBought>
+    </table>
 </div>

@@ -19,6 +19,9 @@ import java.io.StringWriter;
 import java.sql.*;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -867,13 +870,8 @@ public class DBManager {
         ResultSet rs = select("*", "employees", "manager=" + manager);
         try {
             while (rs.next()) {
-                UserBean b = new UserBean();
-                fillUserBean(b, getUserNameFromID(rs.getInt("ssn")));
                 EmployeeBean eb = new EmployeeBean();
-                eb.setUsr(b);
-                eb.setHourly(rs.getInt("hourly_rate"));
-                eb.setDate(rs.getDate("start_date"));
-                eb.setManager(manager);
+                fillEmployeeBean(eb, rs.getInt("ssn"));
                 list.add(eb);
             }
         } catch (SQLException ex) {
@@ -882,12 +880,19 @@ public class DBManager {
             int i = 0;
         }
 
+        Collections.sort(list, new Comparator<EmployeeBean>(){
 
+            @Override
+            public int compare(EmployeeBean o1, EmployeeBean o2) {
+                return -(new Integer(o1.getRevenue()).compareTo(o2.getRevenue()));
+            }
+        
+        });
         return list;
     }
 
     public void fillEmployeeBean(EmployeeBean b, int empl) {
-        ResultSet rs = select("*", "employees", "ssn=" + empl);
+        ResultSet rs = select("*", "employees", "employees.ssn=" + empl);
         try {
             if (rs.next()) {
                 UserBean ub = new UserBean();
@@ -897,6 +902,11 @@ public class DBManager {
                 b.setDate(rs.getDate("start_date"));
                 b.setManager(rs.getInt("manager"));
                 b.setManagerName(getUserNameFromID(b.getManager()));
+                ResultSet rs2 = select("revenue", "employeerevenue", "ssn="+b.getUsr().getUserid());
+                if(rs2.next())
+                    b.setRevenue(rs2.getInt("revenue"));
+                else
+                    b.setRevenue(0);
             }
         } catch (SQLException ex) {
             int i = 0;
@@ -1193,4 +1203,57 @@ public class DBManager {
 
         return list;
     }
+
+    public ArrayList<String> getCompanys() {
+        ArrayList<String> list = new ArrayList<String>();
+        String sql = "select distinct company from wpeckham.advertisement";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next())
+                list.add(rs.getString(1));
+        } catch (SQLException ex) {
+            int i =0;
+        }
+        
+        return list;
+        
+    }
+
+    public ArrayList<AdBean> getCompanyAds(String company) {
+        ResultSet rs = select("*", "advertisement", "company='"+company+"'");
+        ArrayList<AdBean> list = new ArrayList<AdBean>();
+        try {
+            while(rs.next()){
+                AdBean b = new AdBean();
+                fillAdBean(b, rs.getInt("advertisement_id"));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        return list;
+        
+    }
+
+    public ArrayList<UserBean> getUserWhoBought(int item) {
+        ArrayList<UserBean> list = new ArrayList<UserBean>();
+
+        String s = "select distinct ssn from wpeckham.persons u, wpeckham.purchases p, wpeckham.advertisement a, wpeckham.user_has_account ua " + 
+                "where u.ssn=ua.user_id and ua.account_number=p.account and p.advertisement=a.advertisement_id and a.advertisement_id="+item;
+        try { 
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(s);
+            while(rs.next()){
+                UserBean b = new UserBean();
+                fillUserBean(b, getUserNameFromID(rs.getInt(1)));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            int i = 0;
+        }
+        return list;
+    }
+    
+    
 }

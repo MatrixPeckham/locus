@@ -560,3 +560,16 @@ function changeTransByName(){
     xmlhttp.send();
     
 }
+function changeCompanydisplay(){
+    var item = val("companyselect");
+    var xmlhttp=getRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("chosencompads").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","JSPChunks/CompanyAds.jsp?company="+item,true);
+    xmlhttp.send();
+}
