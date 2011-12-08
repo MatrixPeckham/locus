@@ -289,6 +289,33 @@
       <type>int</type>
     </attribute>
   </tag>
+  <tag>
+    <name>SelectCompany</name>
+    <tag-class>com.locus305.taghandlers.SelectCompanyTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>LoopCompanyAds</name>
+    <tag-class>com.locus305.taghandlers.LoopCompanyAdsTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>company</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+  </tag>
+  <tag>
+    <name>LoopUsersWhoBought</name>
+    <tag-class>com.locus305.taghandlers.LoopUsersWhoBoughtTagHandler</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>item</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>int</type>
+    </attribute>
+  </tag>
   <tag-file>
     <name>header</name>
     <path>/WEB-INF/tags/header.tag</path>

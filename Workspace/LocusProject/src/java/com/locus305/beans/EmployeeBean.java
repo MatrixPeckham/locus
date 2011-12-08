@@ -17,6 +17,15 @@ public class EmployeeBean implements Serializable {
     private int hourly = -1;
     private int manager = -1;
     private String managerName="";
+    private int revenue = -1;
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
 
     public Date getDate() {
         return date;
