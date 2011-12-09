@@ -28,6 +28,18 @@ function changeAd(){
     xmlhttp.open("GET","JSPChunks/Ad.jsp",true);
     xmlhttp.send();
 }
+function changeHeader(){
+    var xmlhttp=getRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            document.getElementById("indheader").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","JSPChunks/Header.jsp",true);
+    xmlhttp.send();
+}
 
 function changePage(page){
     var xmlhttp=getRequest();
@@ -41,6 +53,7 @@ function changePage(page){
     xmlhttp.open("GET",page,true);
     xmlhttp.send();
     changeAd();
+    changeHeader();
 }
 
 function post(page, params){

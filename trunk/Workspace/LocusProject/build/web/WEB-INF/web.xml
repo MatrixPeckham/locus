@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
-        <servlet-name>LocusImage</servlet-name>
-        <servlet-class>com.locus305.servlets.LocusImage</servlet-class>
-        <init-param>
-            <param-name>width</param-name>
-            <param-value>200</param-value>
-        </init-param>
-        <init-param>
-            <param-name>height</param-name>
-            <param-value>200</param-value>
-        </init-param>
-        <init-param>
-            <param-name>points</param-name>
-            <param-value>50</param-value>
-        </init-param>
-    </servlet>
-    <servlet>
         <servlet-name>TestEmail</servlet-name>
         <servlet-class>com.locus305.servlets.testers.TestEmail</servlet-class>
     </servlet>
@@ -161,15 +145,6 @@
         <url-pattern>/RegisterUser.htm</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LocusImage</servlet-name>
-        <url-pattern>/LocusImage2.png</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LocusLogo</servlet-name>
-        <url-pattern>/LocusImage.png</url-pattern>
-        <url-pattern>/LocusLogo.png</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login.htm</url-pattern>
     </servlet-mapping>
@@ -284,6 +259,12 @@
     <servlet-mapping>
         <servlet-name>Purchase</servlet-name>
         <url-pattern>/Purchase.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LocusLogo</servlet-name>
+        <url-pattern>/LocusImage.png</url-pattern>
+        <url-pattern>/LocusLogo.png</url-pattern>
+        <url-pattern>/JSPChunks/LocusImage.png</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -185,11 +185,18 @@ public class DBManager {
                 rs = select("preference", "user_preferences", "id=" + ub.getUserid());
                 ub.setPreferences("");
                 boolean first = true;
-                while (rs.next()) {
-                    ub.setPreferences(ub.getPreferences() + (first ? "" : ",") + rs.getString("preference"));
+                ResultSet rs2 = select("*", "user_preferences", "id=" + ub.getUserid()); 
+                while (rs2.next()) {
+                    ub.setPreferences(ub.getPreferences() + (first ? "" : ",") + rs2.getString("preference"));
                     first = false;
                 }
                 ub.setType(0);
+                ResultSet rs3 = select("totalspent", "userspent", "ssn=" + ub.getUserid());
+                if (rs3.next()) {
+                    ub.setTotalSpent(rs3.getInt(1));
+                } else {
+                    ub.setTotalSpent(0);
+                }
                 if (contains("employees", "ssn", ub.getUserid() + "")) {
                     ub.setType(1);
                 }
@@ -198,6 +205,11 @@ public class DBManager {
                 }
             }
         } catch (SQLException ex) {
+            StringWriter w=new StringWriter();
+            PrintWriter pw = new PrintWriter(w);
+            ex.printStackTrace(pw);
+            String s = w.toString();
+            int i = 0;
         }
 
     }
@@ -880,13 +892,12 @@ public class DBManager {
             int i = 0;
         }
 
-        Collections.sort(list, new Comparator<EmployeeBean>(){
+        Collections.sort(list, new Comparator<EmployeeBean>() {
 
             @Override
             public int compare(EmployeeBean o1, EmployeeBean o2) {
                 return -(new Integer(o1.getRevenue()).compareTo(o2.getRevenue()));
             }
-        
         });
         return list;
     }
@@ -902,11 +913,12 @@ public class DBManager {
                 b.setDate(rs.getDate("start_date"));
                 b.setManager(rs.getInt("manager"));
                 b.setManagerName(getUserNameFromID(b.getManager()));
-                ResultSet rs2 = select("revenue", "employeerevenue", "ssn="+b.getUsr().getUserid());
-                if(rs2.next())
+                ResultSet rs2 = select("revenue", "employeerevenue", "ssn=" + b.getUsr().getUserid());
+                if (rs2.next()) {
                     b.setRevenue(rs2.getInt("revenue"));
-                else
+                } else {
                     b.setRevenue(0);
+                }
             }
         } catch (SQLException ex) {
             int i = 0;
@@ -1160,6 +1172,22 @@ public class DBManager {
         return list;
     }
 
+    public ArrayList<UserBean> getAllUsers(boolean sortByName) {
+        ArrayList<UserBean> list = getAllUsers();
+        if (sortByName) {
+            return list;
+        } else {
+            Collections.sort(list, new Comparator<UserBean>() {
+
+                @Override
+                public int compare(UserBean o1, UserBean o2) {
+                    return -(new Integer(o1.getTotalSpent()).compareTo(o2.getTotalSpent()));
+                }
+            });
+            return list;
+        }
+    }
+
     public ArrayList<UserBean> getAllUsers() {
         ArrayList<UserBean> list = new ArrayList<UserBean>();
 
@@ -1169,12 +1197,12 @@ public class DBManager {
                 UserBean b = new UserBean();
                 b.setUserid(rs.getInt("ssn"));
                 b.setUsername(rs.getString("display_name"));
+                fillUserBean(b, b.getUsername());
                 list.add(b);
             }
         } catch (SQLException ex) {
             int i = 0;
         }
-
         return list;
     }
 
@@ -1210,21 +1238,22 @@ public class DBManager {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next())
+            while (rs.next()) {
                 list.add(rs.getString(1));
+            }
         } catch (SQLException ex) {
-            int i =0;
+            int i = 0;
         }
-        
+
         return list;
-        
+
     }
 
     public ArrayList<AdBean> getCompanyAds(String company) {
-        ResultSet rs = select("*", "advertisement", "company='"+company+"'");
+        ResultSet rs = select("*", "advertisement", "company='" + company + "'");
         ArrayList<AdBean> list = new ArrayList<AdBean>();
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt("advertisement_id"));
                 list.add(b);
@@ -1233,18 +1262,18 @@ public class DBManager {
             int i = 0;
         }
         return list;
-        
+
     }
 
     public ArrayList<UserBean> getUserWhoBought(int item) {
         ArrayList<UserBean> list = new ArrayList<UserBean>();
 
-        String s = "select distinct ssn from wpeckham.persons u, wpeckham.purchases p, wpeckham.advertisement a, wpeckham.user_has_account ua " + 
-                "where u.ssn=ua.user_id and ua.account_number=p.account and p.advertisement=a.advertisement_id and a.advertisement_id="+item;
-        try { 
+        String s = "select distinct ssn from wpeckham.persons u, wpeckham.purchases p, wpeckham.advertisement a, wpeckham.user_has_account ua "
+                + "where u.ssn=ua.user_id and ua.account_number=p.account and p.advertisement=a.advertisement_id and a.advertisement_id=" + item;
+        try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(s);
-            while(rs.next()){
+            while (rs.next()) {
                 UserBean b = new UserBean();
                 fillUserBean(b, getUserNameFromID(rs.getInt(1)));
                 list.add(b);
@@ -1254,6 +1283,4 @@ public class DBManager {
         }
         return list;
     }
-    
-    
 }

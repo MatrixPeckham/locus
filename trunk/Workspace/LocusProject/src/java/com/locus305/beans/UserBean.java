@@ -23,6 +23,15 @@ public class UserBean implements Serializable {
     private String phone="";
     private String preferences;
     private int type=0;
+    private int totalSpent = -1;
+
+    public int getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(int totalSpent) {
+        this.totalSpent = totalSpent;
+    }
 
     public int getType() {
         return type;
