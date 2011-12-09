@@ -43,7 +43,7 @@
                 </td>
             </c:if>
             <td class="menuitem">
-                <a href="TroubleShooting.jsp">
+                <a href="TroubleShooting.jsp" target="_blank">
                     Troubleshooting
                 </a>
             </td>

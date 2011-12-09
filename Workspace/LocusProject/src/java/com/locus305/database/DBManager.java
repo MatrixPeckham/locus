@@ -957,7 +957,7 @@ public class DBManager {
                 b.setAdContent(rs.getString(7));
                 b.setUnitPrice(rs.getInt(8));
                 b.setAvailable(rs.getInt(9));
-                if(b.getAvailable()!=0)
+                if(b.getAvailable()>=0)
                     userAds.add(b);
             }
             if ((userAds.size() <= 0) && (uid > 0)) {
@@ -1258,7 +1258,7 @@ public class DBManager {
             while (rs.next()) {
                 AdBean b = new AdBean();
                 fillAdBean(b, rs.getInt("advertisement_id"));
-                if(b.getAvailable()!=0)
+                if(b.getAvailable()>=0)
                     list.add(b);
             }
         } catch (SQLException ex) {
