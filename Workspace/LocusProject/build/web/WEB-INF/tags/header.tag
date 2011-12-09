@@ -5,17 +5,23 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="l" uri="com.locus305.tags" %>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
-
+<%
+response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+response.setHeader("Pragma","no-cache"); //HTTP 1.0
+response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 
 <div id="header" class ="round-corner">
     <table >
         <tr>
             <td>
-                <image src="./LocusImage.png?height=100" alt="Failed to Load Image" />
+                <l:Rand var="random" />
+                <image src="./LocusImage.png?height=100&points=25&lines=25&random=${random}" alt="Loading Locus Logo" />
             </td>
             <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/Home.jsp')">Home</a></td>
             <td>

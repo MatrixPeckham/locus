@@ -17,8 +17,9 @@
         <title>Locus</title>
     </head>
     <body>
-
-        <l:header message="MESSAGE"/>
+        <div id="indheader">
+            <%@include file="JSPChunks/Header.jsp" %>
+        </div>
         <div id="AdvertiseDiv">
             <%@include file="JSPChunks/Ad.jsp" %>
         </div>
