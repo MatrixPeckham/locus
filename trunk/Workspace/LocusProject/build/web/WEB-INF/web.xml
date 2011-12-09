@@ -132,6 +132,10 @@
         <servlet-name>Purchase</servlet-name>
         <servlet-class>com.locus305.servlets.advertisements.Purchase</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCard</servlet-name>
+        <servlet-class>com.locus305.servlets.users.AddCard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestEmail</servlet-name>
         <url-pattern>/testEmail.htm</url-pattern>
@@ -265,6 +269,10 @@
         <url-pattern>/LocusImage.png</url-pattern>
         <url-pattern>/LocusLogo.png</url-pattern>
         <url-pattern>/JSPChunks/LocusImage.png</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCard</servlet-name>
+        <url-pattern>/AddCard.htm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

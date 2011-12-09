@@ -11,9 +11,9 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
 <%
-response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
-response.setHeader("Pragma","no-cache"); //HTTP 1.0
-response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+    response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+    response.setDateHeader("Expires", 0); //prevents caching at the proxy server
 %>
 
 <div id="header" class ="round-corner">
@@ -23,21 +23,29 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
                 <l:Rand var="random" />
                 <image src="./LocusImage.png?height=100&points=25&lines=25&random=${random}" alt="Loading Locus Logo" />
             </td>
-            <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/Home.jsp')">Home</a></td>
-            <td>
-                <a href="javascript:void(0);" onclick="changePage('JSPChunks/Profile.jsp?user=${sessionScope.userInfo.username}')">Profile</a>
+            <td onclick="changePage('JSPChunks/Home.jsp')" class="menuitem">
+                Home
             </td>
-            <td>
-                <a href="javascript:void(0);" onclick="changePage('JSPChunks/ViewMessages.jsp')">View Messagess</a>
+            <td onclick="changePage('JSPChunks/Profile.jsp?user=${sessionScope.userInfo.username}')" class="menuitem">
+                Profile
+            </td>
+            <td onclick="changePage('JSPChunks/ViewMessages.jsp')" class="menuitem">
+                View Messages
             </td>
             <c:if test="${sessionScope.userInfo.type==1}">
-                <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/EmployeePage.jsp')">Employee Page</a></td>
+                <td onclick="changePage('JSPChunks/EmployeePage.jsp')" class="menuitem">
+                    Employee Page
+                </td>
             </c:if>
             <c:if test="${sessionScope.userInfo.type==2}">
-                <td><a href="javascript:void(0);" onclick="changePage('JSPChunks/Management.jsp')">Manager Page</a></td>
+                <td onclick="changePage('JSPChunks/Management.jsp')" class="menuitem">
+                    Manager Page
+                </td>
             </c:if>
-            <td>
-                <a href="TroubleShooting.jsp">Troubleshooting</a>
+            <td class="menuitem">
+                <a href="TroubleShooting.jsp">
+                    Troubleshooting
+                </a>
             </td>
         </tr>
     </table>
