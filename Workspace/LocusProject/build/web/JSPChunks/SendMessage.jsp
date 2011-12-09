@@ -18,7 +18,7 @@
                 <table id ="sendmessagetable">
                     <tr>
                         <td class="formlabel"><label>To: </label></td>
-                        <td class="forminput"><input id="recipient" onchange="targetNameValid(this.value)" onkeyup="targetNameValid(this.value)" type="text"></input></td>
+                        <td class="forminput"><input id="recipient" onchange="targetNameValid(this.value)" onkeyup="targetNameValid(this.value)" type="text" value="${param.touser}"/></td>
                         <td class="formerror">
                             <label id="usernotfound" class="error">User Does Not Exist</label>
                             <label id="lookupname" class="error">Looking Up Name...</label>
@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <td class="formlabel"><label>Subject: </label></td>
-                        <td class="forminput"><input id="subject" type ="text"></input></td>
+                        <td class="forminput"><input id="subject" type ="text" /></td>
                     </tr>
                     <tr>
                         <td class="formlabel"><label>Message: </label></td>

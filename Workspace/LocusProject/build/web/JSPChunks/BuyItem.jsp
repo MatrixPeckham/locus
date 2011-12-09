@@ -16,9 +16,9 @@
             <br />Select an account to use:
             <form id="purchase" action="javascript:void(0);">
                 <l:LoopUserAccounts ivar="ind" username="${sessionScope.userInfo.username}" var="curAcct">
-                    <input type="radio" name="account" value="${curAcct.accnum}" />Card ending in: ${curAcct.ccn}
+                    <input type="radio" name="account" value="${curAcct.accnum}" />Card ending in: ${curAcct.ccn}<br/>
                 </l:LoopUserAccounts>
-                <br />Number<input type="text" id="numItems" />                
+                <br />Number of Items<input type="text" id="numItems" />                
                 <input type="submit" onclick="makePurchase('${item.id}')" value="Buy" />
             </form>
         </c:when>
