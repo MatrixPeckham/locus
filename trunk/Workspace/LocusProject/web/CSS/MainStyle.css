@@ -147,7 +147,7 @@ div.message{
     background-color:#ffffff
 }
 div.message:hover{
-    background-color:#f0f0ff
+    background-color:#e0e0ff
 }
 
 div.floatleft{
@@ -168,7 +168,7 @@ div.floatright{
     background-color:white;
 }
 #curadvert:hover{
-    background-color:#f0f0ff;
+    background-color:#e0e0ff;
 }
 
 td.menuitem{
@@ -186,6 +186,6 @@ td.menuitem{
     width:100px;
     height:50px;
     text-align:center;
-    text-decoration:blink underline;
+    text-decoration:underline;
     text-transform:uppercase;
 }

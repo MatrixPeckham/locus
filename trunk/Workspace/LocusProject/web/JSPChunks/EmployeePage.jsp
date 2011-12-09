@@ -19,7 +19,12 @@
                         ${curAd.date}
                         ${curAd.adContent}
                         ${curAd.available}
-                        (<a href="javascript:void(0);" onclick="deleteAd('${curAd.id}')">delete</a>)
+                        <c:choose>
+                            <c:when test="${curAd.available>0}">(<a href="javascript:void(0);" onclick="deleteAd('${curAd.id}')">delete</a>)</c:when>
+                            <c:otherwise>
+                                (ad has been deleted or is empty)
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </l:LoopEmployeeAds>
             </div>

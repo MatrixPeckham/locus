@@ -10,6 +10,7 @@
     <l:GetUser usr="${param.user}" var="prof" />
     <div> 
         <h1>Profile ${param.user}</h1>
+        <h3><a href="javascript:void(0);" onclick="changePage('JSPChunks/SendMessage.jsp?touser=${param.user}')">Send Message</a></h3>
     </div>
     <c:choose>
         <c:when test="${sessionScope.userInfo.username!='' && (sessionScope.userInfo.username==param.user || sessionScope.userInfo.type==1)}">
