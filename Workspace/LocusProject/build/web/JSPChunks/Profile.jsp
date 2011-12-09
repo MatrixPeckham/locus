@@ -59,8 +59,14 @@
                             </tr>
                         </l:LoopUserAccounts>
                     </table>
-                    <!--input type="submit" onclick="addCard()" value="Add Another"/--><br/>
+                    <div id="newcard">
+                    </div>
                     <input type="submit" onclick="saveProfile('${param.user}')" value="Save"/>
+                </form>
+                <h2>Add a new Card</h2>
+                <form action="javascript:void(0);">
+                    Card Number:<input type="text" id="newcardnum" />
+                    <input type="submit" onclick="addCard('${param.user}')"/>
                 </form>
             </div>
         </c:when>

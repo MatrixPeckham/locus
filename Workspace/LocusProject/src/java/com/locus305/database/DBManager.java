@@ -1283,4 +1283,24 @@ public class DBManager {
         }
         return list;
     }
+
+    public void addAccount(String user, String card) {
+        try {
+            con.setAutoCommit(false);
+            Statement stmt=con.createStatement();
+            String sql = "insert into wpeckham.accounts (account_creation_date, credit_card_number, state) values ( now()," + card + ",0)";
+            stmt.execute(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            int acctNum = rs.getInt(1);
+            sql = "insert into wpeckham.user_has_account (user_id,account_number) values (" + getUserIDFromName(user) + "," + acctNum + ")";
+            stmt.execute(sql);
+
+            con.commit();
+            con.setAutoCommit(true);
+        } catch (SQLException ex) {
+            int i =0;
+        }
+        
+    }
 }

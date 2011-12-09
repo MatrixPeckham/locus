@@ -586,3 +586,8 @@ function changeCompanydisplay(){
     xmlhttp.open("GET","JSPChunks/CompanyAds.jsp?company="+item,true);
     xmlhttp.send();
 }
+
+function addCard(usr){
+    post("./AddCard.htm?usr="+usr+"&card="+val("newcardnum"));
+    changePage("JSPChunks/Profile.jsp?user="+usr);
+}
