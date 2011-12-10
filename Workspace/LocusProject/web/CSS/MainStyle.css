@@ -189,3 +189,15 @@ td.menuitem{
     text-decoration:underline;
     text-transform:uppercase;
 }
+.menuitem a{
+    text-decoration:inherit;
+    text-align:inherit;
+    text-transform:inherit;
+    color:inherit;
+}
+.menuitem a:hover{
+    text-decoration:inherit;
+    text-align:inherit;
+    text-transform:inherit;
+    color:inherit;
+}

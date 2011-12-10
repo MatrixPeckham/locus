@@ -54,7 +54,7 @@ public class EditUserInfo extends HttpServlet {
             accounts.add(b);
         }
         try {
-            out.print(DBManager.get().updateUserData(user));
+            out.print(DBManager.get().updateUserData(user)&&DBManager.get().updateUserAccounts(numCards, accounts));
         } finally {            
             out.close();
         }

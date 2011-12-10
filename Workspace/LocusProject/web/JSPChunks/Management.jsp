@@ -19,6 +19,7 @@
                 </l:LoopEmployees>
                 <a href="javascript:void(0);" onclick="changePage('JSPChunks/AddEditEmployee.jsp?type=add')">Add Employee</a>
             </div>
+            <div class="clearmarker"></div>
             <div id="sales" class ="round-corner floatleft">
                 <h2>Monthly Sales</h2>
                 <form>
@@ -35,6 +36,7 @@
                     <div>${curAd.item} by ${curAd.company}</div>
                 </l:LoopAllAds>
             </div>
+            <div class="clearmarker"></div>
             <div id="salesbyitem" class="round-corner floatleft">
                 <h2>Sales By Item</h2>
                 <form>
@@ -54,6 +56,7 @@
                     <%@include file="/JSPChunks/SalesByName.jsp" %>
                 </div>
             </div>
+            <div class="clearmarker"></div>
             <div id="companyads" class="round-corner floatleft">
                 <h2>Advertisements By Company</h2>
                 <form>
@@ -63,6 +66,7 @@
                     <%@include file="/JSPChunks/CompanyAds.jsp" %>
                 </div>
             </div>
+            <div class="clearmarker"></div>
             <div id="highspenders" class="round-corner floatleft">
                 <h2>Highest Spending users</h2>
                 <l:LoopHighSpenders>
