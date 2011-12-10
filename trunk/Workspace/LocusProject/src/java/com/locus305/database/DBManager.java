@@ -957,7 +957,7 @@ public class DBManager {
                 b.setAdContent(rs.getString(7));
                 b.setUnitPrice(rs.getInt(8));
                 b.setAvailable(rs.getInt(9));
-                if(b.getAvailable()>=0)
+                if(b.getAvailable()>0)
                     userAds.add(b);
             }
             if ((userAds.size() <= 0) && (uid > 0)) {
@@ -1002,7 +1002,7 @@ public class DBManager {
     public void deleteAd(int adid) {
         try {
             //String sql = "delete from wpeckham.advertisement where advertisement_id=" + adid;
-            String sql = "update wpeckham.advertisement set available_units=0";
+            String sql = "update wpeckham.advertisement set available_units=0 where advertisement_id="+adid;
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
